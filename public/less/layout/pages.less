@@ -1,0 +1,179 @@
+.LoginPage,
+.PageDashboard,
+.ImportPage {
+  text-align: center;
+}
+.errors-table {
+  td {
+    background-color: #ffebee;
+    border-top: solid 1px #ef9a9a;
+  }
+}
+.overlay-element {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(120, 120, 120, 0.5);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.video-view {
+  height: 600px;
+  width: 338px;
+  overflow: hidden;
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-bottom: 20px;
+  display: inline-block;
+
+  video {
+    width: auto;
+    height: 100%;
+  }
+
+  .placeholder-video {
+    background-color: #dddddd;
+    border: solid 1px #cccccc;
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    font-size: 60;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-holder {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .overlay-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(10, 10, 10, 0.4);
+    cursor: pointer;
+
+    &.play {
+      opacity: 0;
+    }
+
+    i {
+      color: #ffffff;
+      cursor: pointer;
+    }
+  }
+}
+.modal-content {
+  .collection {
+    max-height: 400px;
+    overflow-y: scroll;
+
+    li {
+      text-align: left;
+
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+}
+
+.collection {
+  li {
+    text-align: left;
+
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .secondary-content {
+    cursor: pointer;
+  }
+}
+.forms-holder {
+  position: relative;
+  overflow: hidden;
+}
+.overlay-block {
+  background: rgba(90, 90, 90, 0.8);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+.btn {
+  .material-icons {
+    vertical-align: bottom;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+.rightArrow {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  width: 12px;
+  height: 15px;
+}
+
+.leftArrow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 12px;
+  height: 15px;
+}
+
+.thumbnails {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.videoCard {
+  width: 200px;
+  height: 400px;
+  margin: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  position: relative;
+}
+
+.videoCardTitle {
+  position: absolute;
+  top: 1%;
+  left: 1%;
+  color: white;
+  text-align: left;
+  padding: 0.5em;
+}
