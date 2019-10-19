@@ -17,7 +17,7 @@ class MasterVideoListPage extends Component {
 
   selectThumbnails(key, value) {
     let current = this.state[key] || 1;
-    if (value === "plus" && current !== 3) {
+    if (value === "plus" && current !== 4) {
       current += 1;
     }
     if (value === "minus" && current !== 1) {
@@ -55,14 +55,16 @@ class MasterVideoListPage extends Component {
     return thumbnails;
   }
 
-  renderThumbnails(index, youtubeUrl) {
-    const thumbnails = this.generateThumbnails(youtubeUrl);
-    // console.log(thumbnails);
+  renderThumbnails(index, video) {
+    const thumbnails = video.thumbnails;
+    const poster = this.generateThumbnails(video.youtubeURL);
+    console.log(thumbnails);
+
     if (this.state[index] && this.state[index] === 1) {
       return (
         <div
           className="thumbnails"
-          style={{ backgroundImage: `url(${thumbnails[0]})` }}
+          style={{ backgroundImage: `url(${poster[0]})` }}
         ></div>
       );
     }
@@ -70,7 +72,7 @@ class MasterVideoListPage extends Component {
       return (
         <div
           className="thumbnails"
-          style={{ backgroundImage: `url(${thumbnails[2]})` }}
+          style={{ backgroundImage: `url(${thumbnails[0]})` }}
         ></div>
       );
     }
@@ -78,21 +80,18 @@ class MasterVideoListPage extends Component {
       return (
         <div
           className="thumbnails"
-          style={{ backgroundImage: `url(${thumbnails[3]})` }}
+          style={{ backgroundImage: `url(${thumbnails[1]})` }}
         ></div>
       );
     }
-    const videoId = youtubeUrl.split("=")[1];
-
-    return (
-      <div
-        className="thumbnails"
-        style={{
-          backgroundImage:
-            'url("http://img.youtube.com/vi/' + videoId + '/maxresdefault.jpg")'
-        }}
-      ></div>
-    );
+    if (this.state[index] && this.state[index] === 4) {
+      return (
+        <div
+          className="thumbnails"
+          style={{ backgroundImage: `url(${thumbnails[2]})` }}
+        ></div>
+      );
+    }
   }
   loadMoreData() {
     const wEl = document.querySelector(".container");
@@ -156,6 +155,7 @@ class MasterVideoListPage extends Component {
   }
   render() {
     let { user, videoList, offset, limit, token } = this.props;
+    console.log(videoList);
     if (!user) {
       return <Redirect to="/admin"></Redirect>;
     }
@@ -177,10 +177,11 @@ class MasterVideoListPage extends Component {
                     return new Date(b.created) - new Date(a.created);
                   })
                   .map((video, index) => {
+                    console.log(video.thumbnails);
                     return (
                       <div style={{ flexDirection: "column" }} key={index}>
                         <div className="videoCard">
-                          {this.renderThumbnails(index, video.youtubeURL)}
+                          {this.renderThumbnails(index, video)}
                           <span
                             className="leftArrow"
                             onClick={() =>
