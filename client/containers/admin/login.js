@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import connect from "../../assets/redux/connect";
 import { Link, Redirect } from "react-router-dom";
-import { USER_ACTIONS } from "../../constants";
 
 class LoginPage extends Component {
     constructor(props) {

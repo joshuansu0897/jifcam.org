@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import connect from "../../assets/redux/connect";
-import { USER_ACTIONS } from "../../constants";
 
 class VideosPage extends Component {
     constructor(props) {

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import connect from "../../assets/redux/connect";
-import { USER_ACTIONS } from "../../constants";
 import { Redirect } from "react-router-dom";
 import ImportFrom from "../../components/import-form";
 

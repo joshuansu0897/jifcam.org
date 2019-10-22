@@ -1,12 +1,5 @@
 import { createSlice } from "redux-starter-kit";
 import axios from "axios";
-import {
-  getUserList,
-  authUser,
-  getUserVideos,
-  getInfoVerified,
-  removeUsers
-} from "../../actions/users";
 const preUsersSlice = createSlice({
   initialState: {
     auth: false,

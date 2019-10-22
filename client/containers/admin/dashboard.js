@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import connect from "../../assets/redux/connect";
 import { Link, Redirect } from "react-router-dom";
 import TableListComponent from "../../components/user-list";
-import { USER_ACTIONS } from "../../constants";
-import { removeUsers } from "../../actions/users";
 
 class DashboardPage extends Component {
     componentDidMount() {

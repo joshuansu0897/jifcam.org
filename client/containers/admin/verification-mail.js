@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import connect from "../../assets/redux/connect";
 import { Link, Redirect } from "react-router-dom";
 import ChooseUserModal from "../modals/choose-user";
-import { USER_ACTIONS } from "../../constants";
 
 class VerificationMailPage extends Component {
     constructor(props) {
