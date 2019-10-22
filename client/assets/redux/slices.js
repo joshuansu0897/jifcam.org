@@ -237,7 +237,7 @@ const actions = {
       console.log(res, "---------------> import");
       dispatch(requestImportSucces(res.data));
     } catch (err) {
-      dispatch(requestImportStart(0));
+      dispatch(resetImport());
       console.error(err);
     }
   },
