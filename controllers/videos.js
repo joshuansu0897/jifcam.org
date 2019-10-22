@@ -91,10 +91,10 @@ VideoController.prototype.masterList = function(req, res, next) {
   console.log(" request List ");
 
   var Res = new ResponseHelper.Response(res);
-  let limit = 10;
+  let limit = 25;
   let skip = 0;
   console.log(req.params);
-  // if (typeof req.query.limit != "undefined") limit = parseInt(req.query.limit);
+  if (typeof req.query.limit != "undefined") limit = parseInt(req.query.limit);
   if (typeof req.params.skip != "undefined") skip = parseInt(req.params.skip);
   console.log(limit, skip);
   this.model
@@ -245,7 +245,6 @@ VideoController.prototype.update = function(req, res, next) {
     });
 };
 
-
 /**
  * @api {post}  /api/videos/like/:videoId/:userId/:like
  * @apiName likeVideo
@@ -256,7 +255,7 @@ VideoController.prototype.update = function(req, res, next) {
  * @apiParam {String} videoId object id
  * @apiParam {String} userId object id
  * @apiParam {Boolean} like true or false for likeing the video
- * 
+ *
  * @apiHeader {String} authorization Authorization value ('Bearer <token>').
  *
  * @apiSuccess {Number} status > soon
@@ -271,7 +270,11 @@ VideoController.prototype.like = async function(req, res, next) {
   var Res = new ResponseHelper.Response(res);
   const likeModel = new LikeModel();
   try {
-    const result = await likeModel.like(req.params.userId, req.params.videoId, req.params.like === 'true')
+    const result = await likeModel.like(
+      req.params.userId,
+      req.params.videoId,
+      req.params.like === "true"
+    );
     console.log(result);
     Res.setData(result);
     Res.send();
@@ -353,7 +356,7 @@ VideoController.prototype.router = function() {
     passport.authenticate("jwt", { session: false }),
     this.masterList.bind(this)
   );
-  
+
   router.get(
     "/master/list/:skip",
     passport.authenticate("jwt", { session: false }),

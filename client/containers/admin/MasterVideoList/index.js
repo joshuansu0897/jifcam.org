@@ -8,7 +8,8 @@ class MasterVideoListPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastOffset: 0
+      lastOffset: 0,
+      loadingMore: false
     };
     this.loadMoreData = this.loadMoreData.bind(this);
     this.selectThumbnails = this.selectThumbnails.bind(this);
@@ -39,10 +40,6 @@ class MasterVideoListPage extends Component {
       this.setState({ lastOffset: offset });
       this.props.getUserVideos({ offset, token });
     }
-    document.addEventListener("scroll", this.loadMoreData);
-  }
-  componentWillUnmount() {
-    document.removeEventListener("scroll", this.loadMoreData);
   }
 
   generateThumbnails(youtubeUrl) {
@@ -96,14 +93,18 @@ class MasterVideoListPage extends Component {
       );
     }
   }
-  loadMoreData() {
-    const wEl = document.querySelector(".container");
-    if (window.innerHeight === wEl.getBoundingClientRect().bottom) {
-      let offset = this.props.users.videoList.length;
-      let token = this.props.users.token;
-      if (this.state.lastOffset !== offset) {
-        this.setState({ lastOffset: offset });
-        this.props.getUserVideos(offset, token);
+  async loadMoreData() {
+    if (this.props.users.videoList.length > 0) {
+      this.setState({ loadingMore: true });
+      try {
+        await this.props.addUserVideos({
+          offset: this.props.users.videoList.length,
+          token: this.props.users.token
+        });
+        this.setState({ loadingMore: false });
+      } catch (err) {
+        this.setState({ loadingMore: false });
+        console.error(err);
       }
     }
   }
@@ -167,6 +168,7 @@ class MasterVideoListPage extends Component {
         selectThumbnails={this.selectThumbnails}
         deleteVideoById={this.deleteVideoById}
         deleteUserChannel={this.deleteUserChannel}
+        loadMoreData={this.loadMoreData}
       />
     );
   }

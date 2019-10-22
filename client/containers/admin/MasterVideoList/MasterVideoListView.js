@@ -2,6 +2,8 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 
 const MasterVideoListView = props => {
+  const element = React.useRef(null);
+  const [show, setShow] = React.useState(false);
   let {
     users: { user, videoList, offset, limit, token },
     generateThumbnails,
@@ -10,6 +12,28 @@ const MasterVideoListView = props => {
     deleteVideoById,
     deleteUserChannel
   } = props;
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      Promise.resolve(
+        typeof window.IntersectionObserver !== "undefined"
+          ? window.IntersectionObserver
+          : import("intersection-observer")
+      ).then(() => {
+        const observer = new window.IntersectionObserver(entries => {
+          const { isIntersecting } = entries[0];
+          setShow(false);
+          if (isIntersecting && !props.loadingMore) {
+            setShow(true);
+            props.loadMoreData();
+            // observer.disconnect()
+          }
+        });
+        observer.observe(element.current);
+      });
+    }
+  }, [element, typeof window]);
+
   if (!user) {
     return <Redirect to="/admin"></Redirect>;
   }
@@ -128,14 +152,15 @@ const MasterVideoListView = props => {
                 );
               })}
           </div>
-          {/* <button
-              onClick={() => {
-                // alert('here');
-                props.getUserVideos(videoList.length, token);
-              }}
-              >
-              Load More
-            </button> */}
+          <br />
+          <br />
+          <section ref={element}>
+            {!props.users.videoNotLoardMore && (show || props.loadingMore) ? (
+              <div>Loadding...</div>
+            ) : (
+              false
+            )}
+          </section>
         </div>
       </div>
     </div>

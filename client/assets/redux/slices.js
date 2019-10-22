@@ -8,6 +8,7 @@ const preUsersSlice = createSlice({
     notVerified: null,
     list: [],
     userVideos: {},
+    videoList: [],
     token: null,
     offset: 0,
     limit: 20,
@@ -15,7 +16,8 @@ const preUsersSlice = createSlice({
     importStatus: 0,
     importError: 0,
     mailsStatus: 0,
-    importData: null
+    importData: null,
+    videoNotLoardMore: false
   },
   name: "users",
   reducers: {
@@ -35,6 +37,23 @@ const preUsersSlice = createSlice({
         videoList: action.payload.data.sort((a, b) => {
           return new Date(b.created) - new Date(a.created);
         })
+      };
+    },
+
+    addUserVideosSucces: (state, action) => {
+      let videoNotLoardMore = false;
+      if (action.payload.data.length === 0) {
+        videoNotLoardMore = true;
+      }
+      return {
+        ...state,
+        videoNotLoardMore,
+        videoList: [
+          ...state.videoList,
+          ...action.payload.data.sort((a, b) => {
+            return new Date(b.created) - new Date(a.created);
+          })
+        ]
       };
     },
 
@@ -113,7 +132,8 @@ const {
   resetMails,
   sendMailsStart,
   sendMailsSucces,
-  sendMailsError
+  sendMailsError,
+  addUserVideosSucces
 } = preUsersSlice.actions;
 
 const actions = {
@@ -153,10 +173,29 @@ const actions = {
   },
   getUserVideos: payload => async dispatch => {
     try {
-      const res = await axios.get("/api/videos/master/list", {
+      const url =
+        typeof payload.offset === "number" && payload.offset > 0
+          ? `/api/videos/master/list?skip=${payload.offset}`
+          : "/api/videos/master/list";
+      const res = await axios.get(url, {
         headers: { Authorization: "Bearer " + payload.token }
       });
       dispatch(getUserVideosSucces(res.data));
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  addUserVideos: payload => async dispatch => {
+    try {
+      if (!payload.offset || payload.offset === 0)
+        throw new Error("Invalid offset value");
+      const url = `/api/videos/master/list/${
+        payload.offset
+      }?limit=${payload.limit || 24}`;
+      const res = await axios.get(url, {
+        headers: { Authorization: "Bearer " + payload.token }
+      });
+      dispatch(addUserVideosSucces(res.data));
     } catch (err) {
       console.error(err);
     }
