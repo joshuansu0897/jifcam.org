@@ -31,6 +31,8 @@ class VideosPage extends Component {
 
     render() {
         let { current } = this.props.users;
+        console.log({ current });
+        // return <div />;
         return (
             <div>
                 <div className="PageDashboard">
@@ -43,40 +45,43 @@ class VideosPage extends Component {
                                         Videos of <b>{current.fullname}</b>
                                     </h3>
                                     <hr />
-                                    {current.videos.map(video => {
-                                        return (
-                                            <div
-                                                key={video._id}
-                                                className="video-view"
-                                            >
-                                                {video.path ? (
-                                                    <div className="video-holder">
-                                                        <video
-                                                            src={video.path}
-                                                            playsInline={true}
-                                                        />
-                                                        <div
-                                                            className="overlay-video"
-                                                            onClick={
-                                                                this
-                                                                    .clickOnOverlay
-                                                            }
-                                                        >
-                                                            <i className="large material-icons">
-                                                                play_circle_outline
-                                                            </i>
+                                    {current.videos &&
+                                        current.videos.map(video => {
+                                            return (
+                                                <div
+                                                    key={video._id}
+                                                    className="video-view"
+                                                >
+                                                    {video.path ? (
+                                                        <div className="video-holder">
+                                                            <video
+                                                                src={video.path}
+                                                                playsInline={
+                                                                    true
+                                                                }
+                                                            />
+                                                            <div
+                                                                className="overlay-video"
+                                                                onClick={
+                                                                    this
+                                                                        .clickOnOverlay
+                                                                }
+                                                            >
+                                                                <i className="large material-icons">
+                                                                    play_circle_outline
+                                                                </i>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                ) : (
-                                                    <div className="placeholder-video">
-                                                        {" "}
-                                                        Video is not Downloaded
-                                                        yet{" "}
-                                                    </div>
-                                                )}
-                                            </div>
-                                        );
-                                    })}
+                                                    ) : (
+                                                        <div className="placeholder-video">
+                                                            {" "}
+                                                            Video is not
+                                                            Downloaded yet{" "}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            );
+                                        })}
                                 </div>
                             ) : (
                                 <div></div>

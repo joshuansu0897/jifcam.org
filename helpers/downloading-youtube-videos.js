@@ -2,7 +2,7 @@ var VideoModel = require("../models/videos");
 var ThumbnailGenerator = require("video-thumbnail-generator").default;
 const fs = require("fs");
 const ytdl = require("ytdl-core");
-const ytdlInfo = require("ytdl-getinfo");
+const { getInfo } = require("ytdl-getinfo");
 const path = require("path");
 var getDimensions = require("get-video-dimensions");
 const gm = require("gm");
@@ -43,12 +43,13 @@ YoutubeVideos.prototype.processDownload = function(doc) {
 
         this.model
             .update(doc._id, { status: 1 })
-            .then(() => {
+            .then(async () => {
                 console.log(
                     " ---------------------- update ---------------------------- "
                 );
 
                 try {
+                    const videoInfo = await getInfo(url);
                     var video = ytdl(url, {
                         quality: "highestvideo"
                     }).on(
@@ -99,6 +100,7 @@ YoutubeVideos.prototype.processDownload = function(doc) {
 
                                 this.model
                                     .update(doc._id, {
+                                        title: videoInfo.items[0].fulltitle,
                                         path:
                                             "/static/videos/" +
                                             doc._id +
