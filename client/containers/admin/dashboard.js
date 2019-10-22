@@ -5,6 +5,12 @@ import TableListComponent from "../../components/user-list";
 import { getToken, login } from "../../utils/authenticator";
 
 class DashboardPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            actionStatus: 0
+        };
+    }
     componentDidMount() {
         if (typeof window !== "undefined") {
             let { offset, limit, token } = this.props.users;
@@ -35,8 +41,15 @@ class DashboardPage extends Component {
         switch (action) {
             case "remove":
                 try {
+                    this.setState({ actionStatus: 1 });
                     await this.props.removeUsers({ list: users, token });
-                    this.props.getUsersInfo({ token });
+                    await this.props.getUsers({
+                        offset: this.props.users.offset || 0,
+                        limit: this.props.users.limit || 20,
+                        token: this.props.users.token
+                    });
+                    this.setState({ actionStatus: 0 });
+                    alert("Users were removed");
                 } catch (err) {
                     console.error(err);
                 }
@@ -91,7 +104,7 @@ class DashboardPage extends Component {
                         </div>
                     </div>
                 </div>
-                {actionStatus === 1 ? (
+                {this.state.actionStatus === 1 ? (
                     <div className="overlay-loading">
                         <div className="preloader-wrapper small active">
                             <div className="spinner-layer spinner-green-only">
