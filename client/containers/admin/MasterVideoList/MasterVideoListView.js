@@ -33,7 +33,7 @@ const MasterVideoListView = props => {
     }
   }, [element, typeof window]);
 
-  if (!user) {
+  if (!token) {
     return <Redirect to="/admin"></Redirect>;
   }
   return (

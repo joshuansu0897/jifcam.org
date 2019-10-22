@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import connect from "../../assets/redux/connect";
 import { Link, Redirect } from "react-router-dom";
-
+import { login } from "../../utils/authenticator";
 class LoginPage extends Component {
     constructor(props) {
         super(props);
@@ -78,15 +78,15 @@ class LoginPage extends Component {
         );
     }
 
-    handleSubmit() {
+    async handleSubmit() {
         let username = this.usernameInput.value;
         let password = this.passwordInput.value;
-        this.props.AuthUser({ username, password });
+        await login(await this.props.AuthUser({ username, password }));
     }
 
     render() {
         const { users } = this.props;
-        if (users.auth) {
+        if (users.token) {
             return <Redirect to="/admin/dashboard" />;
         }
 

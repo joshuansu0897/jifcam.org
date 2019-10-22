@@ -2,17 +2,27 @@ import React, { Component } from "react";
 import connect from "../../assets/redux/connect";
 import { Link, Redirect } from "react-router-dom";
 import TableListComponent from "../../components/user-list";
+import { getToken, login } from "../../utils/authenticator";
 
 class DashboardPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            actionStatus: 0
+        };
+    }
     componentDidMount() {
         if (typeof window !== "undefined") {
-            let { offset, limit, users } = this.props;
+            let { offset, limit, token } = this.props.users;
             this.props.getUsers({
-                offset,
-                limit: users.limit || 20,
-                token: users.token
+                offset: offset || 0,
+                limit: limit || 20,
+                token: token
             });
-            this.props.getUsersInfo({ token: users.token });
+            if (!getToken() && token) {
+                login(token);
+            }
+            this.props.getUsersInfo();
             /*this.props.getUserVideos({
                 offsee: 1,
                 limit: 1,
@@ -31,8 +41,15 @@ class DashboardPage extends Component {
         switch (action) {
             case "remove":
                 try {
+                    this.setState({ actionStatus: 1 });
                     await this.props.removeUsers({ list: users, token });
-                    this.props.getUsersInfo({ token });
+                    await this.props.getUsers({
+                        offset: this.props.users.offset || 0,
+                        limit: this.props.users.limit || 20,
+                        token: this.props.users.token
+                    });
+                    this.setState({ actionStatus: 0 });
+                    alert("Users were removed");
                 } catch (err) {
                     console.error(err);
                 }
@@ -45,8 +62,7 @@ class DashboardPage extends Component {
             users: { list, offset, limit, all, verified },
             actionStatus
         } = this.props;
-
-        if (!this.props.users.user) {
+        if (!this.props.users.token) {
             return <Redirect to="/admin"></Redirect>;
         }
         let handleChangePage = this.handleChangePage.bind(this);
@@ -88,7 +104,7 @@ class DashboardPage extends Component {
                         </div>
                     </div>
                 </div>
-                {actionStatus === 1 ? (
+                {this.state.actionStatus === 1 ? (
                     <div className="overlay-loading">
                         <div className="preloader-wrapper small active">
                             <div className="spinner-layer spinner-green-only">

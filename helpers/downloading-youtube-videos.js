@@ -111,7 +111,7 @@ YoutubeVideos.prototype.processDownload = function(doc) {
                                     .then(result => {
                                         //console.log(res);
                                     });
-                                // this.uploadToAWSS3(output, doc._id);
+                                this.uploadToAWSS3(output, doc._id);
                                 this.isLoading = false;
                             }
                         }

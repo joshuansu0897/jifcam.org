@@ -1,5 +1,6 @@
 import { createSlice } from "redux-starter-kit";
-import axios from "axios";
+import axios from "../../utils/axios";
+import { getToken } from "../../utils/authenticator";
 const preUsersSlice = createSlice({
   initialState: {
     auth: false,
@@ -9,7 +10,7 @@ const preUsersSlice = createSlice({
     list: [],
     userVideos: {},
     videoList: [],
-    token: null,
+    token: typeof window !== "undefined" ? getToken() : null,
     offset: 0,
     limit: 20,
     all: null,
@@ -97,6 +98,10 @@ const preUsersSlice = createSlice({
         importData: {}
       };
     },
+    logout: state => ({
+      ...state,
+      token: null
+    }),
     AuthUserSucces: (state, action) => {
       return {
         ...state,
@@ -146,7 +151,8 @@ const {
   resetImport,
   addUserVideosSucces,
   getOneUserDataSucces,
-  removeUsersSucces
+  removeUsersSucces,
+  logout
 } = preUsersSlice.actions;
 
 const actions = {
@@ -157,17 +163,16 @@ const actions = {
         password: payload.password
       });
       dispatch(AuthUserSucces(res.data));
+      return res.data.data.token;
     } catch (err) {
       console.error(err);
+      return "";
     }
   },
   getUsers: payload => async dispatch => {
     try {
       const res = await axios.get(
-        "/api/users?offset=" + payload.offset + "&limit=" + payload.limit,
-        {
-          headers: { Authorization: "Bearer " + payload.token }
-        }
+        "/api/users?offset=" + payload.offset + "&limit=" + payload.limit
       );
       dispatch(getUsersSucces(res.data));
     } catch (err) {
@@ -176,9 +181,7 @@ const actions = {
   },
   getUsersInfo: payload => async dispatch => {
     try {
-      const res = await axios.get("/api/users/verify/count/", {
-        headers: { Authorization: "Bearer " + payload.token }
-      });
+      const res = await axios.get("/api/users/verify/count/");
       dispatch(getUsersInfoSucces(res.data));
     } catch (err) {
       console.error(err);
@@ -186,9 +189,7 @@ const actions = {
   },
   getOneUserData: payload => async dispatch => {
     try {
-      const res = await axios.get("/api/users/" + payload.id, {
-        headers: { Authorization: "Bearer " + payload.token }
-      });
+      const res = await axios.get("/api/users/" + payload.id);
       console.log(res);
       dispatch(getOneUserDataSucces(res.data));
     } catch (err) {
@@ -201,9 +202,7 @@ const actions = {
         typeof payload.offset === "number" && payload.offset > 0
           ? `/api/videos/master/list?skip=${payload.offset}`
           : "/api/videos/master/list";
-      const res = await axios.get(url, {
-        headers: { Authorization: "Bearer " + payload.token }
-      });
+      const res = await axios.get(url);
       dispatch(getUserVideosSucces(res.data));
     } catch (err) {
       console.error(err);
@@ -211,11 +210,7 @@ const actions = {
   },
   removeUsers: payload => async dispatch => {
     try {
-      const res = await axios.post(
-        "/api/users/remove",
-        { list: payload.list },
-        { headers: { Authorization: "Bearer " + payload.token } }
-      );
+      const res = await axios.post("/api/users/remove", { list: payload.list });
       console.log(res);
       dispatch(removeUsersSucces(res.data));
     } catch (err) {
@@ -229,9 +224,7 @@ const actions = {
       const url = `/api/videos/master/list/${
         payload.offset
       }?limit=${payload.limit || 24}`;
-      const res = await axios.get(url, {
-        headers: { Authorization: "Bearer " + payload.token }
-      });
+      const res = await axios.get(url);
       dispatch(addUserVideosSucces(res.data));
     } catch (err) {
       console.error(err);
@@ -240,9 +233,7 @@ const actions = {
   requestImport: payload => async dispatch => {
     try {
       dispatch(requestImportStart());
-      const res = await axios.post("/api/users/import", payload.formData, {
-        headers: { Authorization: "Bearer " + payload.token }
-      });
+      const res = await axios.post("/api/users/import", payload.formData);
       console.log(res, "---------------> import");
       dispatch(requestImportSucces(res.data));
     } catch (err) {
@@ -252,12 +243,11 @@ const actions = {
   },
   resetImport,
   resetMails,
+  logout,
   sendMails: payload => async dispatch => {
     try {
       dispatch(sendMailsStart());
-      const res = await axios.post("/api/users/mail", payload.data, {
-        headers: { Authorization: "Bearer " + payload.token }
-      });
+      const res = await axios.post("/api/users/mail", payload.data);
       dispatch(sendMailsSucces(res));
     } catch (err) {
       dispatch(sendMailsError());
