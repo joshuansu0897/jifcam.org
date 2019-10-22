@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import ChooseUserModal from '../modals/choose-user'
-import { USER_ACTIONS } from '../../constants';
+import React, { Component } from "react";
+import connect from "../../assets/redux/connect";
+import { Link, Redirect } from "react-router-dom";
+import ChooseUserModal from "../modals/choose-user";
 
-
-class VerificationMailPage extends Component{
-    constructor(props){
+class VerificationMailPage extends Component {
+    constructor(props) {
         super(props);
 
         this.titleInput = React.createRef();
@@ -15,46 +13,44 @@ class VerificationMailPage extends Component{
         this.sendgridKeyInput = React.createRef();
 
         this.state = {
-            checked: {
-
-            },
+            checked: {},
             list: []
-        }
+        };
     }
 
-    handleChooseUsers(users){
+    handleChooseUsers(users) {
         let { checked, list } = this.state;
 
-        checked = Object.assign({},checked, users);
+        checked = Object.assign({}, checked, users);
 
         list = [];
         for (const key in checked) {
             if (checked.hasOwnProperty(key)) {
-                list.push(checked[key])
+                list.push(checked[key]);
             }
         }
 
         this.setState({
             checked: checked,
             list: list
-        })
+        });
     }
 
-    handleSubmit(){
+    handleSubmit() {
         let subject = this.titleInput.value;
         let emailFrom = this.emailInput.value;
         let messageTxt = this.bodyInput.value;
-        let sendgridKey = this.sendgridKeyInput.value
+        let sendgridKey = this.sendgridKeyInput.value;
 
         let repalceText = messageTxt.replace(/(?:\r\n|\r|\n)/g, "<br/>");
-        let messageHtml = '<p>' + repalceText + '</p>';
+        let messageHtml = "<p>" + repalceText + "</p>";
         messageTxt = encodeURI(messageTxt);
         messageHtml = encodeURI(messageHtml);
 
         let userIds = [];
 
         for (let i = 0; i < this.state.list.length; i++) {
-            userIds.push(this.state.list[i]._id);        
+            userIds.push(this.state.list[i]._id);
         }
 
         let data = {
@@ -64,14 +60,13 @@ class VerificationMailPage extends Component{
             messageHtml: messageHtml,
             from: emailFrom,
             sendgridKey: sendgridKey
-        }
-        console.log(data);
-        let token = this.props.token;
+        };
+        let token = this.props.users.token;
 
-        this.props.sendMails(data, token);
+        this.props.sendMails({ data, token });
     }
 
-    removeUserFromList(id){
+    removeUserFromList(id) {
         let { checked, list } = this.state;
         delete checked[id];
 
@@ -80,47 +75,66 @@ class VerificationMailPage extends Component{
         list = [];
         for (const key in checked) {
             if (checked.hasOwnProperty(key)) {
-                list.push(checked[key])
+                list.push(checked[key]);
             }
         }
 
         this.setState({
             checked: checked,
             list: list
-        })
+        });
     }
 
-    reset(){
+    reset() {
         this.setState({
             checked: {},
             list: []
-        })
-        this.props.reset();
+        });
+        this.props.resetMails();
     }
-    render(){
+    render() {
         let handleChooseUsers = this.handleChooseUsers.bind(this);
         let handleSubmit = this.handleSubmit.bind(this);
         let reset = this.reset.bind(this);
         let list = this.state.list;
-        let { status } = this.props;
+        let { mailsStatus } = this.props.users;
 
-        return (<div>
-            <div className="PageDashboard">
-                <div className="container">
-                    <div className="row">
-                        <div className="col s12">
-                            <h3> Verification Mail </h3>
-                            <div className="forms-holder">
-                                <div className="input-field col s12">
-                                    <input placeholder="Title" id="title"  ref={(input)=>{
-                                        this.titleInput = input;
-                                    }} type="text"  className="validate" defaultValue="Last chance to Claim your channel" /> 
-                                    <label htmlFor="title"  className="active" >Title</label>
-                                </div>
-                                <div className="input-field col s12">
-                                    <textarea id="body" className="materialize-textarea" style={{height:"192px"}} ref={(input)=>{
-                                        this.bodyInput = input
-                                    }} rows="10" defaultValue={`
+        return (
+            <div>
+                <div className="PageDashboard">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col s12">
+                                <h3> Verification Mail </h3>
+                                <div className="forms-holder">
+                                    <div className="input-field col s12">
+                                        <input
+                                            placeholder="Title"
+                                            id="title"
+                                            ref={input => {
+                                                this.titleInput = input;
+                                            }}
+                                            type="text"
+                                            className="validate"
+                                            defaultValue="Last chance to Claim your channel"
+                                        />
+                                        <label
+                                            htmlFor="title"
+                                            className="active"
+                                        >
+                                            Title
+                                        </label>
+                                    </div>
+                                    <div className="input-field col s12">
+                                        <textarea
+                                            id="body"
+                                            className="materialize-textarea"
+                                            style={{ height: "192px" }}
+                                            ref={input => {
+                                                this.bodyInput = input;
+                                            }}
+                                            rows="10"
+                                            defaultValue={`
     Hello,
 
     Claim your account
@@ -128,79 +142,180 @@ class VerificationMailPage extends Component{
     #LINK 
 
         Thanks.
-                                    `}>
-                                        
-                                    </textarea>
+                                    `}
+                                        ></textarea>
 
-                                    <label className="active" htmlFor="body">Body</label>
-                                </div>
-                                <div className="input-field col s12">
-                                    <input id="email" type="email" className="validate" ref={(input)=>{
-                                        this.emailInput = input;
-                                    }} defaultValue={'jifcam@gmail.com'} />
-                                    <label htmlFor="email"  className="active" >From Email</label>
-                                </div>
-                                <div className="input-field col s12">
-                                    <input id="sendgrid_key" type="text" className="validate" ref={(input)=>{
-                                        this.sendgridKeyInput = input;
-                                    }} defaultValue={''} />
-                                    <label htmlFor="sendgrid_key"  className="active" >Sendgrid key</label>
-                                </div>
-                                <div className="col s12">
-                                    <ul className="collection">
-                                        {list.map((item)=>{
-                                            let remove = ()=>{
-                                                this.removeUserFromList(item._id)
-                                            }
-                                            return <li key={item._id}  className="collection-item avatar">
-                                                <img src={item.avatar} alt="" className="circle" />
-                                                <span className="title">{item.fullname}</span>
-                                                <p> {item.username} - {item.email} <br/>
-                                                    {item.lastMail.replace("T", " ")} - {item.youtubeChannel}<br/>
-                                                    {item.verified?"Verified":"NotVerified"}
-                                                </p>
-                                                <a  className="secondary-content" onClick={remove}><i className="material-icons">cancel</i></a>
-                                            </li>
-                                        })}
-                                    </ul>
-                                    <ChooseUserModal onChoose={handleChooseUsers} />
-                                </div>
+                                        <label
+                                            className="active"
+                                            htmlFor="body"
+                                        >
+                                            Body
+                                        </label>
+                                    </div>
+                                    <div className="input-field col s12">
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            className="validate"
+                                            ref={input => {
+                                                this.emailInput = input;
+                                            }}
+                                            defaultValue={"jifcam@gmail.com"}
+                                        />
+                                        <label
+                                            htmlFor="email"
+                                            className="active"
+                                        >
+                                            From Email
+                                        </label>
+                                    </div>
+                                    <div className="input-field col s12">
+                                        <input
+                                            id="sendgrid_key"
+                                            type="text"
+                                            className="validate"
+                                            ref={input => {
+                                                this.sendgridKeyInput = input;
+                                            }}
+                                            defaultValue={""}
+                                        />
+                                        <label
+                                            htmlFor="sendgrid_key"
+                                            className="active"
+                                        >
+                                            Sendgrid key
+                                        </label>
+                                    </div>
+                                    <div className="col s12">
+                                        <ul className="collection">
+                                            {list.map(item => {
+                                                let remove = () => {
+                                                    this.removeUserFromList(
+                                                        item._id
+                                                    );
+                                                };
+                                                return (
+                                                    <li
+                                                        key={item._id}
+                                                        className="collection-item avatar"
+                                                    >
+                                                        <img
+                                                            src={item.avatar}
+                                                            alt=""
+                                                            className="circle"
+                                                        />
+                                                        <span className="title">
+                                                            {item.fullname}
+                                                        </span>
+                                                        <p>
+                                                            {" "}
+                                                            {
+                                                                item.username
+                                                            } - {item.email}{" "}
+                                                            <br />
+                                                            {item.lastMail.replace(
+                                                                "T",
+                                                                " "
+                                                            )}{" "}
+                                                            -{" "}
+                                                            {
+                                                                item.youtubeChannel
+                                                            }
+                                                            <br />
+                                                            {item.verified
+                                                                ? "Verified"
+                                                                : "NotVerified"}
+                                                        </p>
+                                                        <a
+                                                            className="secondary-content"
+                                                            onClick={remove}
+                                                        >
+                                                            <i className="material-icons">
+                                                                cancel
+                                                            </i>
+                                                        </a>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                        <ChooseUserModal
+                                            onChoose={handleChooseUsers}
+                                        />
+                                    </div>
 
-                                
-                                <div className="col s12">
-                                    <p>
-                                        <button className="waves-effect waves-teal btn" onClick={handleSubmit}>Send <i className="material-icons">send</i></button>
-                                    </p>
-                                </div>
-                                {status===0?<div></div>:<div className="overlay-block">
-                                    {status===1?(<div>
-                                        <div className="preloader-wrapper big active">
-                                            <div className="spinner-layer spinner-blue-only">
-                                            <div className="circle-clipper left">
-                                                <div className="circle"></div>
-                                            </div><div className="gap-patch">
-                                                <div className="circle"></div>
-                                            </div><div className="circle-clipper right">
-                                                <div className="circle"></div>
-                                            </div>
-                                            </div>
+                                    <div className="col s12">
+                                        <p>
+                                            <button
+                                                className="waves-effect waves-teal btn"
+                                                onClick={handleSubmit}
+                                            >
+                                                Send{" "}
+                                                <i className="material-icons">
+                                                    send
+                                                </i>
+                                            </button>
+                                        </p>
+                                    </div>
+                                    {mailsStatus === 0 ? (
+                                        <div></div>
+                                    ) : (
+                                        <div className="overlay-block">
+                                            {mailsStatus === 1 ? (
+                                                <div>
+                                                    <div className="preloader-wrapper big active">
+                                                        <div className="spinner-layer spinner-blue-only">
+                                                            <div className="circle-clipper left">
+                                                                <div className="circle"></div>
+                                                            </div>
+                                                            <div className="gap-patch">
+                                                                <div className="circle"></div>
+                                                            </div>
+                                                            <div className="circle-clipper right">
+                                                                <div className="circle"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    {mailsStatus === 2 ? (
+                                                        <p className="notice notice-success">
+                                                            {" "}
+                                                            Emails was sended{" "}
+                                                        </p>
+                                                    ) : (
+                                                        <p className="notice notice-error">
+                                                            {" "}
+                                                            Field ending email
+                                                            try again{" "}
+                                                        </p>
+                                                    )}
+                                                    <button
+                                                        className="waves-effect waves-teal btn"
+                                                        onClick={reset}
+                                                    >
+                                                        {" "}
+                                                        Reset{" "}
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
-                                    </div>):(<div> 
-                                        { status===2 ?<p className="notice notice-success">  Emails was sended </p>: <p className="notice notice-error"> Field ending email try again </p>}
-                                        <button  className="waves-effect waves-teal btn" onClick={reset}> Reset </button> 
-                                    </div>)}
-                                </div>}
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-               
             </div>
-        </div>)
+        );
     }
 }
 
-export default connect(state=>({
+export default connect(VerificationMailPage);
+
+/*
+
+(state=>({
     status: state.users.requestStatuses.mails,
     token: state.users.token
 }), dispatch=>({
@@ -211,4 +326,5 @@ export default connect(state=>({
     reset: ()=>{
         dispatch({ type: USER_ACTIONS.RESET_MAIL_STATUS });
     }
-}))(VerificationMailPage);
+}))
+*/
