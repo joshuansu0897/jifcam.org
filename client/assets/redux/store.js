@@ -11,6 +11,7 @@ const preloadedState = {
     token: null,
     offset: 0,
     limit: 20,
+    current: {},
     videoList: [],
     all: null,
     importStatus: 0,

@@ -6,9 +6,9 @@ import TableListComponent from "../../components/user-list";
 class DashboardPage extends Component {
     componentDidMount() {
         if (typeof window !== "undefined") {
-            let { page, limit, users } = this.props;
+            let { offset, limit, users } = this.props;
             this.props.getUsers({
-                page: users.page || 1,
+                offset,
                 limit: users.limit || 20,
                 token: users.token
             });
@@ -22,15 +22,20 @@ class DashboardPage extends Component {
     }
 
     handleChangePage(offset, limit) {
-        let { token } = this.props;
-        this.props.getUsers(offset, limit, token);
+        let { token } = this.props.users;
+        this.props.getUsers({ offset, limit, token });
     }
 
-    handleMakeAction(action, users) {
-        let { token } = this.props;
+    async handleMakeAction(action, users) {
+        let { token } = this.props.users;
         switch (action) {
             case "remove":
-                this.props.removeUsers(users, token);
+                try {
+                    await this.props.removeUsers({ list: users, token });
+                    this.props.getUsersInfo({ token });
+                } catch (err) {
+                    console.error(err);
+                }
                 break;
         }
     }

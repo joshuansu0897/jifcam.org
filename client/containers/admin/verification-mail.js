@@ -61,7 +61,6 @@ class VerificationMailPage extends Component {
             from: emailFrom,
             sendgridKey: sendgridKey
         };
-        console.log(data);
         let token = this.props.users.token;
 
         this.props.sendMails({ data, token });
@@ -99,7 +98,6 @@ class VerificationMailPage extends Component {
         let reset = this.reset.bind(this);
         let list = this.state.list;
         let { mailsStatus } = this.props.users;
-        console.log(mailsStatus);
 
         return (
             <div>

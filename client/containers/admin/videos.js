@@ -11,9 +11,9 @@ class VideosPage extends Component {
     componentDidMount() {
         console.log(this.props, this.ID);
         if (typeof window !== "undefined") {
-            let { token } = this.props;
+            let { token } = this.props.users;
             console.log(this.ID, token);
-            this.props.getOneUserData(this.ID, token);
+            this.props.getOneUserData({ id: this.ID, token });
         }
     }
 
@@ -30,7 +30,7 @@ class VideosPage extends Component {
     }
 
     render() {
-        let { current } = this.props;
+        let { current } = this.props.users;
         return (
             <div>
                 <div className="PageDashboard">

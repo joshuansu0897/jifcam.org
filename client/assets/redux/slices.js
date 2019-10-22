@@ -13,6 +13,7 @@ const preUsersSlice = createSlice({
     offset: 0,
     limit: 20,
     all: null,
+    current: {},
     importStatus: 0,
     importError: 0,
     mailsStatus: 0,
@@ -65,6 +66,9 @@ const preUsersSlice = createSlice({
       };
     },
 
+    getOneUserDataSucces: (state, action) => {
+      return { ...state, current: action.payload.data };
+    },
     removeUsersSucces: (state, action) => {
       return state;
     },
@@ -140,7 +144,9 @@ const {
   sendMailsSucces,
   sendMailsError,
   resetImport,
-  addUserVideosSucces
+  addUserVideosSucces,
+  getOneUserDataSucces,
+  removeUsersSucces
 } = preUsersSlice.actions;
 
 const actions = {
@@ -178,6 +184,17 @@ const actions = {
       console.error(err);
     }
   },
+  getOneUserData: payload => async dispatch => {
+    try {
+      const res = await axios.get("/api/users/" + payload.id, {
+        headers: { Authorization: "Bearer " + payload.token }
+      });
+      console.log(res);
+      dispatch(getOneUserDataSucces(res.data));
+    } catch (err) {
+      console.error(err);
+    }
+  },
   getUserVideos: payload => async dispatch => {
     try {
       const url =
@@ -188,6 +205,19 @@ const actions = {
         headers: { Authorization: "Bearer " + payload.token }
       });
       dispatch(getUserVideosSucces(res.data));
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  removeUsers: payload => async dispatch => {
+    try {
+      const res = await axios.post(
+        "/api/users/remove",
+        { list: payload.list },
+        { headers: { Authorization: "Bearer " + payload.token } }
+      );
+      console.log(res);
+      dispatch(removeUsersSucces(res.data));
     } catch (err) {
       console.error(err);
     }
@@ -225,12 +255,12 @@ const actions = {
   sendMails: payload => async dispatch => {
     try {
       dispatch(sendMailsStart());
-      const res = await axios.post("/api/users/mail", data, {
-        headers: { Authorization: "Bearer " + token }
+      const res = await axios.post("/api/users/mail", payload.data, {
+        headers: { Authorization: "Bearer " + payload.token }
       });
       dispatch(sendMailsSucces(res));
     } catch (err) {
-      dispatch(sendMailsError(res.data));
+      dispatch(sendMailsError());
       console.error(err);
     }
   }
