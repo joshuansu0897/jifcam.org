@@ -26,9 +26,9 @@ firebase.initializeApp({
 });
 
 const PORT = config.SERVER_PORT || 9000;
-const DB_URI = config.DB_URI || "mongodb://localhost:27017/";
+const DB_URI =
+  process.env.DB_URI || config.DB_URI || "mongodb://localhost:27017/";
 var DB_NAME = config.MONGODB_DB || "jifcam";
-
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);

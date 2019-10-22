@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "npm run build:front && npm run build:styles && cross-env NODE_ENV=development nodemon index.js",
+    "start:dev": "npm run build:front && npm run build:styles && cross-env NODE_ENV=development nodemon index.js --ignore 'client/'",
     "start:prod": "cross-env NODE_ENV=production node index.js",
     "build:front": "webpack --mode development",
     "build:frontwatch": "webpack --mode development --watch",
@@ -69,6 +69,7 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.0.5",
+    "redux-starter-kit": "^0.9.1",
     "save": "^2.4.0",
     "uniqid": "^5.0.3",
     "video-thumbnail-generator": "^1.1.3",
