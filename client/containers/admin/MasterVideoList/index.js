@@ -59,7 +59,6 @@ class MasterVideoListPage extends Component {
   renderThumbnails(index, video) {
     const thumbnails = video.thumbnails;
     const poster = this.generateThumbnails(video.youtubeURL);
-
     if (this.state[index] && this.state[index] === 1) {
       return (
         <div
@@ -92,6 +91,12 @@ class MasterVideoListPage extends Component {
         ></div>
       );
     }
+    return (
+      <div
+        className="thumbnails"
+        style={{ backgroundImage: `url(${poster[0]})` }}
+      ></div>
+    );
   }
   async loadMoreData() {
     if (this.props.users.videoList.length > 0) {
@@ -109,7 +114,6 @@ class MasterVideoListPage extends Component {
     }
   }
   deleteVideoById(id) {
-    console.log("click ---", id);
     let token = this.props.users.token;
     alert("Are you sure to delete this video?");
     axios
@@ -126,8 +130,11 @@ class MasterVideoListPage extends Component {
       )
       .then(done => {
         alert("Video Deleted");
-        console.log(this.state.lastOffset);
-        this.props.getUserVideos(this.state.lastOffset, token, true);
+        this.props.getUserVideos({
+          offset: 0,
+          limit: this.props.users.videoList.length,
+          token: this.props.users.token
+        });
       })
       .catch(error => {
         alert("an error occurred:" + JSON.stringify(error));
@@ -138,7 +145,7 @@ class MasterVideoListPage extends Component {
     alert("Are you sure to delete this Channel?");
     axios
       .post(
-        "/api/remove",
+        "/api/users/remove",
         {
           list: {
             user
@@ -152,7 +159,11 @@ class MasterVideoListPage extends Component {
       )
       .then(done => {
         alert("Video Channel");
-        this.props.getUserVideos(this.state.lastOffset, token);
+        this.props.getUserVideos({
+          offset: 0,
+          limit: this.props.users.videoList.length,
+          token: this.props.users.token
+        });
       })
       .catch(error => {
         alert("an error occurred:" + JSON.stringify(error));

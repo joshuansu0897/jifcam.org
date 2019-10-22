@@ -26,7 +26,6 @@ const MasterVideoListView = props => {
           if (isIntersecting && !props.loadingMore) {
             setShow(true);
             props.loadMoreData();
-            // observer.disconnect()
           }
         });
         observer.observe(element.current);

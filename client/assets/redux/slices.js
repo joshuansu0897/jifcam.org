@@ -86,7 +86,13 @@ const preUsersSlice = createSlice({
         // importData: action.payload.data
       };
     },
-
+    resetImport: (state, action) => {
+      return {
+        ...state,
+        importStatus: 0,
+        importData: {}
+      };
+    },
     AuthUserSucces: (state, action) => {
       return {
         ...state,
@@ -133,6 +139,7 @@ const {
   sendMailsStart,
   sendMailsSucces,
   sendMailsError,
+  resetImport,
   addUserVideosSucces
 } = preUsersSlice.actions;
 
@@ -206,17 +213,14 @@ const actions = {
       const res = await axios.post("/api/users/import", payload.formData, {
         headers: { Authorization: "Bearer " + payload.token }
       });
+      console.log(res, "---------------> import");
       dispatch(requestImportSucces(res.data));
     } catch (err) {
       dispatch(requestImportStart(0));
       console.error(err);
     }
   },
-  reset: payload => async dispatch => {
-    await this.requestImport({
-      data: { importData: {}, importStatus: 0 }
-    });
-  },
+  resetImport,
   resetMails,
   sendMails: payload => async dispatch => {
     try {

@@ -15,7 +15,7 @@ class ImportPage extends Component {
     }
 
     handleReset() {
-        this.props.reset();
+        this.props.resetImport();
     }
 
     render() {
