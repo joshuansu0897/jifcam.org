@@ -1,5 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "redux-starter-kit";
 import rootReducers from "./rootReducers";
+import { getToken } from "../../utils/authenticator";
 const preloadedState = {
   users: {
     auth: false,
@@ -8,7 +9,7 @@ const preloadedState = {
     notVerified: null,
     list: [],
     userVideos: {},
-    token: null,
+    token: typeof window !== "undefined" ? getToken() : null,
     offset: 0,
     limit: 20,
     current: {},

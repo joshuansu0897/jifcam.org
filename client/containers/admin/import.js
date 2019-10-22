@@ -20,12 +20,11 @@ class ImportPage extends Component {
 
     render() {
         let {
-            users: { importStatus: status, importData, user }
+            users: { importStatus: status, importData, token }
         } = this.props;
         let handleSubmit = this.handleSubmit.bind(this);
         let handleReset = this.handleReset.bind(this);
-        console.log({ status, importData, user });
-        if (!user) {
+        if (!token) {
             return <Redirect to="/admin"></Redirect>;
         }
         return (

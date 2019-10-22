@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import connect from "../../../assets/redux/connect";
 import { Redirect } from "react-router-dom";
 import MasterVideoList from "./MasterVideoListView";
-import axios from "axios";
+import axios from "../../../utils/axios";
 
 class MasterVideoListPage extends Component {
   constructor(props) {
@@ -117,17 +117,9 @@ class MasterVideoListPage extends Component {
     let token = this.props.users.token;
     alert("Are you sure to delete this video?");
     axios
-      .post(
-        "/api/videos/remove",
-        {
-          id
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      )
+      .post("/api/videos/remove", {
+        id
+      })
       .then(done => {
         alert("Video Deleted");
         this.props.getUserVideos({
@@ -144,19 +136,11 @@ class MasterVideoListPage extends Component {
     let token = this.props.users.token;
     alert("Are you sure to delete this Channel?");
     axios
-      .post(
-        "/api/users/remove",
-        {
-          list: {
-            user
-          }
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+      .post("/api/users/remove", {
+        list: {
+          user
         }
-      )
+      })
       .then(done => {
         alert("Video Channel");
         this.props.getUserVideos({
