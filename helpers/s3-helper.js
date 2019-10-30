@@ -4,10 +4,10 @@ var path = require("path");
 var AWS = require("aws-sdk");
 
 function S3Helper(accessConfig, bucketName) {
-  this.bucketName = process.env.AWS_S3_BUCKET_NAME || bucketName;
-  this.accessKeyId = process.env.AWS_ACCESS_KEY || accessConfig.AWS_ACCESS_KEY;
+  this.bucketName = process.env.AWS_S3_BUCKET_NAME.replace(/(\r\n|\n|\r)/gm, "") || bucketName;
+  this.accessKeyId = process.env.AWS_ACCESS_KEY.replace(/(\r\n|\n|\r)/gm, "") || accessConfig.AWS_ACCESS_KEY;
   this.secretAccessKey =
-    process.env.AWS_SECRET_ACCESS_KEY || accessConfig.AWS_SECRET_ACCESS_KEY;
+    process.env.AWS_SECRET_ACCESS_KEY.replace(/(\r\n|\n|\r)/gm, "") || accessConfig.AWS_SECRET_ACCESS_KEY;
   this.S3 = new AWS.S3({
     accessKeyId: this.accessKeyId,
     secretAccessKey: this.secretAccessKey
