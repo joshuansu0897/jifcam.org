@@ -134,12 +134,17 @@ YoutubeVideos.prototype.processDownload = function(doc) {
 };
 
 YoutubeVideos.prototype.uploadToAWSS3 = function(path, videoId) {
+	var accessKey = config.AWS_ACCESS_KEY.replace(/(\r\n|\n|\r)/gm, "")
+	var secretKey = config.AWS_SECRET_ACCESS_KEY.replace(/(\r\n|\n|\r)/gm, "")
+	var bucketName = config.AWS_S3_BUCKET_NAME.replace(/(\r\n|\n|\r)/gm, "")
+	console.log(accessKey)
+	console.log(secretKey)
     var S3 = new S3Helper(
         {
-            AWS_ACCESS_KEY: config.AWS_ACCESS_KEY,
-            AWS_SECRET_ACCESS_KEY: config.AWS_SECRET_ACCESS_KEY
+            AWS_ACCESS_KEY: accessKey,
+            AWS_SECRET_ACCESS_KEY: secretKey
         },
-        config.AWS_S3_BUCKET_NAME
+        bucketName
     );
 
     console.log("uploadToAWSS3 method********************************, s3", S3);
