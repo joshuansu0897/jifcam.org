@@ -941,4 +941,31 @@ UserModel.prototype.videoList = function(user, targetId) {
   return promise;
 };
 
+
+/**
+ * list of followings
+ */
+UserModel.prototype.followersList = function(userId) {
+  videoModel = new VideoModel();
+  let _this = this;
+  let promise = new Promise((resolve, reject) => {
+    if (mongoose.Types.ObjectId.isValid(userId)) {
+      _this.modelDB.findOne({ _id: userId })
+      .populate({
+        path: 'following.user',
+        select: 'email avatar username youtubeChannel language keyword fullname',
+      }).exec(function(err, userInfo) {
+          if (err) {
+          reject(err);
+          return false;
+        } else {
+          resolve({ followings: userInfo.following });
+          return true;
+        }
+      });
+    }
+  });
+  return promise;
+};
+
 module.exports = UserModel;
