@@ -341,8 +341,13 @@ UserController.prototype.register = function(req, res, next) {
   this.model
     .signup(email, password)
     .then(doc => {
-      Res.setData(this.getUserData(doc));
+      const token = jwt.sign(doc.toJSON(), JWT_SECRET_KEY);
+      Res.setData({
+        ...this.getUserData(doc),
+        token: token
+      });
       Res.send();
+
     })
     .catch(err => {
       if (err === "UniqueDuplication") {
