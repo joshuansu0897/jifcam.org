@@ -1038,6 +1038,56 @@ UserController.prototype.videoList = function(req, res, next) {
     });
 };
 
+/**
+ * @api {GET} /api/users/following-list
+ * @apiName Follwing List
+ * @apiGroup User
+ * @apiVersion 0.0.1
+ * @apiDescription View following users
+ *
+ * @apiParam {String} userId A object id of the target user
+ *
+ * @apiError (Error 400) IncorrectCredentials User with the provided id does not exist
+ * @apiError (Error 400) IncorrectTarget Target with the provided id does not exist
+ * @apiError (Error 500) ServerError Unexpected server error
+ *
+ */
+UserController.prototype.getFollowings = function(req, res, next) {
+  const Res = new ResponseHelper.Response(res);
+
+  var userId = req.user._id;
+
+  this.model
+    .one(userId)
+    .then(result => {
+      if (result) {
+        this.model
+          .followersList(result._id)
+          .then(doc => {
+            Res.setData(doc);
+            Res.send();
+          })
+          .catch(err => {
+            Res.setData(err);
+            Res.status = 400;
+            Res.send();
+          });
+      } else {
+        Res.setData({
+          message: `The provided userId does not exist`
+        });
+        Res.status = 400;
+        Res.send();
+      }
+    })
+    .catch(err => {
+      console.log(err.message);
+      Res.errorParse(err);
+      Res.status = 500;
+      Res.send();
+    });
+};
+
 UserController.prototype.router = function() {
   let router = Router();
 
@@ -1072,11 +1122,18 @@ UserController.prototype.router = function() {
     this.getAll.bind(this)
   );
 
-  /** See videos of following user */
+  /** See videos of a following user */
   router.get(
     "/video-list",
     passport.authenticate("jwt", { session: false }),
     this.videoList.bind(this)
+  );
+
+  /** Get all following users list */
+  router.get(
+    "/following-list",
+    passport.authenticate("jwt", { session: false }),
+    this.getFollowings.bind(this)
   );
 
   /** get user by ID */

@@ -81,9 +81,7 @@ class LoginPage extends Component {
     async handleSubmit() {
         let username = this.usernameInput.value;
         let password = this.passwordInput.value;
-        let dd = await this.props.AuthUser({ username, password });
-        console.log('wow',dd);
-        await login(dd);
+        await login(await this.props.AuthUser({ username, password }));
     }
 
     render() {
