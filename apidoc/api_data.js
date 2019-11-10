@@ -2014,5 +2014,109 @@ define({ "api": [
     },
     "filename": "controllers/videos.js",
     "groupTitle": "Video"
-  }
+  },
+  {
+    "type": "post",
+    "url": "/api/videos/:videoId/default-thumbnail",
+    "title": "",
+    "name": "SetDefaultThumbnail",
+    "group": "Video",
+    "version": "0.0.1",
+    "description": "<p>Set Default Thumbnail</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value ('Bearer <token>').</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "videoId",
+            "description": "<p>object id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<blockquote> <p>Status Code of request</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<blockquote> <p> Success Response of DB</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "errors",
+            "description": "<blockquote> <p>Empty Array</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "notice",
+            "description": "<blockquote> <p>Empty Array</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "warnings",
+            "description": "<blockquote> <p>Empty Array</p> </blockquote>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "IncorectCredetials",
+            "description": "<p>{field} missing</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FieledAuthetication",
+            "description": "<p>Fieled Creating</p>"
+          }
+        ],
+        "Error 5xx": [
+          {
+            "group": "Error 5xx",
+            "optional": false,
+            "field": "ServerError",
+            "description": "<p>Unexpected server error</p>"
+          }
+        ]
+      }
+    },
+    "filename": "controllers/videos.js",
+    "groupTitle": "Video"
+  },
 ] });

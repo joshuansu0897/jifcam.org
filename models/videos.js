@@ -16,6 +16,7 @@ function VideoModel() {
     status: { type: Number, default: 0 },
     path: String,
     thumbnails: [String],
+    defaultThumbnail: String,
     title: String,
     description: String,
     uploadDate: { type: Date, default: Date.now },
