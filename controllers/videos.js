@@ -1,9 +1,11 @@
+var join = require("lodash/join");
 var ResponseHelper = require("../helpers/response");
 var passport = require("passport");
 var Router = require("express").Router;
 var async = require("async");
 var VideoModel = require("../models/videos");
 var LikeModel = require("../models/like");
+var { getMissingFields } = require("../helpers/utils");
 
 function VideoController() {
   this.model = new VideoModel();
@@ -330,6 +332,58 @@ VideoController.prototype.remove = function(req, res, next) {
     });
 };
 
+/**
+ * @api {get}  /api/videos/:videoId/default-thumbnail
+ * @apiName SetDefaultThumbnail
+ * @apiGroup Video
+ * @apiVersion 0.0.1
+ * @apiDescription set default thumbnail
+ *
+ * @apiHeader {String} authorization Authorization value ('Bearer <token>').
+ *
+ * @apiParam {String} videoId object id
+ *
+ * @apiSuccess {Number} status > soon
+ * @apiSuccess {String[]} thumbnails > soon
+ * @apiSuccess {String} user > soon
+ * @apiSuccess {String} youtubeURL > soon
+ * @apiSuccess {String} path > soon
+ * @apiSuccess {String} title > soon
+ * @apiSuccess {String} description > soon
+ * @apiSuccess {Date} uploadDate > soon
+ * @apiSuccess {Date} created > soon
+ * @apiSuccess {Date} updated > soon
+ * @apiSuccess {String[]} warnings > soon
+ * @apiSuccess {String[]} notice > soon
+ *
+ * @apiError (Error 4xx) Incorrect requested data
+ * @apiError (Error 4xx) FieledAuthetication Fieled Creating
+ * @apiError (Error 5xx) ServerError Unexpected server error
+ *
+ */
+VideoController.prototype.setDefaultThumbnail = function(req, res) {
+  console.log("[#] set default thumbnail");
+  const missing = getMissingFields(req.body, ['thumbnail']);
+  if (missing.length > 0) {
+    throw new Error(`${join(missing, ',')} missing`);
+  }
+  var Res = new ResponseHelper.Response(res);
+  const { thumbnail } = req.body;
+  this.model
+    .update(req.params.videoId, {
+      defaultThumbnail: thumbnail
+    })
+    .then(result => {
+      Res.setData(result);
+      Res.send();
+    })
+    .catch(err => {
+      console.log('Error in setDefaultThumbnail: ', err.message);
+      Res.errorParse(err);
+      Res.send();
+    });
+};
+
 VideoController.prototype.router = function() {
   let router = Router();
 
@@ -380,6 +434,12 @@ VideoController.prototype.router = function() {
     passport.authenticate("jwt", { session: false }),
     this.createDummy.bind(this)
   );
+
+  router.post(
+    "/:videoId/default-thumbnail",
+    passport.authenticate("jwt", { session: false }),
+    this.setDefaultThumbnail.bind(this)
+  )
 
   return router;
 };
