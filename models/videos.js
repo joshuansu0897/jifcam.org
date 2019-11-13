@@ -134,7 +134,6 @@ VideoModel.prototype.list = function(user, limit = -1) {
       q = this.modelDB.find({ status: 2 });
     }
 
-    console.log(limit);
 
     if (limit > 0) {
       q.limit(limit);
@@ -201,19 +200,17 @@ VideoModel.prototype.update = function(id, data) {
 
 VideoModel.prototype.countVideos = function(userId) {
   var _this = this;
-  let promise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     _this.modelDB
-      .where({})
-      .countDocuments({ user: userId }, function(err, count) {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(count);
+    .where({status: 2})
+    .countDocuments({ user: userId }, function(err, count) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(count);
         }
       });
   });
-
-  return promise;
 };
 
 VideoModel.prototype.removeAllForUser = function(userId) {
