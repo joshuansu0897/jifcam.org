@@ -28,6 +28,7 @@ class MasterVideoListPage extends Component {
     if (value === "minus" && current !== 1) {
       current -= 1;
     }
+    this.setDefaultThumbnail(key, current)
     this.setState({
       [key]: current
     });
@@ -59,6 +60,16 @@ class MasterVideoListPage extends Component {
   renderThumbnails(index, video) {
     const thumbnails = video.thumbnails;
     const poster = this.generateThumbnails(video.youtubeURL);
+    
+    if (video.defaultThumbnail){
+      return (
+        <div
+          className="thumbnails"
+          style={{ backgroundImage: `url(${video.defaultThumbnail})` }}
+        ></div>
+      );
+    }
+
     if (this.state[index] && this.state[index] === 1) {
       return (
         <div
@@ -134,6 +145,26 @@ class MasterVideoListPage extends Component {
           limit: this.props.users.videoList.length,
           token: this.props.users.token
         });
+      })
+      .catch(error => {
+        alert("an error occurred:" + JSON.stringify(error));
+      });
+  }
+  setDefaultThumbnail(videoindex, thumbnailIndex) {
+    const video = this.props.users.videoList[videoindex]
+    const defaultThumbnail = video.thumbnails[thumbnailIndex-2]
+    let token = this.props.users.token;
+    axios
+      .post("/api/videos/update", {
+        id: video._id,
+        defaultThumbnail
+      })
+      .then(done => {
+        // this.props.getUserVideos({
+        //   offset: 0,
+        //   limit: this.props.users.videoList.length,
+        //   token: this.props.users.token
+        // });
       })
       .catch(error => {
         alert("an error occurred:" + JSON.stringify(error));

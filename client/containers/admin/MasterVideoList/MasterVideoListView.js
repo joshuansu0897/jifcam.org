@@ -87,7 +87,9 @@ const MasterVideoListView = props => {
                       </span>
                       <span
                         className="rightArrow"
-                        onClick={() => selectThumbnails(index, "plus")}
+                        onClick={() => {
+                          selectThumbnails(index, "plus")
+                        }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
