@@ -91,11 +91,18 @@ class MasterVideoListPage extends Component {
         ></div>
       );
     }
+    
     return (
       <div
         className="thumbnails"
         style={{ backgroundImage: `url(${poster[0]})` }}
-      ></div>
+      >
+        <video
+          playsInline={
+              true
+          }
+        />
+      </div>
     );
   }
   async loadMoreData() {

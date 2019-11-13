@@ -50,6 +50,7 @@ const MasterVideoListView = props => {
           >
             {videoList &&
               videoList.map((video, index) => {
+                
                 return (
                   <div style={{ flexDirection: "column" }} key={index}>
                     <div className="videoCard">
@@ -114,9 +115,9 @@ const MasterVideoListView = props => {
                           </g>
                         </svg>
                       </span>
-
                       <div className="videoCardTitle">{video.title}</div>
                     </div>
+                    <div className="videoCardFooterTitle">{video.channelName}</div>
                     <div
                       style={{
                         margin: "10px"
@@ -147,6 +148,24 @@ const MasterVideoListView = props => {
                         Delete Channel
                       </button>
                     </div>
+                    <div
+                      style={{
+                        margin: "10px"
+                      }}
+                    >
+                      <button
+                        style={{
+                          width: "100%",
+                          padding: ".5em"
+                        }}
+                        onClick={() => {
+                          props.history.push(`/admin/users/${video.user}/videos`);
+                        }}
+                      >
+                        View Channel
+                      </button>
+                    </div>
+                    
                   </div>
                 );
               })}

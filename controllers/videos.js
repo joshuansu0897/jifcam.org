@@ -5,6 +5,7 @@ var Router = require("express").Router;
 var async = require("async");
 var VideoModel = require("../models/videos");
 var LikeModel = require("../models/like");
+var UserModel = require("../models/users");
 var { getMissingFields } = require("../helpers/utils");
 
 function VideoController() {
@@ -89,7 +90,7 @@ VideoController.prototype.list = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-VideoController.prototype.masterList = function(req, res, next) {
+VideoController.prototype.masterList = async function(req, res, next) {
   console.log(" request List ");
 
   var Res = new ResponseHelper.Response(res);
@@ -101,8 +102,16 @@ VideoController.prototype.masterList = function(req, res, next) {
   console.log(limit, skip);
   this.model
     .masterList(limit, skip)
-    .then(result => {
-      Res.setData(result);
+    .then( async (result) => {
+      let resultNew = new Array();
+      const userModel = new UserModel();
+      for(let i = 0; i < result.length; i++ ){
+        let res = await userModel.one(result[i].user)
+        let tmp = Object.assign({}, result[i]._doc)
+        tmp.channelName = res.fullname 
+        resultNew.push(tmp)
+        }
+      Res.setData(resultNew);
       Res.send();
     })
     .catch(err => {
