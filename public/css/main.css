@@ -200,3 +200,11 @@ table .avatar-profile-table {
   text-align: left;
   padding: 0.5em;
 }
+
+.videoCardFooterTitle{
+  max-width: 200px;
+  margin-left: 11px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
