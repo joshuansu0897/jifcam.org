@@ -47,6 +47,14 @@ class VideosPage extends Component {
                                     <hr />
                                     {current.videos &&
                                         current.videos.map(video => {
+                                            let thumbnail = ''
+                                            if(video.defaultThumbnail){
+                                                thumbnail = video.defaultThumbnail
+                                            }else{
+                                                const videoId = video.youtubeURL.split("=")[1];
+                                                let thumbnailsUrl = `http://img.youtube.com/vi/${videoId}/`;
+                                                thumbnail = `${thumbnailsUrl}maxresdefault.jpg`
+                                            }
                                             return (
                                                 <div
                                                     key={video._id}
@@ -62,9 +70,9 @@ class VideosPage extends Component {
                                                             />
                                                             <div
                                                                 className="overlay-video"
+                                                                style={ { backgroundImage: `url('${thumbnail}'`} }
                                                                 onClick={
-                                                                    this
-                                                                        .clickOnOverlay
+                                                                    this.clickOnOverlay
                                                                 }
                                                             >
                                                                 <i className="large material-icons">
