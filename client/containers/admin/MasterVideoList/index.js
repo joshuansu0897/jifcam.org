@@ -160,11 +160,11 @@ class MasterVideoListPage extends Component {
         defaultThumbnail
       })
       .then(done => {
-        // this.props.getUserVideos({
-        //   offset: 0,
-        //   limit: this.props.users.videoList.length,
-        //   token: this.props.users.token
-        // });
+        this.props.getUserVideos({
+          offset: 0,
+          limit: this.props.users.videoList.length,
+          token: this.props.users.token
+        });
       })
       .catch(error => {
         alert("an error occurred:" + JSON.stringify(error));

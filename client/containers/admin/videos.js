@@ -69,7 +69,7 @@ class VideosPage extends Component {
                                                                 }
                                                             />
                                                             <div
-                                                                className="overlay-video"
+                                                                className="overlay-video overlay-video-thumbnail"
                                                                 style={ { backgroundImage: `url('${thumbnail}'`} }
                                                                 onClick={
                                                                     this.clickOnOverlay
