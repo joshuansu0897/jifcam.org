@@ -12,6 +12,7 @@ var pasportHelp = require("./helpers/passport");
 var path = require("path");
 var os = require("os");
 var fs = require("fs");
+var session = require('express-session')
 var UserModel = require("./models/users");
 var initPassport = require("./helpers/passport").initPassport;
 var mountRoutes = require("./router").mountRoutes;
@@ -44,12 +45,24 @@ const options = {
   autoClean: true
 };
 
+const SESSION_SECRET_KEY = process.env.SESSION_SECRET_KEY || "JIFCAM_SESSION_SECRET";
+
 const app = express();
+
+app.set('trust proxy', 1); // trust first proxy
+app.use(session({
+  secret: SESSION_SECRET_KEY,
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
+}));
+
 app.use(expressFormData.parse(options)); // parse multipart/from-data request data
 app.use(expressFormData.format());
 app.use(bodyParser.json()); // parse json request data
 app.use(bodyParser.urlencoded({ extended: false })); // parse url encoded request data
 app.use(cookieParser());
+
 
 initPassport();
 

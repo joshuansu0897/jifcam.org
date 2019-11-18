@@ -23,7 +23,7 @@ function UserController() {
   this.videos = new VideoModel();
 }
 
-UserController.prototype.getUserData = function(result) {
+UserController.prototype.getUserData = function (result) {
   return {
     _id: result._id,
     youtubeChannel: result.youtubeChannel,
@@ -69,7 +69,7 @@ UserController.prototype.getUserData = function(result) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.getAll = function(req, res) {
+UserController.prototype.getAll = function (req, res) {
   const Res = new ResponseHelper.Response(res);
 
   let limit = 25;
@@ -138,7 +138,7 @@ UserController.prototype.getAll = function(req, res) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.getOne = function(req, res, next) {
+UserController.prototype.getOne = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
   let id = req.params.username || req.params.id;
 
@@ -181,7 +181,7 @@ UserController.prototype.getOne = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.update = function(req, res, next) {
+UserController.prototype.update = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
 
   var userId = req.params.id;
@@ -240,7 +240,7 @@ UserController.prototype.update = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.getOneByCode = function(req, res, next) {
+UserController.prototype.getOneByCode = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
 
   let code = req.params.code;
@@ -288,7 +288,7 @@ UserController.prototype.getOneByCode = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.authenticate = function(req, res, next) {
+UserController.prototype.authenticate = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
 
   passport.authenticate("local", { session: false }, (err, user, info) => {
@@ -333,7 +333,7 @@ UserController.prototype.authenticate = function(req, res, next) {
  * @apiError (Error 500) ServerError Unexpected server error
  *
  */
-UserController.prototype.register = function(req, res, next) {
+UserController.prototype.register = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
   var email = req.body.email;
   var password = req.body.password;
@@ -385,7 +385,7 @@ UserController.prototype.register = function(req, res, next) {
  * @apiError (Error 500) ServerError Unexpected server error
  *
  */
-UserController.prototype.choose = function(req, res, next) {
+UserController.prototype.choose = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
 
   var userId = req.body.userId;
@@ -444,7 +444,7 @@ UserController.prototype.choose = function(req, res, next) {
  * @apiError (Error 500) ServerError Unexpected server error
  *
  */
-UserController.prototype.notify = function(req, res, next) {
+UserController.prototype.notify = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
   var userId = req.body.userId;
   var token = req.body.token;
@@ -501,7 +501,7 @@ UserController.prototype.notify = function(req, res, next) {
  * @apiError (Error 500) ServerError Unexpected server error
  *
  */
-UserController.prototype.follow = function(req, res, next) {
+UserController.prototype.follow = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
 
   var userId = req.body.userId;
@@ -553,7 +553,7 @@ UserController.prototype.follow = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.unfollow = function(req, res, next) {
+UserController.prototype.unfollow = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
 
   var userId = req.body.userId;
@@ -606,7 +606,7 @@ UserController.prototype.unfollow = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.verifyUser = function(req, res, next) {
+UserController.prototype.verifyUser = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
   var id = req.params.id;
   var code = req.body.code;
@@ -642,7 +642,7 @@ UserController.prototype.verifyUser = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.verified = function(req, res, next) {
+UserController.prototype.verified = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
   var code = req.params.code;
   var username = req.params.username;
@@ -674,7 +674,7 @@ UserController.prototype.verified = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.countingVerified = function(req, res, next) {
+UserController.prototype.countingVerified = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
 
   this.model
@@ -712,7 +712,7 @@ UserController.prototype.countingVerified = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.sendMail = function(req, res, next) {
+UserController.prototype.sendMail = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
   var userIds = req.body.userIds;
   var to = req.body.to;
@@ -744,7 +744,7 @@ UserController.prototype.sendMail = function(req, res, next) {
           cb(err);
         });
     },
-    function(err) {
+    function (err) {
       if (err) {
         console.log(err);
         Res.errorParse(err);
@@ -773,7 +773,7 @@ UserController.prototype.sendMail = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.import = function(req, res, next) {
+UserController.prototype.import = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
   let files = new FileHelper("./public/imports");
   var first = true;
@@ -788,16 +788,16 @@ UserController.prototype.import = function(req, res, next) {
       //console.log(fileData);
       fs.createReadStream(fileData.realpath)
         .pipe(parse({ delimiter: "," }))
-        .on("data", function(row) {
+        .on("data", function (row) {
           console.log(row);
           if (row[0]) {
             list.push(row);
           }
         })
-        .on("close", function() {
+        .on("close", function () {
           console.log("close");
         })
-        .on("end", function() {
+        .on("end", function () {
           //console.log("list",list);
           async.eachSeries(
             list,
@@ -888,7 +888,7 @@ UserController.prototype.import = function(req, res, next) {
                     });
                 });
             },
-            function(err) {
+            function (err) {
               Res.setData({
                 success: success,
                 fails: fails,
@@ -926,7 +926,7 @@ UserController.prototype.import = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-UserController.prototype.remove = function(req, res, next) {
+UserController.prototype.remove = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
 
   var listUsers = req.body.list;
@@ -947,7 +947,7 @@ UserController.prototype.remove = function(req, res, next) {
 /**
  * Process to sending e-mail to the user
  */
-UserController.prototype.sendingMail = function(userId, data, mail) {
+UserController.prototype.sendingMail = function (userId, data, mail) {
   var promise = new Promise((resolve, reject) => {
     this.model
       .one(userId)
@@ -1001,7 +1001,7 @@ UserController.prototype.sendingMail = function(userId, data, mail) {
  * @apiError (Error 500) ServerError Unexpected server error
  *
  */
-UserController.prototype.videoList = function(req, res, next) {
+UserController.prototype.videoList = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
 
   var userId = req.body.userId;
@@ -1052,7 +1052,7 @@ UserController.prototype.videoList = function(req, res, next) {
  * @apiError (Error 500) ServerError Unexpected server error
  *
  */
-UserController.prototype.getFollowings = function(req, res, next) {
+UserController.prototype.getFollowings = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
 
   var userId = req.user._id;
@@ -1088,7 +1088,46 @@ UserController.prototype.getFollowings = function(req, res, next) {
     });
 };
 
-UserController.prototype.router = function() {
+
+/**
+ * @api {post} api/users/device
+ * @apiName Device
+ * @apiGroup User
+ * @apiVersion 0.0.1
+ * @apiDescription Send user device id
+ *
+ * @apiParam {String} deviceId A object id of the user's device
+ *
+ * @apiError (Error 4xx) NoDeviceId deviceId not found
+ * @apiError (Error 5xx) ServerError Unexpected server error
+ *
+ */
+UserController.prototype.getDevice = function (req, res, next) {
+  const Res = new ResponseHelper.Response(res);
+  try {
+    var deviceId = req.body.deviceId;
+    if (deviceId) {
+      req.session.deviceId = deviceId;
+      Res.setData({
+        message: `DeviceId saved`
+      });
+      Res.send();
+    } else {
+      Res.setData({
+        message: `No deviceId found`
+      });
+      Res.status = 400;
+      Res.send();
+    }
+  }
+  catch (err) {
+    Res.errorParse(err);
+    Res.status = 500;
+    Res.send();
+  };
+};
+
+UserController.prototype.router = function () {
   let router = Router();
 
   /** Create new account with email & password */
@@ -1109,7 +1148,7 @@ UserController.prototype.router = function() {
   /** Verification by object id */
   router.post(
     "/verify/:id",
-    function(req, res, next) {
+    function (req, res, next) {
       next();
     },
     this.verifyUser.bind(this)
@@ -1153,7 +1192,7 @@ UserController.prototype.router = function() {
   /** Get user by code */
   router.get(
     "/code/:code",
-    function(req, res, next) {
+    function (req, res, next) {
       next();
     },
     this.getOneByCode.bind(this)
@@ -1162,7 +1201,7 @@ UserController.prototype.router = function() {
   /** Sign in with credential */
   router.post(
     "/auth",
-    function(req, res, next) {
+    function (req, res, next) {
       next();
     },
     this.authenticate.bind(this)
@@ -1171,7 +1210,7 @@ UserController.prototype.router = function() {
   /** Get verified user by username & code */
   router.get(
     "/verify/identity/:username/:code",
-    function(req, res, next) {
+    function (req, res, next) {
       next();
     },
     this.verified.bind(this)
@@ -1203,6 +1242,12 @@ UserController.prototype.router = function() {
     "/remove",
     passport.authenticate("jwt", { session: false }),
     this.remove.bind(this)
+  );
+
+  // save user's device to session
+  router.post(
+    "/device",
+    this.getDevice.bind(this)
   );
 
   return router;

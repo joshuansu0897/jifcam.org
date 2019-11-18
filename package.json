@@ -44,6 +44,7 @@
     "es6-promise": "^4.2.8",
     "express": "^4.17.1",
     "express-form-data": "^2.0.10",
+    "express-session": "^1.17.0",
     "ffprobe": "^1.1.0",
     "firebase-admin": "^8.5.0",
     "fluent-ffmpeg": "^2.1.2",
