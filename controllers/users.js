@@ -1162,7 +1162,7 @@ UserController.prototype.router = function () {
   );
 
   /** See videos of a following user */
-  router.get(
+  router.post(
     "/video-list",
     passport.authenticate("jwt", { session: false }),
     this.videoList.bind(this)
