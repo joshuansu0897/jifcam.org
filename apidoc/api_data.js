@@ -50,6 +50,56 @@ define({ "api": [
     "groupTitle": "User"
   },
   {
+    "type": "GET",
+    "url": "/api/users/following-list",
+    "title": "",
+    "name": "Follwing_List",
+    "group": "User",
+    "version": "0.0.1",
+    "description": "<p>View following users</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>A object id of the target user</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 400": [
+          {
+            "group": "Error 400",
+            "optional": false,
+            "field": "IncorrectCredentials",
+            "description": "<p>User with the provided id does not exist</p>"
+          },
+          {
+            "group": "Error 400",
+            "optional": false,
+            "field": "IncorrectTarget",
+            "description": "<p>Target with the provided id does not exist</p>"
+          }
+        ],
+        "Error 500": [
+          {
+            "group": "Error 500",
+            "optional": false,
+            "field": "ServerError",
+            "description": "<p>Unexpected server error</p>"
+          }
+        ]
+      }
+    },
+    "filename": "controllers/users.js",
+    "groupTitle": "User"
+  },
+  {
     "type": "post",
     "url": "/import",
     "title": "",
@@ -219,7 +269,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/register",
+    "url": "/api/users/register",
     "title": "",
     "name": "Register",
     "group": "User",
@@ -240,30 +290,30 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>Credential string as a password</p>"
+            "description": "<p>Credential string as a password. Must be between 6-30 characters</p>"
           }
         ]
       }
     },
     "error": {
       "fields": {
-        "Error 4xx": [
+        "Error 400": [
           {
-            "group": "Error 4xx",
+            "group": "Error 400",
             "optional": false,
-            "field": "IncorectCredetials",
-            "description": "<p>User with sended email not found</p>"
+            "field": "EmailAlreadyExists",
+            "description": "<p>The provided email is already registered</p>"
           },
           {
-            "group": "Error 4xx",
+            "group": "Error 400",
             "optional": false,
-            "field": "FieledAuthetication",
-            "description": "<p>Fieled Creating</p>"
+            "field": "FieldAutheticationError",
+            "description": "<p>The provided password is not between 6-30 characters</p>"
           }
         ],
-        "Error 5xx": [
+        "Error 500": [
           {
-            "group": "Error 5xx",
+            "group": "Error 500",
             "optional": false,
             "field": "ServerError",
             "description": "<p>Unexpected server error</p>"
@@ -276,9 +326,9 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/register/following",
+    "url": "/api/users/register/follow",
     "title": "",
-    "name": "Register_Following",
+    "name": "Register_Follow",
     "group": "User",
     "version": "0.0.1",
     "description": "<p>Follow someone by user object id</p>",
@@ -304,23 +354,23 @@ define({ "api": [
     },
     "error": {
       "fields": {
-        "Error 4xx": [
+        "Error 400": [
           {
-            "group": "Error 4xx",
+            "group": "Error 400",
             "optional": false,
-            "field": "IncorectCredetials",
-            "description": "<p>User with sended email not found</p>"
+            "field": "IncorrectCredentials",
+            "description": "<p>User with the provided id does not exist</p>"
           },
           {
-            "group": "Error 4xx",
+            "group": "Error 400",
             "optional": false,
-            "field": "FieledAuthetication",
-            "description": "<p>Fieled Creating</p>"
+            "field": "IncorrectTarget",
+            "description": "<p>Target with the provided id does not exist</p>"
           }
         ],
-        "Error 5xx": [
+        "Error 500": [
           {
-            "group": "Error 5xx",
+            "group": "Error 500",
             "optional": false,
             "field": "ServerError",
             "description": "<p>Unexpected server error</p>"
@@ -333,7 +383,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/register/notify",
+    "url": "/api/users/register",
     "title": "",
     "name": "Register_Notification_status",
     "group": "User",
@@ -361,23 +411,17 @@ define({ "api": [
     },
     "error": {
       "fields": {
-        "Error 4xx": [
+        "Error 400": [
           {
-            "group": "Error 4xx",
+            "group": "Error 400",
             "optional": false,
-            "field": "IncorectCredetials",
-            "description": "<p>User with sended email not found</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "FieledAuthetication",
-            "description": "<p>Fieled Creating</p>"
+            "field": "IncorrectCredentials",
+            "description": "<p>User with provided id not found</p>"
           }
         ],
-        "Error 5xx": [
+        "Error 500": [
           {
-            "group": "Error 5xx",
+            "group": "Error 500",
             "optional": false,
             "field": "ServerError",
             "description": "<p>Unexpected server error</p>"
@@ -390,7 +434,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/register/identity",
+    "url": "/api/users/register",
     "title": "",
     "name": "Register_Username",
     "group": "User",
@@ -411,30 +455,30 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "username",
-            "description": "<p>The unique string that can use as username</p>"
+            "description": "<p>The unique string to be set as the username</p>"
           }
         ]
       }
     },
     "error": {
       "fields": {
-        "Error 4xx": [
+        "Error 400": [
           {
-            "group": "Error 4xx",
+            "group": "Error 400",
             "optional": false,
-            "field": "IncorectCredetials",
-            "description": "<p>User with sended email not found</p>"
+            "field": "IncorrectCredentials",
+            "description": "<p>User with provided id not found</p>"
           },
           {
-            "group": "Error 4xx",
+            "group": "Error 400",
             "optional": false,
-            "field": "FieledAuthetication",
-            "description": "<p>Fieled Creating</p>"
+            "field": "UsernameAlreadyExists",
+            "description": "<p>The provided username already belongs to a user</p>"
           }
         ],
-        "Error 5xx": [
+        "Error 500": [
           {
-            "group": "Error 5xx",
+            "group": "Error 500",
             "optional": false,
             "field": "ServerError",
             "description": "<p>Unexpected server error</p>"
@@ -447,7 +491,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/register/unfollow",
+    "url": "/api/users/register/unfollow",
     "title": "",
     "name": "Register_unfollow_action",
     "group": "User",
@@ -602,56 +646,6 @@ define({ "api": [
             "optional": false,
             "field": "offset",
             "description": "<p>Set offset of current page (default 0)</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "IncorectCredetials",
-            "description": "<p>User with sended email not found</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "FieledAuthetication",
-            "description": "<p>Fieled Creating</p>"
-          }
-        ],
-        "Error 5xx": [
-          {
-            "group": "Error 5xx",
-            "optional": false,
-            "field": "ServerError",
-            "description": "<p>Unexpected server error</p>"
-          }
-        ]
-      }
-    },
-    "filename": "controllers/users.js",
-    "groupTitle": "User"
-  },
-  {
-    "type": "get",
-    "url": "/following-list",
-    "title": "",
-    "name": "following-list",
-    "group": "User",
-    "version": "0.0.1",
-    "description": "<p>List all followings</p>",
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "authorization",
-            "description": "<p>Authorization value ('Bearer <token>').</p>"
           }
         ]
       }
@@ -1003,6 +997,63 @@ define({ "api": [
         "Error 5xx": [
           {
             "group": "Error 5xx",
+            "optional": false,
+            "field": "ServerError",
+            "description": "<p>Unexpected server error</p>"
+          }
+        ]
+      }
+    },
+    "filename": "controllers/users.js",
+    "groupTitle": "User"
+  },
+  {
+    "type": "post",
+    "url": "/api/users/video-list",
+    "title": "",
+    "name": "Video_List",
+    "group": "User",
+    "version": "0.0.1",
+    "description": "<p>View following user's videos by their id</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "userId",
+            "description": "<p>A object id of the target user</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "followingId",
+            "description": "<p>A object id of the current user</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 400": [
+          {
+            "group": "Error 400",
+            "optional": false,
+            "field": "IncorrectCredentials",
+            "description": "<p>User with the provided id does not exist</p>"
+          },
+          {
+            "group": "Error 400",
+            "optional": false,
+            "field": "IncorrectTarget",
+            "description": "<p>Target with the provided id does not exist</p>"
+          }
+        ],
+        "Error 500": [
+          {
+            "group": "Error 500",
             "optional": false,
             "field": "ServerError",
             "description": "<p>Unexpected server error</p>"
@@ -1773,6 +1824,159 @@ define({ "api": [
     "groupTitle": "Video"
   },
   {
+    "type": "get",
+    "url": "/api/videos/:videoId/default-thumbnail",
+    "title": "",
+    "name": "SetDefaultThumbnail",
+    "group": "Video",
+    "version": "0.0.1",
+    "description": "<p>set default thumbnail</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value ('Bearer <token>').</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "videoId",
+            "description": "<p>object id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "thumbnails",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "youtubeURL",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "path",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "description",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "uploadDate",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "created",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Date",
+            "optional": false,
+            "field": "updated",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "warnings",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "notice",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Incorrect",
+            "description": "<p>requested data</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FieledAuthetication",
+            "description": "<p>Fieled Creating</p>"
+          }
+        ],
+        "Error 5xx": [
+          {
+            "group": "Error 5xx",
+            "optional": false,
+            "field": "ServerError",
+            "description": "<p>Unexpected server error</p>"
+          }
+        ]
+      }
+    },
+    "filename": "controllers/videos.js",
+    "groupTitle": "Video"
+  },
+  {
     "type": "post",
     "url": "/api/videos/update",
     "title": "",
@@ -1926,6 +2130,89 @@ define({ "api": [
     "groupTitle": "Video"
   },
   {
+    "type": "get",
+    "url": "/api/videos/:videoId/default-thumbnail",
+    "title": "",
+    "name": "getDefaultThumbnail",
+    "group": "Video",
+    "version": "0.0.1",
+    "description": "<p>get default thumbnail</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Authorization value ('Bearer <token>').</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "videoId",
+            "description": "<p>object id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "status",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "defaultThumbnail",
+            "description": "<blockquote> <p>soon</p> </blockquote>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Incorrect",
+            "description": "<p>requested data</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "FieledAuthetication",
+            "description": "<p>Fieled Creating</p>"
+          }
+        ],
+        "Error 5xx": [
+          {
+            "group": "Error 5xx",
+            "optional": false,
+            "field": "ServerError",
+            "description": "<p>Unexpected server error</p>"
+          }
+        ]
+      }
+    },
+    "filename": "controllers/videos.js",
+    "groupTitle": "Video"
+  },
+  {
     "type": "post",
     "url": "/api/videos/like/:videoId/:userId/:like",
     "title": "",
@@ -2014,109 +2301,5 @@ define({ "api": [
     },
     "filename": "controllers/videos.js",
     "groupTitle": "Video"
-  },
-  {
-    "type": "post",
-    "url": "/api/videos/:videoId/default-thumbnail",
-    "title": "",
-    "name": "SetDefaultThumbnail",
-    "group": "Video",
-    "version": "0.0.1",
-    "description": "<p>Set Default Thumbnail</p>",
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "authorization",
-            "description": "<p>Authorization value ('Bearer <token>').</p>"
-          }
-        ]
-      }
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "videoId",
-            "description": "<p>object id</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Number",
-            "optional": false,
-            "field": "status",
-            "description": "<blockquote> <p>Status Code of request</p> </blockquote>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "data",
-            "description": "<blockquote> <p> Success Response of DB</p> </blockquote>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "errors",
-            "description": "<blockquote> <p>Empty Array</p> </blockquote>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "notice",
-            "description": "<blockquote> <p>Empty Array</p> </blockquote>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Array",
-            "optional": false,
-            "field": "warnings",
-            "description": "<blockquote> <p>Empty Array</p> </blockquote>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "Error 4xx": [
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "IncorectCredetials",
-            "description": "<p>{field} missing</p>"
-          },
-          {
-            "group": "Error 4xx",
-            "optional": false,
-            "field": "FieledAuthetication",
-            "description": "<p>Fieled Creating</p>"
-          }
-        ],
-        "Error 5xx": [
-          {
-            "group": "Error 5xx",
-            "optional": false,
-            "field": "ServerError",
-            "description": "<p>Unexpected server error</p>"
-          }
-        ]
-      }
-    },
-    "filename": "controllers/videos.js",
-    "groupTitle": "Video"
-  },
+  }
 ] });
