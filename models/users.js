@@ -34,6 +34,7 @@ function UserModel() {
     lastMail: { type: Date, default: Date.now },
     language: { type: String, default: "English" },
     keyword: { type: String, default: "makeup" },
+    deviceIds: [String],
     following: [
       {
         user: {
@@ -389,7 +390,7 @@ UserModel.prototype.create = function(data) {
 /**
  * signup Method
  */
-UserModel.prototype.signup = function(email, password) {
+UserModel.prototype.signup = function(email, password, deviceId) {
   console.log("here i am in signup");
   var _this = this;
   let listCallbacks = [
@@ -433,6 +434,7 @@ UserModel.prototype.signup = function(email, password) {
           {
             email: email,
             password: password,
+            deviceIds: [deviceId],
             validationCode: uniqid.time().substr(-4)
           },
           callback

@@ -337,9 +337,9 @@ UserController.prototype.register = function (req, res, next) {
   const Res = new ResponseHelper.Response(res);
   var email = req.body.email;
   var password = req.body.password;
-
+  var deviceId = req.session ? req.session.deviceId : '';
   this.model
-    .signup(email, password)
+    .signup(email, password, deviceId)
     .then(doc => {
       const token = jwt.sign(doc.toJSON(), JWT_SECRET_KEY);
       Res.setData({
