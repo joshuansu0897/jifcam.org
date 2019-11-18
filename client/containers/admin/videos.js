@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import connect from "../../assets/redux/connect";
-import axios from "axios";
+import axios from "../../utils/axios";
 
 class VideosPage extends Component {
     constructor(props) {
