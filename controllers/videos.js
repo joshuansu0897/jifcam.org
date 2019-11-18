@@ -13,7 +13,7 @@ function VideoController() {
 }
 
 /**
- * @api {get}  /api/videos
+ * @api {get}  api/videos
  * @apiName Import
  * @apiGroup Video
  * @apiVersion 0.0.1
@@ -64,7 +64,7 @@ VideoController.prototype.list = function(req, res, next) {
 };
 
 /**
- * @api {get}  /api/videos/master/list
+ * @api {get}  api/videos/master/list
  * @apiName Import
  * @apiGroup Video
  * @apiVersion 0.0.1
@@ -122,7 +122,7 @@ VideoController.prototype.masterList = async function(req, res, next) {
 };
 
 /**
- * @api {post}  /api/videos/dummy
+ * @api {post}  api/videos/dummy
  * @apiName CreateDummy
  * @apiGroup Video
  * @apiVersion 0.0.1
@@ -167,7 +167,7 @@ VideoController.prototype.createDummy = function(req, res, next) {
 };
 
 /**
- * @api {post}  /api/videos/create
+ * @api {post}  api/videos/create
  * @apiName CreateVideo
  * @apiGroup Video
  * @apiVersion 0.0.1
@@ -212,7 +212,7 @@ VideoController.prototype.create = function(req, res, next) {
 };
 
 /**
- * @api {post}  /api/videos/update
+ * @api {post}  api/videos/update
  * @apiName UpdateVideo
  * @apiGroup Video
  * @apiVersion 0.0.1
@@ -257,7 +257,7 @@ VideoController.prototype.update = function(req, res, next) {
 };
 
 /**
- * @api {post}  /api/videos/like/:videoId/:userId/:like
+ * @api {post}  api/videos/like/:videoId/:userId/:like
  * @apiName likeVideo
  * @apiGroup Video
  * @apiVersion 0.0.1
@@ -297,7 +297,7 @@ VideoController.prototype.like = async function(req, res, next) {
 };
 
 /**
- * @api {get}  /api/videos/remove
+ * @api {get}  api/videos/remove
  * @apiName RemoveVideo
  * @apiGroup Video
  * @apiVersion 0.0.1
@@ -342,7 +342,7 @@ VideoController.prototype.remove = function(req, res, next) {
 };
 
 /**
- * @api {get}  /api/videos/:videoId/default-thumbnail
+ * @api {get}  api/videos/:videoId/default-thumbnail
  * @apiName SetDefaultThumbnail
  * @apiGroup Video
  * @apiVersion 0.0.1
@@ -394,7 +394,7 @@ VideoController.prototype.setDefaultThumbnail = function(req, res) {
 };
 
 /**
- * @api {get}  /api/videos/:videoId/default-thumbnail
+ * @api {get}  api/videos/:videoId/default-thumbnail
  * @apiName getDefaultThumbnail
  * @apiGroup Video
  * @apiVersion 0.0.1

@@ -53,7 +53,7 @@ UserController.prototype.getUserData = function(result) {
 };
 
 /**
- * @api {get} /
+ * @api {get} api/users/
  * @apiName Users
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -124,7 +124,7 @@ UserController.prototype.getAll = function(req, res) {
 };
 
 /**
- * @api {get} /:id
+ * @api {get} api/users/:id
  * @apiName Users By Id
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -167,7 +167,7 @@ UserController.prototype.getOne = function(req, res, next) {
 };
 
 /**
- * @api {put} /:id
+ * @api {put} api/users/:id
  * @apiName Users Update By Id
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -227,7 +227,7 @@ UserController.prototype.update = function(req, res, next) {
 };
 
 /**
- * @api {get} /code/:code
+ * @api {get} api/users/code/:code
  * @apiName Verify by code
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -275,7 +275,7 @@ UserController.prototype.getOneByCode = function(req, res, next) {
 };
 
 /**
- * @api {post} /auth
+ * @api {post} api/users/auth
  * @apiName Authentication
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -319,7 +319,7 @@ UserController.prototype.authenticate = function(req, res, next) {
 };
 
 /**
- * @api {post} /api/users/register
+ * @api {post} api/users/register
  * @apiName Register
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -371,7 +371,7 @@ UserController.prototype.register = function(req, res, next) {
 };
 
 /**
- * @api {post} /api/users/register
+ * @api {post} api/users/register
  * @apiName Register Username
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -431,7 +431,7 @@ UserController.prototype.choose = function(req, res, next) {
 };
 
 /**
- * @api {post} /api/users/register
+ * @api {post} api/users/register
  * @apiName Register Notification status
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -487,7 +487,7 @@ UserController.prototype.notify = function(req, res, next) {
 };
 
 /**
- * @api {post} /api/users/register/follow
+ * @api {post} api/users/register/follow
  * @apiName Register Follow
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -539,7 +539,7 @@ UserController.prototype.follow = function(req, res, next) {
 };
 
 /**
- * @api {post} /api/users/register/unfollow
+ * @api {post} api/users/register/unfollow
  * @apiName Register unfollow action
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -591,7 +591,7 @@ UserController.prototype.unfollow = function(req, res, next) {
 };
 
 /**
- * @api {post} /verify/:id
+ * @api {post} api/users/verify/:id
  * @apiName Verify by Id
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -628,7 +628,7 @@ UserController.prototype.verifyUser = function(req, res, next) {
 };
 
 /**
- * @api {get} /verify/identity/:username/:code
+ * @api {get} api/users/verify/identity/:username/:code
  * @apiName Verify by username & code
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -661,7 +661,7 @@ UserController.prototype.verified = function(req, res, next) {
 };
 
 /**
- * @api {get} /verify/count/
+ * @api {get} api/users/verify/count/
  * @apiName Verified Count
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -691,7 +691,7 @@ UserController.prototype.countingVerified = function(req, res, next) {
 };
 
 /**
- * @api {post} /mail
+ * @api {post} api/users/mail
  * @apiName Mailing
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -758,7 +758,7 @@ UserController.prototype.sendMail = function(req, res, next) {
 };
 
 /**
- * @api {post} /import
+ * @api {post} api/users/import
  * @apiName Importer
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -911,7 +911,7 @@ UserController.prototype.import = function(req, res, next) {
 };
 
 /**
- * @api {post} /remove
+ * @api {post} api/users/remove
  * @apiName Remove
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -987,7 +987,7 @@ UserController.prototype.sendingMail = function(userId, data, mail) {
 };
 
 /**
- * @api {post} /api/users/video-list
+ * @api {post} api/users/video-list
  * @apiName Video List
  * @apiGroup User
  * @apiVersion 0.0.1
@@ -1039,7 +1039,7 @@ UserController.prototype.videoList = function(req, res, next) {
 };
 
 /**
- * @api {GET} /api/users/following-list
+ * @api {GET} api/users/following-list
  * @apiName Follwing List
  * @apiGroup User
  * @apiVersion 0.0.1

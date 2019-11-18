@@ -1,7 +1,7 @@
 [
   {
     "type": "post",
-    "url": "/auth",
+    "url": "api/users/auth",
     "title": "",
     "name": "Authentication",
     "group": "User",
@@ -51,7 +51,7 @@
   },
   {
     "type": "GET",
-    "url": "/api/users/following-list",
+    "url": "api/users/following-list",
     "title": "",
     "name": "Follwing_List",
     "group": "User",
@@ -101,7 +101,7 @@
   },
   {
     "type": "post",
-    "url": "/import",
+    "url": "api/users/import",
     "title": "",
     "name": "Importer",
     "group": "User",
@@ -164,7 +164,7 @@
   },
   {
     "type": "post",
-    "url": "/mail",
+    "url": "api/users/mail",
     "title": "",
     "name": "Mailing",
     "group": "User",
@@ -269,7 +269,7 @@
   },
   {
     "type": "post",
-    "url": "/api/users/register",
+    "url": "api/users/register",
     "title": "",
     "name": "Register",
     "group": "User",
@@ -326,7 +326,7 @@
   },
   {
     "type": "post",
-    "url": "/api/users/register/follow",
+    "url": "api/users/register/follow",
     "title": "",
     "name": "Register_Follow",
     "group": "User",
@@ -383,7 +383,7 @@
   },
   {
     "type": "post",
-    "url": "/api/users/register",
+    "url": "api/users/register",
     "title": "",
     "name": "Register_Notification_status",
     "group": "User",
@@ -434,7 +434,7 @@
   },
   {
     "type": "post",
-    "url": "/api/users/register",
+    "url": "api/users/register",
     "title": "",
     "name": "Register_Username",
     "group": "User",
@@ -491,7 +491,7 @@
   },
   {
     "type": "post",
-    "url": "/api/users/register/unfollow",
+    "url": "api/users/register/unfollow",
     "title": "",
     "name": "Register_unfollow_action",
     "group": "User",
@@ -548,7 +548,7 @@
   },
   {
     "type": "post",
-    "url": "/remove",
+    "url": "api/users/remove",
     "title": "",
     "name": "Remove",
     "group": "User",
@@ -611,7 +611,7 @@
   },
   {
     "type": "get",
-    "url": "/",
+    "url": "api/users/",
     "title": "",
     "name": "Users",
     "group": "User",
@@ -681,7 +681,7 @@
   },
   {
     "type": "get",
-    "url": "/:id",
+    "url": "api/users/:id",
     "title": "",
     "name": "Users_By_Id",
     "group": "User",
@@ -738,7 +738,7 @@
   },
   {
     "type": "put",
-    "url": "/:id",
+    "url": "api/users/:id",
     "title": "",
     "name": "Users_Update_By_Id",
     "group": "User",
@@ -795,7 +795,7 @@
   },
   {
     "type": "get",
-    "url": "/verify/count/",
+    "url": "api/users/verify/count/",
     "title": "",
     "name": "Verified_Count",
     "group": "User",
@@ -845,7 +845,7 @@
   },
   {
     "type": "post",
-    "url": "/verify/:id",
+    "url": "api/users/verify/:id",
     "title": "",
     "name": "Verify_by_Id",
     "group": "User",
@@ -902,7 +902,7 @@
   },
   {
     "type": "get",
-    "url": "/code/:code",
+    "url": "api/users/code/:code",
     "title": "",
     "name": "Verify_by_code",
     "group": "User",
@@ -952,7 +952,7 @@
   },
   {
     "type": "get",
-    "url": "/verify/identity/:username/:code",
+    "url": "api/users/verify/identity/:username/:code",
     "title": "",
     "name": "Verify_by_username___code",
     "group": "User",
@@ -1009,7 +1009,7 @@
   },
   {
     "type": "post",
-    "url": "/api/users/video-list",
+    "url": "api/users/video-list",
     "title": "",
     "name": "Video_List",
     "group": "User",
@@ -1066,7 +1066,7 @@
   },
   {
     "type": "post",
-    "url": "/api/videos/dummy",
+    "url": "api/videos/dummy",
     "title": "",
     "name": "CreateDummy",
     "group": "Video",
@@ -1219,7 +1219,7 @@
   },
   {
     "type": "post",
-    "url": "/api/videos/create",
+    "url": "api/videos/create",
     "title": "",
     "name": "CreateVideo",
     "group": "Video",
@@ -1372,7 +1372,7 @@
   },
   {
     "type": "get",
-    "url": "/api/videos",
+    "url": "api/videos",
     "title": "",
     "name": "Import",
     "group": "Video",
@@ -1532,7 +1532,7 @@
   },
   {
     "type": "get",
-    "url": "/api/videos/master/list",
+    "url": "api/videos/master/list",
     "title": "",
     "name": "Import",
     "group": "Video",
@@ -1672,7 +1672,7 @@
   },
   {
     "type": "get",
-    "url": "/api/videos/remove",
+    "url": "api/videos/remove",
     "title": "",
     "name": "RemoveVideo",
     "group": "Video",
@@ -1825,7 +1825,7 @@
   },
   {
     "type": "get",
-    "url": "/api/videos/:videoId/default-thumbnail",
+    "url": "api/videos/:videoId/default-thumbnail",
     "title": "",
     "name": "SetDefaultThumbnail",
     "group": "Video",
@@ -1978,7 +1978,7 @@
   },
   {
     "type": "post",
-    "url": "/api/videos/update",
+    "url": "api/videos/update",
     "title": "",
     "name": "UpdateVideo",
     "group": "Video",
@@ -2131,7 +2131,7 @@
   },
   {
     "type": "get",
-    "url": "/api/videos/:videoId/default-thumbnail",
+    "url": "api/videos/:videoId/default-thumbnail",
     "title": "",
     "name": "getDefaultThumbnail",
     "group": "Video",
@@ -2214,7 +2214,7 @@
   },
   {
     "type": "post",
-    "url": "/api/videos/like/:videoId/:userId/:like",
+    "url": "api/videos/like/:videoId/:userId/:like",
     "title": "",
     "name": "likeVideo",
     "group": "Video",

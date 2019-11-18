@@ -3,8 +3,9 @@
     "version": "0.1.0",
     "description": "apiDoc for jifcam",
     "title": "jifcam documentation",
+    "url": "http://localhost/",
     "template": {
         "withCompare": true,
         "withGenerator": true
     }
-  }
+}
