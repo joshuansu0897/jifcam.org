@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import connect from "../../assets/redux/connect";
+import axios from "axios";
 
 class VideosPage extends Component {
     constructor(props) {
@@ -52,8 +53,8 @@ class VideosPage extends Component {
                                                 thumbnail = video.defaultThumbnail
                                             }else{
                                                 const videoId = video.youtubeURL.split("=")[1];
-                                                let thumbnailsUrl = `http://img.youtube.com/vi/${videoId}/`;
-                                                thumbnail = `${thumbnailsUrl}maxresdefault.jpg`
+                                                thumbnail = axios.get(`/api/videos/${videoId}/default-thumbnail`).then(result => result.defaultThumbnail);
+                                               
                                             }
                                             return (
                                                 <div

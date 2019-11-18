@@ -374,4 +374,19 @@ VideoModel.prototype.create = function(data) {
   return promise;
 };
 
+
+VideoModel.prototype.one = function(videoId) {
+  let promise = new Promise((resolve, reject) => {
+    this.modelDB.findOne({ _id: videoId }, function(err, res) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    });
+  });
+
+  return promise;
+};
+
 module.exports = VideoModel;

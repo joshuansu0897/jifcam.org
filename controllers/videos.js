@@ -393,6 +393,37 @@ VideoController.prototype.setDefaultThumbnail = function(req, res) {
     });
 };
 
+/**
+ * @api {get}  /api/videos/:videoId/default-thumbnail
+ * @apiName getDefaultThumbnail
+ * @apiGroup Video
+ * @apiVersion 0.0.1
+ * @apiDescription get default thumbnail
+ *
+ * @apiHeader {String} authorization Authorization value ('Bearer <token>').
+ *
+ * @apiParam {String} videoId object id
+ *
+ * @apiSuccess {Number} status > soon
+ * @apiSuccess {String[]} defaultThumbnail > soon
+ *
+ * @apiError (Error 4xx) Incorrect requested data
+ * @apiError (Error 4xx) FieledAuthetication Fieled Creating
+ * @apiError (Error 5xx) ServerError Unexpected server error
+ *
+ */
+VideoController.prototype.getDefaultThumbnail = function(req, res) {
+  var Res = new ResponseHelper.Response(res);
+  var videoId = req.params.videoId;
+  this.model.one(videoId).then(result => {
+    if(!result.defaultThumbnail){
+      result.defaultThumbnail = result.thumbnails.length > 0 ? result.thumbnails[1] : '';
+    }
+    Res.setData(result.defaultThumbnail);
+    Res.send();
+  })
+}
+
 VideoController.prototype.router = function() {
   let router = Router();
 
@@ -448,6 +479,12 @@ VideoController.prototype.router = function() {
     "/:videoId/default-thumbnail",
     passport.authenticate("jwt", { session: false }),
     this.setDefaultThumbnail.bind(this)
+  )
+
+  router.get(
+    "/:videoId/default-thumbnail",
+    passport.authenticate("jwt", { session: false }),
+    this.getDefaultThumbnail.bind(this)
   )
 
   return router;

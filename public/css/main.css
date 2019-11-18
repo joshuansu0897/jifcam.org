@@ -200,11 +200,17 @@ table .avatar-profile-table {
   text-align: left;
   padding: 0.5em;
 }
-
-.videoCardFooterTitle{
+.videoCardFooterTitle {
   max-width: 200px;
   margin-left: 11px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.overlay-video-thumbnail {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
