@@ -14,7 +14,7 @@
 				{
 					"name": "List all users",
 					"request": {
-						"url": "localhost:9001/api/users/",
+						"url": "https://jifcam.org/api/users/",
 						"method": "GET",
 						"header": [
 							{
@@ -34,7 +34,7 @@
 							"id": "4a6b90be-f9f3-47a4-82ae-89aebe2124a1",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/",
+								"url": "https://jifcam.org/api/users/",
 								"method": "GET",
 								"header": [
 									{
@@ -128,7 +128,7 @@
 							"id": "e8abaedc-5b04-4866-bc25-a4671736d2e4",
 							"name": "Error",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/",
+								"url": "https://jifcam.org/api/users/",
 								"method": "GET",
 								"header": [
 									{
@@ -212,7 +212,7 @@
 				{
 					"name": "Get user by ID",
 					"request": {
-						"url": "localhost:9001/api/users/5dd2e8ebabb9960d10f703b5",
+						"url": "https://jifcam.org/api/users/5dd2e8ebabb9960d10f703b5",
 						"method": "GET",
 						"header": [
 							{
@@ -232,7 +232,7 @@
 							"id": "664f7230-4544-41ae-844c-9a81624c3014",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/5dd2e8ebabb9960d10f703b5",
+								"url": "https://jifcam.org/api/users/5dd2e8ebabb9960d10f703b5",
 								"method": "GET",
 								"header": [
 									{
@@ -326,7 +326,7 @@
 							"id": "372707ab-73f4-42a5-ad62-b5eacf415fcc",
 							"name": "Error",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/5dd2e8ebabb9960d10f703b5",
+								"url": "https://jifcam.org/api/users/5dd2e8ebabb9960d10f703b5",
 								"method": "GET",
 								"header": [
 									{
@@ -411,7 +411,7 @@
 				{
 					"name": "View following users",
 					"request": {
-						"url": "localhost:9001/api/users/following-list",
+						"url": "https://jifcam.org/api/users/following-list",
 						"method": "GET",
 						"header": [
 							{
@@ -431,7 +431,7 @@
 							"id": "1629bde7-1e22-4aea-9f5f-49a8554fc3f2",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/following-list",
+								"url": "https://jifcam.org/api/users/following-list",
 								"method": "GET",
 								"header": [
 									{
@@ -526,7 +526,7 @@
 				{
 					"name": "Count all verified user",
 					"request": {
-						"url": "localhost:9001/api/users/verify/count/",
+						"url": "https://jifcam.org/api/users/verify/count/",
 						"method": "GET",
 						"header": [
 							{
@@ -546,7 +546,7 @@
 							"id": "d16747a7-5f18-46bc-9481-3ae2712ae1a1",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/verify/count/",
+								"url": "https://jifcam.org/api/users/verify/count/",
 								"method": "GET",
 								"header": [
 									{
@@ -640,7 +640,7 @@
 							"id": "9a86fc42-5684-48ec-8841-493dd2a3d522",
 							"name": "Error",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/verify/count/",
+								"url": "https://jifcam.org/api/users/verify/count/",
 								"method": "GET",
 								"header": [
 									{
@@ -725,7 +725,7 @@
 				{
 					"name": "Get user data by code",
 					"request": {
-						"url": "localhost:9001/api/users/code/hagq",
+						"url": "https://jifcam.org/api/users/code/hagq",
 						"method": "GET",
 						"header": [
 							{
@@ -746,7 +746,7 @@
 							"id": "a904b476-a0f4-437f-8738-fd46206bffa5",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/code/hagq",
+								"url": "https://jifcam.org/api/users/code/hagq",
 								"method": "GET",
 								"header": [
 									{
@@ -842,7 +842,7 @@
 				{
 					"name": "Get verified user by username & code",
 					"request": {
-						"url": "localhost:9001/api/users/verify/identity/username1/hagq",
+						"url": "https://jifcam.org/api/users/verify/identity/username1/hagq",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -856,7 +856,7 @@
 							"id": "2f8ee41c-6b4e-465b-8e60-5eb312bdaad0",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/verify/identity/username1/hagq",
+								"url": "https://jifcam.org/api/users/verify/identity/username1/hagq",
 								"method": "GET",
 								"header": [],
 								"body": {
@@ -945,7 +945,7 @@
 				{
 					"name": "Sign in with credential",
 					"request": {
-						"url": "localhost:9001/api/users/auth",
+						"url": "https://jifcam.org/api/users/auth",
 						"method": "POST",
 						"header": [
 							{
@@ -965,7 +965,7 @@
 							"id": "0c8874f9-a118-423f-abc4-98c28d323d50",
 							"name": "Error",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/auth",
+								"url": "https://jifcam.org/api/users/auth",
 								"method": "POST",
 								"header": [
 									{
@@ -1059,7 +1059,7 @@
 							"id": "a6c02cc6-9740-47cd-98c9-5b16dd41ec41",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/auth",
+								"url": "https://jifcam.org/api/users/auth",
 								"method": "POST",
 								"header": [
 									{
@@ -1154,7 +1154,7 @@
 				{
 					"name": "Update push notification at user",
 					"request": {
-						"url": "localhost:9001/api/users/register/notify",
+						"url": "https://jifcam.org/api/users/register/notify",
 						"method": "POST",
 						"header": [
 							{
@@ -1174,7 +1174,7 @@
 							"id": "8eb9b1ae-ab70-43ac-aa5d-2ff8ba0a9641",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/register/notify",
+								"url": "https://jifcam.org/api/users/register/notify",
 								"method": "POST",
 								"header": [
 									{
@@ -1269,7 +1269,7 @@
 				{
 					"name": "Import all users by CSV file",
 					"request": {
-						"url": "localhost:9001/api/users/import",
+						"url": "https://jifcam.org/api/users/import",
 						"method": "POST",
 						"header": [
 							{
@@ -1294,7 +1294,7 @@
 							"id": "fe37f7de-6085-40a7-bb5f-15f3b04fb5e8",
 							"name": "Error",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/import",
+								"url": "https://jifcam.org/api/users/import",
 								"method": "POST",
 								"header": [
 									{
@@ -1394,7 +1394,7 @@
 				{
 					"name": "Send mail to the user",
 					"request": {
-						"url": "localhost:9001/api/users/mail",
+						"url": "https://jifcam.org/api/users/mail",
 						"method": "POST",
 						"header": [
 							{
@@ -1419,7 +1419,7 @@
 							"id": "80b8f412-f979-401a-b7d4-0f7ac70805bb",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/mail",
+								"url": "https://jifcam.org/api/users/mail",
 								"method": "POST",
 								"header": [
 									{
@@ -1521,7 +1521,7 @@
 				{
 					"name": "Create new account with email & password",
 					"request": {
-						"url": "localhost:9001/api/users/register",
+						"url": "https://jifcam.org/api/users/register",
 						"method": "POST",
 						"header": [
 							{
@@ -1539,9 +1539,9 @@
 					"response": [
 						{
 							"id": "d2304171-3ba6-4c80-bf15-768e6f45ca91",
-							"name": "{{base_url}}api/users/register",
+							"name": "https://jifcam.org/api/users/register",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/register",
+								"url": "https://jifcam.org/api/users/register",
 								"method": "POST",
 								"header": [
 									{
@@ -1636,7 +1636,7 @@
 				{
 					"name": "Follow someone by user object id",
 					"request": {
-						"url": "localhost:9001/api/users/register/follow",
+						"url": "https://jifcam.org/api/users/register/follow",
 						"method": "POST",
 						"header": [
 							{
@@ -1656,7 +1656,7 @@
 							"id": "757a777f-3c0a-4d52-8023-4dd4b3b76782",
 							"name": "Error",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/register/follow",
+								"url": "https://jifcam.org/api/users/register/follow",
 								"method": "POST",
 								"header": [
 									{
@@ -1750,7 +1750,7 @@
 							"id": "8dd8a328-b671-473c-b828-a4f8e5661821",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/register/follow",
+								"url": "https://jifcam.org/api/users/register/follow",
 								"method": "POST",
 								"header": [
 									{
@@ -1845,7 +1845,7 @@
 				{
 					"name": "Choose username by parameter",
 					"request": {
-						"url": "localhost:9001/api/users/register/identity",
+						"url": "https://jifcam.org/api/users/register/identity",
 						"method": "POST",
 						"header": [
 							{
@@ -1865,7 +1865,7 @@
 							"id": "bf922a42-e49b-4169-82f5-f4b146cae03c",
 							"name": "Error",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/register/identity",
+								"url": "https://jifcam.org/api/users/register/identity",
 								"method": "POST",
 								"header": [
 									{
@@ -1959,7 +1959,7 @@
 							"id": "bc40d48e-b5bd-4413-8993-565cb8fc76be",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/register/identity",
+								"url": "https://jifcam.org/api/users/register/identity",
 								"method": "POST",
 								"header": [
 									{
@@ -2054,7 +2054,7 @@
 				{
 					"name": "Unfollow someone by user object id",
 					"request": {
-						"url": "localhost:9001/api/users/register/unfollow",
+						"url": "https://jifcam.org/api/users/register/unfollow",
 						"method": "POST",
 						"header": [
 							{
@@ -2074,7 +2074,7 @@
 							"id": "2cbfdd2b-cef1-43a8-9969-e46e481517c2",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/register/unfollow",
+								"url": "https://jifcam.org/api/users/register/unfollow",
 								"method": "POST",
 								"header": [
 									{
@@ -2168,7 +2168,7 @@
 							"id": "0e112822-2af0-4164-a6cb-0691bdb3faba",
 							"name": "Error",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/register/unfollow",
+								"url": "https://jifcam.org/api/users/register/unfollow",
 								"method": "POST",
 								"header": [
 									{
@@ -2263,7 +2263,7 @@
 				{
 					"name": "Remove user account from documents",
 					"request": {
-						"url": "localhost:9001/api/users/remove",
+						"url": "https://jifcam.org/api/users/remove",
 						"method": "POST",
 						"header": [
 							{
@@ -2288,7 +2288,7 @@
 							"id": "f2de69a9-83c5-4b97-9273-1f8ae6210532",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/remove",
+								"url": "https://jifcam.org/api/users/remove",
 								"method": "POST",
 								"header": [
 									{
@@ -2390,7 +2390,7 @@
 				{
 					"name": "Verification by object id",
 					"request": {
-						"url": "localhost:9001/api/users/verify/5dd2efb1fa5c77469873dc42",
+						"url": "https://jifcam.org/api/users/verify/5dd2efb1fa5c77469873dc42",
 						"method": "POST",
 						"header": [
 							{
@@ -2410,7 +2410,7 @@
 							"id": "7c27574e-7e82-4ab9-a7d4-289e53f6f700",
 							"name": "Error",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/verify/4413",
+								"url": "https://jifcam.org/api/users/verify/4413",
 								"method": "POST",
 								"header": [
 									{
@@ -2504,7 +2504,7 @@
 							"id": "64887734-34a8-4972-ae15-e6376d309def",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/verify/5dd2efb1fa5c77469873dc42",
+								"url": "https://jifcam.org/api/users/verify/5dd2efb1fa5c77469873dc42",
 								"method": "POST",
 								"header": [
 									{
@@ -2599,7 +2599,7 @@
 				{
 					"name": "View following user's videos by their id",
 					"request": {
-						"url": "localhost:9001/api/users/video-list",
+						"url": "https://jifcam.org/api/users/video-list",
 						"method": "POST",
 						"header": [
 							{
@@ -2624,7 +2624,7 @@
 							"id": "b302f514-0af6-4a80-bc2c-fa5f1404379d",
 							"name": "Error",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/video-list",
+								"url": "https://jifcam.org/api/users/video-list",
 								"method": "POST",
 								"header": [
 									{
@@ -2725,7 +2725,7 @@
 							"id": "c6446ff3-67f6-47aa-9449-61a4da02aea6",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/video-list",
+								"url": "https://jifcam.org/api/users/video-list",
 								"method": "POST",
 								"header": [
 									{
@@ -2825,7 +2825,7 @@
 				{
 					"name": "Send user device id",
 					"request": {
-						"url": "localhost:9001/api/users/device",
+						"url": "https://jifcam.org/api/users/device",
 						"method": "POST",
 						"header": [
 							{
@@ -2851,7 +2851,7 @@
 							"id": "3eb98e93-ac11-403e-8922-ed805608f444",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/device",
+								"url": "https://jifcam.org/api/users/device",
 								"method": "POST",
 								"header": [
 									{
@@ -2954,7 +2954,7 @@
 				{
 					"name": "Update user by ID",
 					"request": {
-						"url": "localhost:9001/api/users/5dd2efb1fa5c77469873dc42",
+						"url": "https://jifcam.org/api/users/5dd2efb1fa5c77469873dc42",
 						"method": "PUT",
 						"header": [
 							{
@@ -2979,7 +2979,7 @@
 							"id": "ec52a46e-a03a-4d78-9327-a0963705fe07",
 							"name": "Success",
 							"originalRequest": {
-								"url": "localhost:9001/api/users/5dd2efb1fa5c77469873dc42",
+								"url": "https://jifcam.org/api/users/5dd2efb1fa5c77469873dc42",
 								"method": "PUT",
 								"header": [
 									{
@@ -3085,9 +3085,9 @@
 			"description": "",
 			"item": [
 				{
-					"name": "{{base_url}}api/videos",
+					"name": "https://jifcam.org/api/videos",
 					"request": {
-						"url": "{{base_url}}api/videos",
+						"url": "https://jifcam.org/api/videos",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -3099,9 +3099,9 @@
 					"response": []
 				},
 				{
-					"name": "{{base_url}}api/videos/master/list",
+					"name": "https://jifcam.org/api/videos/master/list",
 					"request": {
-						"url": "{{base_url}}api/videos/master/list",
+						"url": "https://jifcam.org/api/videos/master/list",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -3113,9 +3113,9 @@
 					"response": []
 				},
 				{
-					"name": "{{base_url}}api/videos/remove",
+					"name": "https://jifcam.org/api/videos/remove",
 					"request": {
-						"url": "{{base_url}}api/videos/remove",
+						"url": "https://jifcam.org/api/videos/remove",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -3127,9 +3127,9 @@
 					"response": []
 				},
 				{
-					"name": "{{base_url}}api/videos/:videoId/default-thumbnail",
+					"name": "https://jifcam.org/api/videos/:videoId/default-thumbnail",
 					"request": {
-						"url": "{{base_url}}api/videos/:videoId/default-thumbnail",
+						"url": "https://jifcam.org/api/videos/:videoId/default-thumbnail",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -3141,9 +3141,9 @@
 					"response": []
 				},
 				{
-					"name": "{{base_url}}api/videos/:videoId/default-thumbnail",
+					"name": "https://jifcam.org/api/videos/:videoId/default-thumbnail",
 					"request": {
-						"url": "{{base_url}}api/videos/:videoId/default-thumbnail",
+						"url": "https://jifcam.org/api/videos/:videoId/default-thumbnail",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -3155,9 +3155,9 @@
 					"response": []
 				},
 				{
-					"name": "{{base_url}}api/videos/dummy",
+					"name": "https://jifcam.org/api/videos/dummy",
 					"request": {
-						"url": "{{base_url}}api/videos/dummy",
+						"url": "https://jifcam.org/api/videos/dummy",
 						"method": "POST",
 						"header": [
 							{
@@ -3174,9 +3174,9 @@
 					"response": []
 				},
 				{
-					"name": "{{base_url}}api/videos/create",
+					"name": "https://jifcam.org/api/videos/create",
 					"request": {
-						"url": "{{base_url}}api/videos/create",
+						"url": "https://jifcam.org/api/videos/create",
 						"method": "POST",
 						"header": [
 							{
@@ -3193,9 +3193,9 @@
 					"response": []
 				},
 				{
-					"name": "{{base_url}}api/videos/update",
+					"name": "https://jifcam.org/api/videos/update",
 					"request": {
-						"url": "{{base_url}}api/videos/update",
+						"url": "https://jifcam.org/api/videos/update",
 						"method": "POST",
 						"header": [
 							{
@@ -3212,9 +3212,9 @@
 					"response": []
 				},
 				{
-					"name": "{{base_url}}api/videos/like/:videoId/:userId/:like",
+					"name": "https://jifcam.org/api/videos/like/:videoId/:userId/:like",
 					"request": {
-						"url": "{{base_url}}api/videos/like/:videoId/:userId/:like",
+						"url": "https://jifcam.org/api/videos/like/:videoId/:userId/:like",
 						"method": "POST",
 						"header": [
 							{
