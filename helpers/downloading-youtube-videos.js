@@ -22,7 +22,7 @@ YoutubeVideos.prototype.download = function() {
     console.log(this.isLoading);
     if (!this.isLoading) {
         this.model.modelDB.findOne({ status: 0 }, function(err, doc) {
-            //console.log(doc);
+            console.log(doc.youtubeURL);
             if (doc) _this.processDownload(doc);
         });
     }
@@ -50,8 +50,10 @@ YoutubeVideos.prototype.processDownload = function(doc) {
 
                 try {
                     const videoInfo = await getInfo(url);
+                    console.log(videoInfo);
                     var video = ytdl(url, {
-                        quality: "highestvideo"
+                        quality: "highestvideo",
+                        filter: (format) => format.container === 'mp4'
                     }).on(
                         "progress",
                         async (length, downloaded, totallength) => {
