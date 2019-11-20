@@ -107,8 +107,9 @@ app.listen(PORT, () => {
   Users.checkSuperAdmin(config);
 
   // Run cron to auto-download video
-  VideoDownloader.download();
-  var j = schedule.scheduleJob("*/1 * * * *", function() {
+  // VideoDownloader.download();
+  // let randomMin = Math.floor(Math.random() * (5 - 1) ) + 1;
+  var j = schedule.scheduleJob(`*/3 * * * *`, function() {
     console.log("excecuted cron job ");
     VideoDownloader.download();
   });
