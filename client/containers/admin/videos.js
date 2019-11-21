@@ -53,7 +53,8 @@ class VideosPage extends Component {
                                                 thumbnail = video.defaultThumbnail
                                             }else{
                                                 const videoId = video.youtubeURL.split("=")[1];
-                                                thumbnail = axios.get(`/api/videos/${videoId}/default-thumbnail`).then(result => result.defaultThumbnail);
+                                                thumbnail = video.thumbnails[1]
+                                                // thumbnail = axios.get(`/api/videos/${videoId}/default-thumbnail`).then(result => result.defaultThumbnail);
                                                
                                             }
                                             return (
