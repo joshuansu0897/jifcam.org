@@ -106,7 +106,7 @@ class MasterVideoListPage extends Component {
     return (
       <div
         className="thumbnails"
-        style={{ backgroundImage: `url(${poster[0]})` }}
+        style={{ backgroundImage: `url(${video.thumbnails[1]})` }}
       >
         <video
           playsInline={
