@@ -61,6 +61,41 @@ class MasterVideoListPage extends Component {
     const thumbnails = video.thumbnails;
     const poster = this.generateThumbnails(video.youtubeURL);
     
+    if (this.state[index]){
+      if (this.state[index] === 1) {
+        return (
+          <div
+            className="thumbnails"
+            style={{ backgroundImage: `url(${poster[0]})` }}
+          ></div>
+        );
+      }
+      if (this.state[index] === 2) {
+        return (
+          <div
+            className="thumbnails"
+            style={{ backgroundImage: `url(${thumbnails[0]})` }}
+          ></div>
+        );
+      }
+      if (this.state[index] === 3) {
+        return (
+          <div
+            className="thumbnails"
+            style={{ backgroundImage: `url(${thumbnails[1]})` }}
+          ></div>
+        );
+      }
+      if (this.state[index] === 4) {
+        return (
+          <div
+            className="thumbnails"
+            style={{ backgroundImage: `url(${thumbnails[2]})` }}
+          ></div>
+        );
+      }
+    }
+
     if (video.defaultThumbnail){
       return (
         <div
@@ -70,39 +105,6 @@ class MasterVideoListPage extends Component {
       );
     }
 
-    if (this.state[index] && this.state[index] === 1) {
-      return (
-        <div
-          className="thumbnails"
-          style={{ backgroundImage: `url(${poster[0]})` }}
-        ></div>
-      );
-    }
-    if (this.state[index] && this.state[index] === 2) {
-      return (
-        <div
-          className="thumbnails"
-          style={{ backgroundImage: `url(${thumbnails[0]})` }}
-        ></div>
-      );
-    }
-    if (this.state[index] && this.state[index] === 3) {
-      return (
-        <div
-          className="thumbnails"
-          style={{ backgroundImage: `url(${thumbnails[1]})` }}
-        ></div>
-      );
-    }
-    if (this.state[index] && this.state[index] === 4) {
-      return (
-        <div
-          className="thumbnails"
-          style={{ backgroundImage: `url(${thumbnails[2]})` }}
-        ></div>
-      );
-    }
-    
     return (
       <div
         className="thumbnails"
@@ -150,21 +152,17 @@ class MasterVideoListPage extends Component {
         alert("an error occurred:" + JSON.stringify(error));
       });
   }
+
   setDefaultThumbnail(videoindex, thumbnailIndex) {
     const video = this.props.users.videoList[videoindex]
     const defaultThumbnail = video.thumbnails[thumbnailIndex-2]
-    let token = this.props.users.token;
     axios
       .post("/api/videos/update", {
         id: video._id,
         defaultThumbnail
       })
       .then(done => {
-        this.props.getUserVideos({
-          offset: 0,
-          limit: this.props.users.videoList.length,
-          token: this.props.users.token
-        });
+        this.setState({ loadingMore: false });
       })
       .catch(error => {
         alert("an error occurred:" + JSON.stringify(error));
