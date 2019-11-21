@@ -99,11 +99,14 @@ YoutubeVideos.prototype.processDownload = function(doc) {
                                                 th
                                         );
                                     });
-
+                                const upload_date = videoInfo.items[0].upload_date;
+                                const year = parseInt(upload_date.substr(0, 4));
+                                const month = parseInt(upload_date.substr(4, 2));
+                                const day = parseInt(upload_date.substr(6, 2));
                                 this.model
                                     .update(doc._id, {
                                         title: videoInfo.items[0].fulltitle,
-                                        uploadDate: videoInfo.items[0].upload_date,
+                                        uploadDate: new Date(year, month, day),
                                         path:
                                             "/static/videos/" +
                                             doc._id +
