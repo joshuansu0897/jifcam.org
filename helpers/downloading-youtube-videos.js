@@ -127,7 +127,7 @@ YoutubeVideos.prototype.processDownload = function(doc) {
                     video.pipe(fs.createWriteStream(output));
                 } catch (err) {
                     console.log(err);
-                    this.isLoading = true;
+                    this.isLoading = false;
                 }
             })
             .catch(err => {
