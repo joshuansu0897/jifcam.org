@@ -3229,6 +3229,20 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "get following videos order by uploadDate",
+					"request": {
+						"url": "https://jifcam.org/api/videos/following/:userId",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		}

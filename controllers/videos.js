@@ -1,3 +1,4 @@
+var mongoose = require("mongoose");
 var join = require("lodash/join");
 var ResponseHelper = require("../helpers/response");
 var passport = require("passport");
@@ -424,6 +425,59 @@ VideoController.prototype.getDefaultThumbnail = function(req, res) {
   })
 }
 
+/**
+ * @api {get}  api/videos/following/:userId
+ * @apiName GetFollowingVideos
+ * @apiGroup Video
+ * @apiVersion 0.0.1
+ * @apiDescription get following videos
+ *
+ * @apiHeader {String} authorization Authorization value ('Bearer <token>').
+ *
+ * @apiParam {String} userId object id
+ *
+ * @apiSuccess {Number} status > soon
+ * @apiSuccess {String[]} thumbnails > soon
+ * @apiSuccess {String} user > soon
+ * @apiSuccess {String} youtubeURL > soon
+ * @apiSuccess {String} path > soon
+ * @apiSuccess {String} title > soon
+ * @apiSuccess {String} description > soon
+ * @apiSuccess {Date} uploadDate > soon
+ * @apiSuccess {Date} created > soon
+ * @apiSuccess {Date} updated > soon
+ * @apiSuccess {String[]} warnings > soon
+ * @apiSuccess {String[]} notice > soon
+ *
+ * @apiError (Error 4xx) Incorrect requested data
+ * @apiError (Error 4xx) FieledAuthetication Fieled Creating
+ * @apiError (Error 5xx) ServerError Unexpected server error
+ *
+ */
+VideoController.prototype.getFollowingVideos = async function(req, res) {
+  console.log("[#] get fo Following");
+  const ObjectId = mongoose.Types.ObjectId
+  var Res = new ResponseHelper.Response(res);
+  const userModel = new UserModel();
+  let user = await userModel.one(req.params.userId);
+  const userList = new Array()
+  let followingLength = user.following.length;
+  for( var i = 0; i < followingLength; i++){
+    userList.push(ObjectId(user.following[i].user))
+  }
+  
+  try {
+    const videos = await this.model.findList(userList)
+    console.log(videos)
+    Res.setData(videos);
+    Res.send();
+  } catch (error) {
+    console.log('Error in setDefaultThumbnail: ', err.message);
+    Res.errorParse(err);
+    Res.send();
+  }
+};
+
 VideoController.prototype.router = function() {
   let router = Router();
 
@@ -487,7 +541,14 @@ VideoController.prototype.router = function() {
     this.getDefaultThumbnail.bind(this)
   )
 
+  router.get(
+    "/following/:userId/",
+    passport.authenticate("jwt", { session: false }),
+    this.getFollowingVideos.bind(this)
+  )
+
   return router;
 };
+
 
 module.exports = VideoController;

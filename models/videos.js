@@ -149,6 +149,27 @@ VideoModel.prototype.list = function(user, limit = -1) {
   return promise;
 };
 
+VideoModel.prototype.findList = function(list) {
+  let promise = new Promise((resolve, reject) => {
+    var callback = function(err, result) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    };
+    var q;
+    q = this.modelDB.find({ user: { $in: list }, status: 2 });
+    q.sort({
+      uploadDate: -1
+    })
+
+    q.exec(callback);
+  });
+
+  return promise;
+};
+
 VideoModel.prototype.masterList = function(limit, skip) {
   console.log("masterlist")
   const ObjectId = mongoose.Types.ObjectId

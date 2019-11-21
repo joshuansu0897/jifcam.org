@@ -22,7 +22,7 @@ YoutubeVideos.prototype.download = function() {
     console.log(this.isLoading);
     if (!this.isLoading) {
         this.model.modelDB.findOne({ status: 0 }, function(err, doc) {
-            console.log(doc.youtubeURL);
+            //console.log(doc.youtubeURL);
             if (doc) _this.processDownload(doc);
         });
     }
@@ -103,6 +103,7 @@ YoutubeVideos.prototype.processDownload = function(doc) {
                                 this.model
                                     .update(doc._id, {
                                         title: videoInfo.items[0].fulltitle,
+                                        uploadDate: videoInfo.items[0].upload_date,
                                         path:
                                             "/static/videos/" +
                                             doc._id +
