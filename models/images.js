@@ -25,7 +25,7 @@ function ImageModel() {
   });
 
   this.validator = Joi.object().keys({
-    filename: Joi.string().required(),
+    filename: Joi.string().required().regex(/\.(jpg|jpeg|png)$/i),
     encode: Joi.string().required(),
     uploadDate: Joi.any().optional(),
     videoUploaded: Joi.boolean().optional(),
