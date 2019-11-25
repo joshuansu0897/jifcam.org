@@ -49,7 +49,7 @@ ImageModel.prototype.upload = function (data) {
     },
     function (data, callback) {
       _this.uploadToAWSS3(Img.uploadImage(data))
-      _this.modelDB.create(data, callback)
+      //_this.modelDB.create(data, callback) // this save te encode, so, this sabe the image
     }
   ];
   let promise = new Promise((resolve, reject) => {
