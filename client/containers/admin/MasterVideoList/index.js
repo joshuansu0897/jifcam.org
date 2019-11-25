@@ -22,7 +22,7 @@ class MasterVideoListPage extends Component {
 
   selectThumbnails(key, value) {
     let current = this.state[key] || 1;
-    if (value === "plus" && current !== 4) {
+    if (value === "plus" && current !== 3) {
       current += 1;
     }
     if (value === "minus" && current !== 1) {
@@ -66,7 +66,7 @@ class MasterVideoListPage extends Component {
         return (
           <div
             className="thumbnails"
-            style={{ backgroundImage: `url(${poster[0]})` }}
+            style={{ backgroundImage: `url(${thumbnails[0]})` }}
           ></div>
         );
       }
@@ -74,7 +74,7 @@ class MasterVideoListPage extends Component {
         return (
           <div
             className="thumbnails"
-            style={{ backgroundImage: `url(${thumbnails[0]})` }}
+            style={{ backgroundImage: `url(${thumbnails[1]})` }}
           ></div>
         );
       }
@@ -82,18 +82,18 @@ class MasterVideoListPage extends Component {
         return (
           <div
             className="thumbnails"
-            style={{ backgroundImage: `url(${thumbnails[1]})` }}
-          ></div>
-        );
-      }
-      if (this.state[index] === 4) {
-        return (
-          <div
-            className="thumbnails"
             style={{ backgroundImage: `url(${thumbnails[2]})` }}
           ></div>
         );
       }
+      // if (this.state[index] === 4) {
+      //   return (
+      //     <div
+      //       className="thumbnails"
+      //       style={{ backgroundImage: `url(${poster[0]})` }}
+      //     ></div>
+      //   );
+      // }
     }
 
     if (video.defaultThumbnail){
