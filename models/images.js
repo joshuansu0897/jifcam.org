@@ -8,6 +8,7 @@ var S3Helper = require("../helpers/s3-helper");
 var firebase = require("firebase-admin");
 const ObjectId = mongoose.Schema.Types.ObjectId;
 var ImageHelper = require("../helpers/images");
+var Canvas = require("canvas");
 
 function ImageModel() {
   this.name = "images";
@@ -43,6 +44,14 @@ function ImageModel() {
 ImageModel.prototype.upload = function (data) {
   var _this = this;
   var Img = new ImageHelper();
+
+  var img = new Canvas.Image();
+  img.src = data.encode;
+
+  if (img.width < 600 || img.height < 600) {
+    throw new Error("min dimension 600px")
+  }
+
   let listCallbacks = [
     function (callback) {
       Joi.validate(data, _this.validator, callback);

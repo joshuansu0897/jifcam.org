@@ -59,14 +59,14 @@ app.use(session({
 
 app.use(expressFormData.parse(options)); // parse multipart/from-data request data
 app.use(expressFormData.format());
-app.use(bodyParser.json()); // parse json request data
-app.use(bodyParser.urlencoded({ extended: false })); // parse url encoded request data
+app.use(bodyParser.json({ limit: '50mb' })); // parse json request data
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: false })); // parse url encoded request data
 app.use(cookieParser());
 
 
 initPassport();
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -82,7 +82,7 @@ app.use(function(req, res, next) {
 
 mountRoutes(app);
 
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   if (err) {
     console.log(err);
     res.status(500);
@@ -109,7 +109,7 @@ app.listen(PORT, () => {
   // Run cron to auto-download video
   // VideoDownloader.download();
   // let randomMin = Math.floor(Math.random() * (5 - 1) ) + 1;
-  var j = schedule.scheduleJob(`*/3 * * * *`, function() {
+  var j = schedule.scheduleJob(`*/3 * * * *`, function () {
     console.log("excecuted cron job ");
     VideoDownloader.download();
   });
