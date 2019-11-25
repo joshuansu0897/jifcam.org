@@ -134,9 +134,11 @@ YoutubeVideos.prototype.processDownload = function(doc) {
                 }
             })
             .catch(err => {
+                console.log(err);
                 this.isLoading = false;
             });
     }
+    this.isLoading = false;
 };
 
 YoutubeVideos.prototype.uploadToAWSS3 = function(path, videoId) {
