@@ -2942,6 +2942,130 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Image",
+			"item": [
+				{
+					"name": "https://jifcam.org/api/images/upload",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ5b3V0dWJlQ2hhbm5lbCI6IiIsInJvbGUiOjAsInZlcmlmaWVkIjp0cnVlLCJub3RpZmljYXRpb25NYWlsIjpmYWxzZSwibm90aWZpY2F0aW9uTWVzc2FnZSI6ZmFsc2UsIm5vdGlmaWNhdGlvblB1c2giOmZhbHNlLCJub3RpZmljYXRpb25QdXNoVG9rZW4iOltdLCJ2aWRlb1VwbG9hZGVkIjpmYWxzZSwibWFpbFNlbmRlZCI6ZmFsc2UsImxhbmd1YWdlIjoiRW5nbGlzaCIsImtleXdvcmQiOiJtYWtldXAiLCJfaWQiOiI1ZGFiNjgwZmM3M2U2NjVkNTg5ZjIzOGUiLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwiZnVsbG5hbWUiOiJTdXBlciBBZG1pbiIsInVzZXJuYW1lIjoiU3VwZXJBZG1pbiIsInBhc3N3b3JkIjoiJDJiJDEyJGdROWo2RmFhUTIvQXI2WlRQZU5NZS42WjZBYXdST2dmRHdORWZVRWl6ZjZkYTVLaVBVSDhtIiwiYXZhdGFyIjoiL3N0YXRpYy9pbWFnZXMvYXZhdGFycy9kZWZhdWx0LnBuZyIsImxhc3RNYWlsIjoiMjAxOS0xMC0xOVQxOTo0NjoyMy40MzBaIiwiZm9sbG93aW5nIjpbXSwiZm9sbG93ZXJzIjpbeyJfaWQiOiI1ZGNjNTgzYmI4Y2Q2ZTRiZWU5OWM3NmQiLCJ1c2VyIjoiNWRjYzQ2MWU2YTQ0NDQ0OTNkZGI0MTczIn0seyJfaWQiOiI1ZGNjM2EzMTE4OTk5NDE3MzNlOWE1ZDUiLCJ1c2VyIjoiNWRjYzNhMjMxODk5OTQxNzMzZTlhNWQ0In0seyJfaWQiOiI1ZGNiMGY4YzdiZTgzYjdjODdhZmFlMjgiLCJ1c2VyIjoiNWRjYjBmNjc3YmU4M2I3Yzg3YWZhZTI3In0seyJfaWQiOiI1ZGNhZmYxZDUyMzg0NDdhN2UyMzdjZTQiLCJ1c2VyIjoiNWRjYWZlZWVhMzg5MjkxMzJjNjI4ZDBmIn0seyJfaWQiOiI1ZGM1ZTlhYTgxMDQxYzI3OTBiMzMxZTMiLCJ1c2VyIjoiNWRjNWU5NzRhNjlhMDQzNTU2NjM5MzM2In0seyJfaWQiOiI1ZGMzOTY0YmE2OWEwNDM1NTY2MzkzMDgiLCJ1c2VyIjoiNWRjMzkzNDNhNjlhMDQzNTU2NjM5MzA3In0seyJfaWQiOiI1ZGMzNjRmOWE2OWEwNDM1NTY2MzkzMDUiLCJ1c2VyIjoiNWRjMzY0ZTdhNjlhMDQzNTU2NjM5MzA0In0seyJfaWQiOiI1ZGMzNTIyOWE2OWEwNDM1NTY2MzkyZWMiLCJ1c2VyIjoiNWRjMzRmYjRhNjlhMDQzNTU2NjM5MmViIn0seyJfaWQiOiI1ZGMzM2YyNWE2OWEwNDM1NTY2MzkyYzkiLCJ1c2VyIjoiNWRjMzM5NjBhNjlhMDQzNTU2NjM5MmM4In0seyJfaWQiOiI1ZGMyNWE0ZGE2OWEwNDM1NTY2MzkyOTYiLCJ1c2VyIjoiNWRjMjVhNDBhNjlhMDQzNTU2NjM5Mjk1In0seyJfaWQiOiI1ZGMyNTczYWE2OWEwNDM1NTY2MzkyOTAiLCJ1c2VyIjoiNWRjMjU0YTZhNjlhMDQzNTU2NjM5MjgzIn0seyJfaWQiOiI1ZGJmODkzNTFlZTk5NjE5YTgzNDg3MjEiLCJ1c2VyIjoiNWRiZTQ5NGUxZWU5OTYxOWE4MzQ4NzE3In1dLCJjcmVhdGVkIjoiMjAxOS0xMC0xOVQxOTo0NjoyMy40MzFaIiwidXBkYXRlZCI6IjIwMTktMTEtMTNUMTk6MjM6MzkuMjc3WiIsIl9fdiI6MTIsImlhdCI6MTU3NDE4MzY0Mn0.2YT8khKrVeUCoZNDiHWz6pyY_z7gOSYH-q8lslWnKPc"
+							}
+						],
+						"url": {
+							"raw": "https://jifcam.org/api/images",
+							"protocol": "https",
+							"host": [
+								"jifcam",
+								"org"
+							],
+							"path": [
+								"api",
+								"images"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ5b3V0dWJlQ2hhbm5lbCI6IiIsInJvbGUiOjAsInZlcmlmaWVkIjp0cnVlLCJub3RpZmljYXRpb25NYWlsIjpmYWxzZSwibm90aWZpY2F0aW9uTWVzc2FnZSI6ZmFsc2UsIm5vdGlmaWNhdGlvblB1c2giOmZhbHNlLCJub3RpZmljYXRpb25QdXNoVG9rZW4iOltdLCJ2aWRlb1VwbG9hZGVkIjpmYWxzZSwibWFpbFNlbmRlZCI6ZmFsc2UsImxhbmd1YWdlIjoiRW5nbGlzaCIsImtleXdvcmQiOiJtYWtldXAiLCJfaWQiOiI1ZGFiNjgwZmM3M2U2NjVkNTg5ZjIzOGUiLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwiZnVsbG5hbWUiOiJTdXBlciBBZG1pbiIsInVzZXJuYW1lIjoiU3VwZXJBZG1pbiIsInBhc3N3b3JkIjoiJDJiJDEyJGdROWo2RmFhUTIvQXI2WlRQZU5NZS42WjZBYXdST2dmRHdORWZVRWl6ZjZkYTVLaVBVSDhtIiwiYXZhdGFyIjoiL3N0YXRpYy9pbWFnZXMvYXZhdGFycy9kZWZhdWx0LnBuZyIsImxhc3RNYWlsIjoiMjAxOS0xMC0xOVQxOTo0NjoyMy40MzBaIiwiZm9sbG93aW5nIjpbXSwiZm9sbG93ZXJzIjpbeyJfaWQiOiI1ZGNjNTgzYmI4Y2Q2ZTRiZWU5OWM3NmQiLCJ1c2VyIjoiNWRjYzQ2MWU2YTQ0NDQ0OTNkZGI0MTczIn0seyJfaWQiOiI1ZGNjM2EzMTE4OTk5NDE3MzNlOWE1ZDUiLCJ1c2VyIjoiNWRjYzNhMjMxODk5OTQxNzMzZTlhNWQ0In0seyJfaWQiOiI1ZGNiMGY4YzdiZTgzYjdjODdhZmFlMjgiLCJ1c2VyIjoiNWRjYjBmNjc3YmU4M2I3Yzg3YWZhZTI3In0seyJfaWQiOiI1ZGNhZmYxZDUyMzg0NDdhN2UyMzdjZTQiLCJ1c2VyIjoiNWRjYWZlZWVhMzg5MjkxMzJjNjI4ZDBmIn0seyJfaWQiOiI1ZGM1ZTlhYTgxMDQxYzI3OTBiMzMxZTMiLCJ1c2VyIjoiNWRjNWU5NzRhNjlhMDQzNTU2NjM5MzM2In0seyJfaWQiOiI1ZGMzOTY0YmE2OWEwNDM1NTY2MzkzMDgiLCJ1c2VyIjoiNWRjMzkzNDNhNjlhMDQzNTU2NjM5MzA3In0seyJfaWQiOiI1ZGMzNjRmOWE2OWEwNDM1NTY2MzkzMDUiLCJ1c2VyIjoiNWRjMzY0ZTdhNjlhMDQzNTU2NjM5MzA0In0seyJfaWQiOiI1ZGMzNTIyOWE2OWEwNDM1NTY2MzkyZWMiLCJ1c2VyIjoiNWRjMzRmYjRhNjlhMDQzNTU2NjM5MmViIn0seyJfaWQiOiI1ZGMzM2YyNWE2OWEwNDM1NTY2MzkyYzkiLCJ1c2VyIjoiNWRjMzM5NjBhNjlhMDQzNTU2NjM5MmM4In0seyJfaWQiOiI1ZGMyNWE0ZGE2OWEwNDM1NTY2MzkyOTYiLCJ1c2VyIjoiNWRjMjVhNDBhNjlhMDQzNTU2NjM5Mjk1In0seyJfaWQiOiI1ZGMyNTczYWE2OWEwNDM1NTY2MzkyOTAiLCJ1c2VyIjoiNWRjMjU0YTZhNjlhMDQzNTU2NjM5MjgzIn0seyJfaWQiOiI1ZGJmODkzNTFlZTk5NjE5YTgzNDg3MjEiLCJ1c2VyIjoiNWRiZTQ5NGUxZWU5OTYxOWE4MzQ4NzE3In1dLCJjcmVhdGVkIjoiMjAxOS0xMC0xOVQxOTo0NjoyMy40MzFaIiwidXBkYXRlZCI6IjIwMTktMTEtMTNUMTk6MjM6MzkuMjc3WiIsIl9fdiI6MTIsImlhdCI6MTU3NDE4MzY0Mn0.2YT8khKrVeUCoZNDiHWz6pyY_z7gOSYH-q8lslWnKPc",
+										"warning": ""
+									}
+								],
+								"url": {
+									"raw": "https://jifcam.org/api/videos/upload",
+									"protocol": "https",
+									"host": [
+										"jifcam",
+										"org"
+									],
+									"path": [
+										"api",
+										"videos"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "access-control-allow-headers",
+									"value": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+									"name": "access-control-allow-headers",
+									"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "POST, PUT, GET, OPTIONS, DELETE, PATCH",
+									"name": "access-control-allow-methods",
+									"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*",
+									"name": "access-control-allow-origin",
+									"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+								},
+								{
+									"key": "connection",
+									"value": "keep-alive",
+									"name": "connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "content-length",
+									"value": "16902",
+									"name": "content-length",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8",
+									"name": "content-type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "date",
+									"value": "Tue, 19 Nov 2019 17:28:18 GMT",
+									"name": "date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"4206-Enw1LChAtxgRJMRrx14PQO9sJ70\"",
+									"name": "etag",
+									"description": "An identifier for a specific version of a resource, often a message digest"
+								},
+								{
+									"key": "server",
+									"value": "nginx/1.14.0 (Ubuntu)",
+									"name": "server",
+									"description": "A name for the server"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express",
+									"name": "x-powered-by",
+									"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+								}
+							],
+							"cookie": [],
+							"body": "{ \"filename\": \"cat.jepg\", \"encode\": \"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\" }"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}

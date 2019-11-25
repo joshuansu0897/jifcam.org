@@ -19,7 +19,6 @@ function ImageController() {
  * @apiSuccess {String} filename > soon
  * @apiSuccess {String} encode > soon
  *
- * @apiError (Error 4xx) IncorectCredetials Video with sended email not found
  * @apiError (Error 4xx) FieledAuthetication Fieled Creating
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
