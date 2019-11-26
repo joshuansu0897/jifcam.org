@@ -164,7 +164,7 @@ class TableListComponent extends Component {
                 </div>
                 <button className="btn" onClick={handleClickGo}> GO </button>
             </div>
-            <div className="cal s10">
+            <div className="cal s8">
                 <table>
                     <thead>
                         <tr>
@@ -200,11 +200,11 @@ class TableListComponent extends Component {
                                 </td>
                                 <td> <img className="avatar-profile-table" src={user.avatar} /> </td>
                                 <td> {user.fullname} </td>
-                                <td className="btn" onClick={() => {
-                                    this.userSuspend(user)
-                                }}>
-                                    Suspend
-                            </td>
+                                <td>
+                                    <label className="btn" onClick={() => {
+                                        this.userSuspend(user)
+                                    }}> Suspend </label>
+                                </td>
                                 <td> {user.username} </td>
                                 <td> {user.verified ? <i className="material-icons" style={{ color: "green" }}>verified_user</i> : <i className="material-icons" style={{ color: "red" }}>cancel</i>} </td>
                                 <td> {user.validationCode ? user.validationCode : ""} </td>
