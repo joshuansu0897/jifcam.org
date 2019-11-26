@@ -56,7 +56,7 @@ function UserModel() {
     updated: { type: Date, default: Date.now }
   });
 
-  this.schema.pre(["save", "updateOne", "update"], function(next) {
+  this.schema.pre(["save", "updateOne", "update"], function (next) {
     // handling adding and updating data to db
     const user = this;
     //console.log(this, this.isModified, salt);
@@ -70,13 +70,13 @@ function UserModel() {
       }
     }
 
-    bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+    bcrypt.genSalt(SALT_FACTOR, function (err, salt) {
       // ganarate hash for password and save hash in db instead of password
       if (err) {
         return next(err);
       }
 
-      bcrypt.hash(user.password, salt, function(err, hash) {
+      bcrypt.hash(user.password, salt, function (err, hash) {
         if (err) {
           return next(err);
         }
@@ -86,7 +86,7 @@ function UserModel() {
     });
   });
 
-  this.schema.methods.comparePassword = function(candidatePassword, next) {
+  this.schema.methods.comparePassword = function (candidatePassword, next) {
     // add to user model function comparing passwords
     bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
       if (err) {
@@ -136,7 +136,7 @@ function UserModel() {
 /**
  * checkCredantial Method
  */
-UserModel.prototype.checkCredantial = function(email, password) {
+UserModel.prototype.checkCredantial = function (email, password) {
   let promise = new Promise((resolve, reject) => {
     this.modelDB
       .findOne({ $or: [{ email: email }, { username: email }] })
@@ -166,7 +166,7 @@ UserModel.prototype.checkCredantial = function(email, password) {
 /**
  * checkSuperAdmin Method
  */
-UserModel.prototype.checkSuperAdmin = function(config) {
+UserModel.prototype.checkSuperAdmin = function (config) {
   let _this = this;
   let promise = new Promise((resolve, reject) => {
     async.waterfall(
@@ -179,7 +179,7 @@ UserModel.prototype.checkSuperAdmin = function(config) {
                 { email: config.SUPERADMIN_EMAIL }
               ]
             },
-            function(err, doc) {
+            function (err, doc) {
               if (err) {
                 callback(null, null);
               } else {
@@ -202,7 +202,7 @@ UserModel.prototype.checkSuperAdmin = function(config) {
                 avatar: "/static/images/avatars/default.png",
                 verified: true
               },
-              function(err, res) {
+              function (err, res) {
                 if (err) {
                   callback(err, null);
                 } else {
@@ -221,7 +221,7 @@ UserModel.prototype.checkSuperAdmin = function(config) {
           }
         }
       ],
-      function(error, result) {
+      function (error, result) {
         if (error) {
           reject(error);
         } else {
@@ -237,7 +237,7 @@ UserModel.prototype.checkSuperAdmin = function(config) {
 /**
  * update Method
  */
-UserModel.prototype.update = function(userId, data) {
+UserModel.prototype.update = function (userId, data) {
   var promise = new Promise((resolve, reject) => {
     async.waterfall(
       [
@@ -258,7 +258,7 @@ UserModel.prototype.update = function(userId, data) {
           });
         }
       ],
-      function(err, result) {
+      function (err, result) {
         if (err) {
           reject(err);
         } else {
@@ -274,10 +274,10 @@ UserModel.prototype.update = function(userId, data) {
 /**
  * updateAvatar Method
  */
-UserModel.prototype.updateAvatar = function(id, avatar) {
+UserModel.prototype.updateAvatar = function (id, avatar) {
   var _this = this;
   let promise = new Promise((resolve, reject) => {
-    _this.modelDB.updateOne({ _id: id }, { avatar: avatar }, function(
+    _this.modelDB.updateOne({ _id: id }, { avatar: avatar }, function (
       err,
       doc
     ) {
@@ -295,7 +295,7 @@ UserModel.prototype.updateAvatar = function(id, avatar) {
 /**
  * countingVerified Method
  */
-UserModel.prototype.countingVerified = function() {
+UserModel.prototype.countingVerified = function () {
   let verified = 0;
   let notVerified = 0;
   let listCallbacks = [
@@ -311,7 +311,7 @@ UserModel.prototype.countingVerified = function() {
     }
   ];
   var promise = new Promise((resolve, reject) => {
-    async.waterfall(listCallbacks, function(err, result) {
+    async.waterfall(listCallbacks, function (err, result) {
       if (err) {
         reject(err);
       } else {
@@ -326,13 +326,13 @@ UserModel.prototype.countingVerified = function() {
 /**
  * create Method
  */
-UserModel.prototype.create = function(data) {
+UserModel.prototype.create = function (data) {
   var _this = this;
   let listCallbacks = [
-    function(callback) {
+    function (callback) {
       Joi.validate(data, _this.validator, callback);
     },
-    function(data, callback) {
+    function (data, callback) {
       _this.modelDB.find(
         {
           username: {
@@ -340,7 +340,7 @@ UserModel.prototype.create = function(data) {
             $options: "i"
           }
         },
-        function(err, docs) {
+        function (err, docs) {
           console.log(err, docs);
           if (err) {
             callback(null, data);
@@ -365,14 +365,14 @@ UserModel.prototype.create = function(data) {
         }
       );
     },
-    function(data, callback) {
+    function (data, callback) {
       //data.username = List
       data.validationCode = uniqid.time().substr(-4);
       _this.modelDB.create(data, callback);
     }
   ];
   let promise = new Promise((resolve, reject) => {
-    async.waterfall(listCallbacks, function(error, result) {
+    async.waterfall(listCallbacks, function (error, result) {
       if (error) {
         if (error.code === 11000) {
           reject(new Error("UniqueDublication"));
@@ -391,11 +391,11 @@ UserModel.prototype.create = function(data) {
 /**
  * signup Method
  */
-UserModel.prototype.signup = function(email, password, deviceId) {
+UserModel.prototype.signup = function (email, password, deviceId) {
   console.log("here i am in signup");
   var _this = this;
   let listCallbacks = [
-    function(callback) {
+    function (callback) {
       Joi.validate(
         {
           email: email,
@@ -405,12 +405,12 @@ UserModel.prototype.signup = function(email, password, deviceId) {
         callback
       );
     },
-    function(data, callback) {
+    function (data, callback) {
       _this.modelDB.findOne(
         {
           email: data.email
         },
-        function(err, res) {
+        function (err, res) {
           console.log("RUNNING FUNCTION");
           console.log("RES", res);
           if (err) {
@@ -429,7 +429,7 @@ UserModel.prototype.signup = function(email, password, deviceId) {
         }
       );
     },
-    function(data, callback) {
+    function (data, callback) {
       if (!data) {
         _this.modelDB.create(
           {
@@ -444,7 +444,7 @@ UserModel.prototype.signup = function(email, password, deviceId) {
     }
   ];
   let promise = new Promise((resolve, reject) => {
-    async.waterfall(listCallbacks, function(error, result) {
+    async.waterfall(listCallbacks, function (error, result) {
       if (error) {
         console.log("ERROR IN FUNCTION", error);
         if (error.code === 11000) {
@@ -464,9 +464,9 @@ UserModel.prototype.signup = function(email, password, deviceId) {
 /**
  * oneByCode Method
  */
-UserModel.prototype.oneByCode = function(code) {
+UserModel.prototype.oneByCode = function (code) {
   let promise = new Promise((resolve, reject) => {
-    this.modelDB.findOne({ validationCode: code }, function(err, res) {
+    this.modelDB.findOne({ validationCode: code }, function (err, res) {
       if (err) {
         reject(err);
       } else {
@@ -481,10 +481,10 @@ UserModel.prototype.oneByCode = function(code) {
 /**
  * oneByUsername Method
  */
-UserModel.prototype.oneByUsername = function(username) {
+UserModel.prototype.oneByUsername = function (username) {
   let promise = new Promise((resolve, reject) => {
     console.log("username", username);
-    this.modelDB.findOne({ username: username }, function(err, res) {
+    this.modelDB.findOne({ username: username }, function (err, res) {
       if (err) {
         reject(err);
       } else {
@@ -499,14 +499,14 @@ UserModel.prototype.oneByUsername = function(username) {
 /**
  * oneVerified Method
  */
-UserModel.prototype.oneVerified = function(code, username) {
+UserModel.prototype.oneVerified = function (code, username) {
   let promise = new Promise((resolve, reject) => {
     this.modelDB.findOne(
       {
         validationCode: code,
         username: { $regex: new RegExp("^" + username.toLowerCase(), "i") }
       },
-      function(err, res) {
+      function (err, res) {
         if (err) {
           reject(err);
         } else {
@@ -522,17 +522,17 @@ UserModel.prototype.oneVerified = function(code, username) {
 /**
  * verify Method
  */
-UserModel.prototype.verify = function(id, data) {
+UserModel.prototype.verify = function (id, data) {
   const _this = this;
   let promise = new Promise((resolve, reject) => {
     this.modelDB.updateOne(
       { _id: id, validationCode: data.code },
       { verified: true },
-      function(err, doc) {
+      function (err, doc) {
         if (err) {
           reject(err);
         } else {
-          _this.modelDB.findById(id, function(err, result) {
+          _this.modelDB.findById(id, function (err, result) {
             resolve(result);
           });
         }
@@ -546,7 +546,7 @@ UserModel.prototype.verify = function(id, data) {
 /**
  * list Method
  */
-UserModel.prototype.list = function(offset, limit) {
+UserModel.prototype.list = function (offset, limit) {
   let queryCount = this.modelDB.where({}).countDocuments();
   let queryFind = this.modelDB
     .find({})
@@ -585,7 +585,7 @@ UserModel.prototype.list = function(offset, limit) {
           callback(null, data);
         }
       ],
-      function(err, result) {
+      function (err, result) {
         if (err) {
           reject(err);
         } else {
@@ -601,7 +601,7 @@ UserModel.prototype.list = function(offset, limit) {
 /**
  * removeMany Method
  */
-UserModel.prototype.removeMany = function(ids) {
+UserModel.prototype.removeMany = function (ids) {
   let videos = new VideoModel();
 
   let promise = new Promise((resolve, reject) => {
@@ -633,7 +633,7 @@ UserModel.prototype.removeMany = function(ids) {
               this.modelDB.deleteOne({ _id: id }, callback);
             }
           ],
-          function(err, result) {
+          function (err, result) {
             if (err) {
               _cb(err);
             } else {
@@ -642,7 +642,7 @@ UserModel.prototype.removeMany = function(ids) {
           }
         );
       },
-      function(err) {
+      function (err) {
         if (err) {
           reject(err);
         } else {
@@ -666,10 +666,10 @@ UserModel.prototype.removeMany = function(ids) {
 /**
  * one Method
  */
-UserModel.prototype.one = function(id) {
+UserModel.prototype.one = function (id) {
   let promise = new Promise((resolve, reject) => {
     if (mongoose.Types.ObjectId.isValid(id)) {
-      this.modelDB.findOne({ _id: id }, function(err, doc) {
+      this.modelDB.findOne({ _id: id }, function (err, doc) {
         if (err) {
           reject(err);
         } else {
@@ -677,7 +677,7 @@ UserModel.prototype.one = function(id) {
         }
       });
     } else {
-      this.modelDB.findOne({ username: id }, function(err, doc) {
+      this.modelDB.findOne({ username: id }, function (err, doc) {
         if (err) {
           reject(err);
         } else {
@@ -693,7 +693,7 @@ UserModel.prototype.one = function(id) {
 /**
  * send notification Method
  */
-UserModel.prototype.notify = function(user, { title, body }) {
+UserModel.prototype.notify = function (user, { title, body }) {
   /**
    * ? TODO :
    *
@@ -726,7 +726,7 @@ UserModel.prototype.notify = function(user, { title, body }) {
 /**
  * follow method
  */
-UserModel.prototype.follow = function(user, targetId) {
+UserModel.prototype.follow = function (user, targetId) {
   let _this = this;
   let promise = new Promise((resolve, reject) => {
     if (mongoose.Types.ObjectId.isValid(targetId)) {
@@ -736,7 +736,7 @@ UserModel.prototype.follow = function(user, targetId) {
         });
       }
 
-      _this.modelDB.findOne({ _id: targetId }, function(err, target) {
+      _this.modelDB.findOne({ _id: targetId }, function (err, target) {
         if (err) {
           reject(err);
 
@@ -772,7 +772,7 @@ UserModel.prototype.follow = function(user, targetId) {
           );
         }
 
-        _this.modelDB.findOne({ _id: user._id }, function(err, current) {
+        _this.modelDB.findOne({ _id: user._id }, function (err, current) {
           if (err) {
             reject(err);
 
@@ -807,7 +807,7 @@ UserModel.prototype.follow = function(user, targetId) {
 /**
  * unfollow method
  */
-UserModel.prototype.unfollow = function(user, targetId) {
+UserModel.prototype.unfollow = function (user, targetId) {
   let _this = this;
   let promise = new Promise((resolve, reject) => {
     if (mongoose.Types.ObjectId.isValid(targetId)) {
@@ -817,7 +817,7 @@ UserModel.prototype.unfollow = function(user, targetId) {
         });
       }
 
-      _this.modelDB.findOne({ _id: targetId }, function(err, target) {
+      _this.modelDB.findOne({ _id: targetId }, function (err, target) {
         if (err) {
           reject(err);
 
@@ -858,7 +858,7 @@ UserModel.prototype.unfollow = function(user, targetId) {
         //   console.log(`This user [@${target.username}] doesn't have a notification push token`)
         // }
 
-        _this.modelDB.findOne({ _id: user._id }, function(err, current) {
+        _this.modelDB.findOne({ _id: user._id }, function (err, current) {
           if (err) {
             reject(err);
 
@@ -904,12 +904,17 @@ UserModel.prototype.unfollow = function(user, targetId) {
 /**
  * videos list of following user's
  */
-UserModel.prototype.videoList = function(user, targetId) {
+UserModel.prototype.videoList = function (user, targetId) {
   videoModel = new VideoModel();
   let _this = this;
+
+  if (user.suspend) {
+    return
+  }
+
   let promise = new Promise((resolve, reject) => {
     if (mongoose.Types.ObjectId.isValid(targetId)) {
-      _this.modelDB.findOne({ _id: targetId }, function(err, target) {
+      _this.modelDB.findOne({ _id: targetId }, function (err, target) {
         if (err) {
           reject(err);
           return false;
@@ -923,7 +928,7 @@ UserModel.prototype.videoList = function(user, targetId) {
           let limit = 25;
           videoModel
             .list(target, limit)
-            .then(function(list) {
+            .then(function (list) {
               resolve({ videos_list: list });
               return true;
             })
@@ -948,24 +953,24 @@ UserModel.prototype.videoList = function(user, targetId) {
 /**
  * list of followings
  */
-UserModel.prototype.followersList = function(userId) {
+UserModel.prototype.followersList = function (userId) {
   videoModel = new VideoModel();
   let _this = this;
   let promise = new Promise((resolve, reject) => {
     if (mongoose.Types.ObjectId.isValid(userId)) {
       _this.modelDB.findOne({ _id: userId })
-      .populate({
-        path: 'following.user',
-        select: 'email avatar username youtubeChannel language keyword fullname',
-      }).exec(function(err, userInfo) {
+        .populate({
+          path: 'following.user',
+          select: 'email avatar username youtubeChannel language keyword fullname',
+        }).exec(function (err, userInfo) {
           if (err) {
-          reject(err);
-          return false;
-        } else {
-          resolve({ followings: userInfo.following });
-          return true;
-        }
-      });
+            reject(err);
+            return false;
+          } else {
+            resolve({ followings: userInfo.following });
+            return true;
+          }
+        });
     }
   });
   return promise;
