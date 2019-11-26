@@ -155,75 +155,79 @@ class TableListComponent extends Component {
             pages.push(i + 1);
         }
         return (<div>
-            <div className="input-field inline" style={{ minWidth: '255px' }}>
-                <select defaultValue="" onChange={handleChnageSelect}>
-                    <option value="" disabled > --------- Choose Action -------</option>
-                    <option value="remove">Remove</option>
-                </select>
+            <div className="cal s12">
+                <div className="input-field inline" style={{ minWidth: '255px' }}>
+                    <select defaultValue="" onChange={handleChnageSelect}>
+                        <option value="" disabled > --------- Choose Action -------</option>
+                        <option value="remove">Remove</option>
+                    </select>
+                </div>
+                <button className="btn" onClick={handleClickGo}> GO </button>
             </div>
-            <button className="btn" onClick={handleClickGo}> GO </button>
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            <label>
-                                <input type="checkbox" checked={selectAll} className="filled-in" onChange={this.selectAll.bind(this)} />
-                                <span></span>
-                            </label>
-                        </th>
-                        <th> Avatar </th>
-                        <th> Fullname </th>
-                        <th> Status </th>
-                        <th> Username </th>
-                        <th> Is Verified </th>
-                        <th> Code </th>
-                        <th> Lenguage </th>
-                        <th> Category </th>
-                        <th> Email Address </th>
-                        <th> Number of followers </th>
-                        <th> Notifications Enabled </th>
-                        <th> YT Video </th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {list.map((user) => {
-                        return <tr key={user._id}>
-                            <td>
+            <div className="cal s10">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
                                 <label>
-                                    <input type="checkbox" className="filled-in" checked={checked[user._id] ? true : false} onChange={this.handleTableCheckboxClick(user)} />
+                                    <input type="checkbox" checked={selectAll} className="filled-in" onChange={this.selectAll.bind(this)} />
                                     <span></span>
                                 </label>
-                            </td>
-                            <td> <img className="avatar-profile-table" src={user.avatar} /> </td>
-                            <td> {user.fullname} </td>
-                            <td className="btn" onClick={() => {
-                                this.userSuspend(user)
-                            }}>
-                                Suspend
-                            </td>
-                            <td> {user.username} </td>
-                            <td> {user.verified ? <i className="material-icons" style={{ color: "green" }}>verified_user</i> : <i className="material-icons" style={{ color: "red" }}>cancel</i>} </td>
-                            <td> {user.validationCode ? user.validationCode : ""} </td>
-                            <td> {user.language} </td>
-                            <td> {user.keyword} </td>
-                            <td> {user.email} </td>
-                            <td> {(user.followers || []).length} </td>
-                            <td> {user.notificationPush ? <i className="material-icons" style={{ color: "green" }}>verified_user</i> : <i className="material-icons" style={{ color: "red" }}>cancel</i>} </td>
-                            <td> <Link to={"/admin/users/" + user._id + "/videos"}>{user.video}</Link> </td>
+                            </th>
+                            <th> Avatar </th>
+                            <th> Fullname </th>
+                            <th> Status </th>
+                            <th> Username </th>
+                            <th> Is Verified </th>
+                            <th> Code </th>
+                            <th> Lenguage </th>
+                            <th> Category </th>
+                            <th> Email Address </th>
+                            <th> Number of followers </th>
+                            <th> Notifications Enabled </th>
+                            <th> YT Video </th>
                         </tr>
-                    })}
-                </tbody>
-            </table>
-            {all > limit ? (<ul className="pagination" >
-                <li className={(active - 1) > 0 ? "waves-effect" : "disabled"} onClick={this.handleChangePage((active - 1) > 0 ? (active - 1) : 0)}><a ><i className="material-icons">chevron_left</i></a></li>
-                {pages.map((item) => {
-                    return <li key={item} className={item === active ? "active" : "waves-effect"} onClick={this.handleChangePage(item)}><a>{item}</a></li>
-                })}
-                <li className={active < pagesNum ? "waves-effect" : "disabled"} onClick={this.handleChangePage(active < pagesNum ? (active + 1) : pagesNum)}><a ><i className="material-icons">chevron_right</i></a></li>
-            </ul>) : (<div></div>)}
+                    </thead>
 
-            {showConfirmAction ? <PopUpConfirmAction action={actionName} count={countItems} onClose={handleClose} onSubmit={handleSubmit} /> : <span></span>}
+                    <tbody>
+                        {list.map((user) => {
+                            return <tr key={user._id}>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" className="filled-in" checked={checked[user._id] ? true : false} onChange={this.handleTableCheckboxClick(user)} />
+                                        <span></span>
+                                    </label>
+                                </td>
+                                <td> <img className="avatar-profile-table" src={user.avatar} /> </td>
+                                <td> {user.fullname} </td>
+                                <td className="btn" onClick={() => {
+                                    this.userSuspend(user)
+                                }}>
+                                    Suspend
+                            </td>
+                                <td> {user.username} </td>
+                                <td> {user.verified ? <i className="material-icons" style={{ color: "green" }}>verified_user</i> : <i className="material-icons" style={{ color: "red" }}>cancel</i>} </td>
+                                <td> {user.validationCode ? user.validationCode : ""} </td>
+                                <td> {user.language} </td>
+                                <td> {user.keyword} </td>
+                                <td> {user.email} </td>
+                                <td> {(user.followers || []).length} </td>
+                                <td> {user.notificationPush ? <i className="material-icons" style={{ color: "green" }}>verified_user</i> : <i className="material-icons" style={{ color: "red" }}>cancel</i>} </td>
+                                <td> <Link to={"/admin/users/" + user._id + "/videos"}>{user.video}</Link> </td>
+                            </tr>
+                        })}
+                    </tbody>
+                </table>
+                {all > limit ? (<ul className="pagination" >
+                    <li className={(active - 1) > 0 ? "waves-effect" : "disabled"} onClick={this.handleChangePage((active - 1) > 0 ? (active - 1) : 0)}><a ><i className="material-icons">chevron_left</i></a></li>
+                    {pages.map((item) => {
+                        return <li key={item} className={item === active ? "active" : "waves-effect"} onClick={this.handleChangePage(item)}><a>{item}</a></li>
+                    })}
+                    <li className={active < pagesNum ? "waves-effect" : "disabled"} onClick={this.handleChangePage(active < pagesNum ? (active + 1) : pagesNum)}><a ><i className="material-icons">chevron_right</i></a></li>
+                </ul>) : (<div></div>)}
+
+                {showConfirmAction ? <PopUpConfirmAction action={actionName} count={countItems} onClose={handleClose} onSubmit={handleSubmit} /> : <span></span>}
+            </div>
         </div>);
     }
 }
