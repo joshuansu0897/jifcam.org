@@ -147,7 +147,6 @@ class TableListComponent extends Component {
 
         let handleChnageSelect = this.handleChnageSelect.bind(this);
         let handleClickGo = this.handleClickGo.bind(this);
-        let suspendUser = this.suspendUser.bind(this);
         let handleClose = this.handleClose.bind(this);
         let handleSubmit = this.handleSubmit.bind(this);
 
@@ -199,7 +198,7 @@ class TableListComponent extends Component {
                             <td> <img className="avatar-profile-table" src={user.avatar} /> </td>
                             <td> {user.fullname} </td>
                             <td>
-                                <button className="btn" onClick={suspendUser(user)}> Suspend </button>
+                                <button className="btn" onClick={this.suspendUser(user)}> Suspend </button>
                             </td>
                             <td> {user.username} </td>
                             <td> {user.verified ? <i className="material-icons" style={{ color: "green" }}>verified_user</i> : <i className="material-icons" style={{ color: "red" }}>cancel</i>} </td>
