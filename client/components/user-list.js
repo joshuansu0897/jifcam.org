@@ -197,12 +197,10 @@ class TableListComponent extends Component {
                             </td>
                             <td> <img className="avatar-profile-table" src={user.avatar} /> </td>
                             <td> {user.fullname} </td>
-                            <td>
-                                <span className="btn2" onClick={() => {
-                                    this.userSuspend(user)
-                                }}>
-                                    Suspend
-                              </span>
+                            <td className="btn" onClick={() => {
+                                this.userSuspend(user)
+                            }}>
+                                Suspend
                             </td>
                             <td> {user.username} </td>
                             <td> {user.verified ? <i className="material-icons" style={{ color: "green" }}>verified_user</i> : <i className="material-icons" style={{ color: "red" }}>cancel</i>} </td>
