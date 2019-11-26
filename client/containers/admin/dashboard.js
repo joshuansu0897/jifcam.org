@@ -91,7 +91,7 @@ class DashboardPage extends Component {
                                     </span>{" "}
                                 </h5>{" "}
                             </div>
-                            <div className="col s12">
+                            <div className="col s10">
                                 <TableListComponent
                                     list={list}
                                     offset={offset}
