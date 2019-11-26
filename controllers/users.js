@@ -1026,6 +1026,14 @@ UserController.prototype.videoList = function (req, res, next) {
     .one(userId)
     .then(result => {
       if (result) {
+        if (result.suspend == null || result.suspend == undefined) {
+          result.suspend = false
+        }
+
+        if (result.suspend) {
+          return
+        }
+
         this.model
           .videoList(result, following)
           .then(doc => {

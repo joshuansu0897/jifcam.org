@@ -43,7 +43,7 @@ function VideoController() {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-VideoController.prototype.list = function(req, res, next) {
+VideoController.prototype.list = function (req, res, next) {
   console.log(" request List ");
 
   var Res = new ResponseHelper.Response(res);
@@ -91,7 +91,7 @@ VideoController.prototype.list = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-VideoController.prototype.masterList = async function(req, res, next) {
+VideoController.prototype.masterList = async function (req, res, next) {
   console.log(" request List ");
 
   var Res = new ResponseHelper.Response(res);
@@ -103,15 +103,20 @@ VideoController.prototype.masterList = async function(req, res, next) {
   console.log(limit, skip);
   this.model
     .masterList(limit, skip)
-    .then( async (result) => {
+    .then(async (result) => {
       let resultNew = new Array();
       const userModel = new UserModel();
-      for(let i = 0; i < result.length; i++ ){
+      for (let i = 0; i < result.length; i++) {
         let res = await userModel.one(result[i].user)
         let tmp = Object.assign({}, result[i]._doc)
-        tmp.channelName = res.fullname 
-        resultNew.push(tmp)
+        tmp.channelName = res.fullname
+        if (res.suspend == null || res.suspend == undefined) {
+          res.suspend = false
         }
+        if (!res.suspend) {
+          resultNew.push(tmp)
+        }
+      }
       Res.setData(resultNew);
       Res.send();
     })
@@ -151,7 +156,7 @@ VideoController.prototype.masterList = async function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-VideoController.prototype.createDummy = function(req, res, next) {
+VideoController.prototype.createDummy = function (req, res, next) {
   console.log("create dummy");
   var Res = new ResponseHelper.Response(res);
   this.model
@@ -196,7 +201,7 @@ VideoController.prototype.createDummy = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-VideoController.prototype.create = function(req, res, next) {
+VideoController.prototype.create = function (req, res, next) {
   console.log("create video");
   var Res = new ResponseHelper.Response(res);
   this.model
@@ -241,7 +246,7 @@ VideoController.prototype.create = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-VideoController.prototype.update = function(req, res, next) {
+VideoController.prototype.update = function (req, res, next) {
   console.log("update video");
   var Res = new ResponseHelper.Response(res);
   this.model
@@ -277,7 +282,7 @@ VideoController.prototype.update = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-VideoController.prototype.like = async function(req, res, next) {
+VideoController.prototype.like = async function (req, res, next) {
   console.log("like video");
   var Res = new ResponseHelper.Response(res);
   const likeModel = new LikeModel();
@@ -326,7 +331,7 @@ VideoController.prototype.like = async function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-VideoController.prototype.remove = function(req, res, next) {
+VideoController.prototype.remove = function (req, res, next) {
   console.log("remove video");
   var Res = new ResponseHelper.Response(res);
   this.model
@@ -371,7 +376,7 @@ VideoController.prototype.remove = function(req, res, next) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-VideoController.prototype.setDefaultThumbnail = function(req, res) {
+VideoController.prototype.setDefaultThumbnail = function (req, res) {
   console.log("[#] set default thumbnail");
   const missing = getMissingFields(req.body, ['thumbnail']);
   if (missing.length > 0) {
@@ -413,11 +418,11 @@ VideoController.prototype.setDefaultThumbnail = function(req, res) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-VideoController.prototype.getDefaultThumbnail = function(req, res) {
+VideoController.prototype.getDefaultThumbnail = function (req, res) {
   var Res = new ResponseHelper.Response(res);
   var videoId = req.params.videoId;
   this.model.one(videoId).then(result => {
-    if(!result.defaultThumbnail){
+    if (!result.defaultThumbnail) {
       result.defaultThumbnail = result.thumbnails.length > 0 ? result.thumbnails[1] : '';
     }
     Res.setData(result.defaultThumbnail);
@@ -454,7 +459,7 @@ VideoController.prototype.getDefaultThumbnail = function(req, res) {
  * @apiError (Error 5xx) ServerError Unexpected server error
  *
  */
-VideoController.prototype.getFollowingVideos = async function(req, res) {
+VideoController.prototype.getFollowingVideos = async function (req, res) {
   console.log("[#] get fo Following");
   const ObjectId = mongoose.Types.ObjectId
   var Res = new ResponseHelper.Response(res);
@@ -462,10 +467,10 @@ VideoController.prototype.getFollowingVideos = async function(req, res) {
   let user = await userModel.one(req.params.userId);
   const userList = new Array()
   let followingLength = user.following.length;
-  for( var i = 0; i < followingLength; i++){
+  for (var i = 0; i < followingLength; i++) {
     userList.push(ObjectId(user.following[i].user))
   }
-  
+
   try {
     const videos = await this.model.findList(userList)
     console.log(videos)
@@ -478,7 +483,7 @@ VideoController.prototype.getFollowingVideos = async function(req, res) {
   }
 };
 
-VideoController.prototype.router = function() {
+VideoController.prototype.router = function () {
   let router = Router();
 
   router.get(
