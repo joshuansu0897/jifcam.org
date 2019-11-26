@@ -1,7 +1,7 @@
 .admin-header .brand-logo {
   margin-left: 10px;
 }
-.admin-header .btn .material-icons {
+.admin-header .btn .material-icons .btn2 {
   display: inline-block;
   vertical-align: bottom;
 }
@@ -160,6 +160,11 @@ table .avatar-profile-table {
   vertical-align: bottom;
   margin-left: 5px;
   margin-right: 5px;
+}
+.btn2  {
+  vertical-align: bottom;
+  margin-left: 1px;
+  margin-right: 1px;
 }
 .rightArrow {
   position: absolute;
