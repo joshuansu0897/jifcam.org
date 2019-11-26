@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import Moment from 'moment';
 
 const MasterVideoListView = props => {
   const element = React.useRef(null);
@@ -120,7 +121,7 @@ const MasterVideoListView = props => {
                       <div className="videoCardTitle">{video.title}</div>
                     </div>
                     <div className="videoCardFooterTitle">{video.channelName}</div>
-                    <div className="videoCardFooterTitle">{video.created}</div>
+                    <div className="videoCardFooterTitle">{Moment(video.create).format('d MMM')}</div>
                     <div
                       style={{
                         margin: "10px"
