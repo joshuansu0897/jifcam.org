@@ -120,7 +120,7 @@ const MasterVideoListView = props => {
                       <div className="videoCardTitle">{video.title}</div>
                     </div>
                     <div className="videoCardFooterTitle">{video.channelName}</div>
-                    <div className="videoCardFooterTitle">{Moment(video.create).format('d MMM YYYY')}</div>
+                    <div className="videoCardFooterTitle">{Moment(video.uploadDate).format('d MMM YYYY')}</div>
                     <div
                       style={{
                         margin: "10px"
