@@ -134,6 +134,8 @@ class TableListComponent extends Component {
     }
 
     async userSuspend(user) {
+        console.log(user)
+        return
         try {
             const res = await axios.put(`/api/users/${user._id}`, {
                 suspend: !user.suspend
@@ -206,9 +208,9 @@ class TableListComponent extends Component {
                                 <td> <img className="avatar-profile-table" src={user.avatar} /> </td>
                                 <td> {user.fullname} </td>
                                 <td>
-                                    <button className="btn" onClick={() => {
-                                        this.userSuspend(user)
-                                    }}> {user.suspend ? "Activate" : "Suspend"} </button>
+                                    <button className="btn" onClick={() => { this.userSuspend(user) }}>
+                                        Suspend
+                                    </button>
                                 </td>
                                 <td> {user.username} </td>
                                 <td> {user.verified ? <i className="material-icons" style={{ color: "green" }}>verified_user</i> : <i className="material-icons" style={{ color: "red" }}>cancel</i>} </td>

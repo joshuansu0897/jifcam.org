@@ -19,38 +19,37 @@ var config = require("../config").config;
 const JWT_SECRET_KEY = process.env.AUTH_SECRET_KEY || "JIFCAM_SECRET";
 
 function UserController() {
-    this.model = new UserModel();
-    this.videos = new VideoModel();
+  this.model = new UserModel();
+  this.videos = new VideoModel();
 }
 
 UserController.prototype.getUserData = function (result) {
-    return {
-        _id: result._id,
-        youtubeChannel: result.youtubeChannel,
-        role: result.role,
-        verified: result.verified,
-        notificationMail: result.notificationMail,
-        notificationMessage: result.notificationMessage,
-        notificationPush: result.notificationPush,
-        notificationPushToken: result.notificationPushToken,
-        videoUploaded: result.videoUploaded,
-        videos: result.videos,
-        mailSended: result.mailSended,
-        suspend: result.suspend,
-        language: result.language,
-        keyword: result.keyword,
-        fullname: result.fullname,
-        email: result.email,
-        username: result.username,
-        validationCode: result.validationCode,
-        lastMail: result.lastMail,
-        following: result.following,
-        followers: result.followers,
-        created: result.created,
-        updated: result.updated,
-        __v: result.__v,
-        avatar: result.avatar
-    };
+  return {
+    _id: result._id,
+    youtubeChannel: result.youtubeChannel,
+    role: result.role,
+    verified: result.verified,
+    notificationMail: result.notificationMail,
+    notificationMessage: result.notificationMessage,
+    notificationPush: result.notificationPush,
+    notificationPushToken: result.notificationPushToken,
+    videoUploaded: result.videoUploaded,
+    videos: result.videos,
+    mailSended: result.mailSended,
+    language: result.language,
+    keyword: result.keyword,
+    fullname: result.fullname,
+    email: result.email,
+    username: result.username,
+    validationCode: result.validationCode,
+    lastMail: result.lastMail,
+    following: result.following,
+    followers: result.followers,
+    created: result.created,
+    updated: result.updated,
+    __v: result.__v,
+    avatar: result.avatar
+  };
 };
 
 /**
@@ -71,57 +70,57 @@ UserController.prototype.getUserData = function (result) {
  *
  */
 UserController.prototype.getAll = function (req, res) {
-    const Res = new ResponseHelper.Response(res);
+  const Res = new ResponseHelper.Response(res);
 
-    let limit = 25;
-    let offset = 0;
+  let limit = 25;
+  let offset = 0;
 
-    if (typeof req.query.limit != "undefined") {
-        limit = parseInt(req.query.limit);
-    }
+  if (typeof req.query.limit != "undefined") {
+    limit = parseInt(req.query.limit);
+  }
 
-    if (typeof req.query.offset != "undefined") {
-        offset = parseInt(req.query.offset);
-    }
+  if (typeof req.query.offset != "undefined") {
+    offset = parseInt(req.query.offset);
+  }
 
-    this.model
-        .list(offset, limit)
-        .then(result => {
-            let list = [];
-            async.eachSeries(
-                result.users,
-                (item, cb) => {
-                    _item = {
-                        video: 0,
-                        ...this.getUserData(item)
-                    };
+  this.model
+    .list(offset, limit)
+    .then(result => {
+      let list = [];
+      async.eachSeries(
+        result.users,
+        (item, cb) => {
+          _item = {
+            video: 0,
+            ...this.getUserData(item)
+          };
 
-                    this.videos
-                        .countVideos(item._id)
-                        .then(count => {
-                            _item.video = count;
-                            list.push(_item);
-                            cb();
-                        })
-                        .catch(err => {
-                            item.set("video", 0);
-                            list.push(_item);
-                            cb();
-                        });
-                },
-                err => {
-                    result["users"] = list;
-                    Res.setData(result);
+          this.videos
+            .countVideos(item._id)
+            .then(count => {
+              _item.video = count;
+              list.push(_item);
+              cb();
+            })
+            .catch(err => {
+              item.set("video", 0);
+              list.push(_item);
+              cb();
+            });
+        },
+        err => {
+          result["users"] = list;
+          Res.setData(result);
 
-                    Res.send();
-                }
-            );
-        })
-        .catch(err => {
-            console.log(err.message);
-            Res.errorParse(err);
-            Res.send();
-        });
+          Res.send();
+        }
+      );
+    })
+    .catch(err => {
+      console.log(err.message);
+      Res.errorParse(err);
+      Res.send();
+    });
 };
 
 /**
@@ -140,31 +139,31 @@ UserController.prototype.getAll = function (req, res) {
  *
  */
 UserController.prototype.getOne = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
-    let id = req.params.username || req.params.id;
+  const Res = new ResponseHelper.Response(res);
+  let id = req.params.username || req.params.id;
 
-    this.model
-        .one(id)
-        .then(result => {
-            this.videos
-                .list(result._id)
-                .then(docs => {
-                    result.videos = docs;
+  this.model
+    .one(id)
+    .then(result => {
+      this.videos
+        .list(result._id)
+        .then(docs => {
+          result.videos = docs;
 
-                    Res.setData(this.getUserData(result));
-                    Res.send();
-                })
-                .catch(err => {
-                    console.log(err.message);
-                    Res.errorParse(err);
-                    Res.send();
-                });
+          Res.setData(this.getUserData(result));
+          Res.send();
         })
         .catch(err => {
-            console.log(err.message);
-            Res.errorParse(err);
-            Res.send();
+          console.log(err.message);
+          Res.errorParse(err);
+          Res.send();
         });
+    })
+    .catch(err => {
+      console.log(err.message);
+      Res.errorParse(err);
+      Res.send();
+    });
 };
 
 /**
@@ -183,48 +182,48 @@ UserController.prototype.getOne = function (req, res, next) {
  *
  */
 UserController.prototype.update = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
+  const Res = new ResponseHelper.Response(res);
 
-    var userId = req.params.id;
-    var body = req.body;
+  var userId = req.params.id;
+  var body = req.body;
 
-    this.model
-        .one(userId)
-        .then(doc => {
-            if (
-                ((req.body.notificationMail && req.body.notificationMail === true) ||
-                    (req.body.notificationMessage &&
-                        req.body.notificationMessage === true)) &&
-                !doc.verified
-            ) {
-                Res.setData({
-                    message:
-                        "Please verify your e-mail first to enable mail / sms notification"
-                });
-                Res.send();
+  this.model
+    .one(userId)
+    .then(doc => {
+      if (
+        ((req.body.notificationMail && req.body.notificationMail === true) ||
+          (req.body.notificationMessage &&
+            req.body.notificationMessage === true)) &&
+        !doc.verified
+      ) {
+        Res.setData({
+          message:
+            "Please verify your e-mail first to enable mail / sms notification"
+        });
+        Res.send();
 
-                return;
-            }
-            this.model
-                .update(userId, body)
-                .then(result => {
-                    Res.setData({
-                        message: `User data already updated`,
-                        ...this.getUserData(result)
-                    });
-                    Res.send();
-                })
-                .catch(err => {
-                    console.log(err);
-                    Res.errorParse(err);
-                    Res.send();
-                });
+        return;
+      }
+      this.model
+        .update(userId, body)
+        .then(result => {
+          Res.setData({
+            message: `User data already updated`,
+            ...this.getUserData(result)
+          });
+          Res.send();
         })
         .catch(err => {
-            console.log(err);
-            Res.errorParse(err);
-            Res.send();
+          console.log(err);
+          Res.errorParse(err);
+          Res.send();
         });
+    })
+    .catch(err => {
+      console.log(err);
+      Res.errorParse(err);
+      Res.send();
+    });
 };
 
 /**
@@ -242,37 +241,37 @@ UserController.prototype.update = function (req, res, next) {
  *
  */
 UserController.prototype.getOneByCode = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
+  const Res = new ResponseHelper.Response(res);
 
-    let code = req.params.code;
+  let code = req.params.code;
 
-    this.model
-        .oneByCode(code)
-        .then(result => {
-            if (result) {
-                this.videos
-                    .list(result._id, 5)
-                    .then(docs => {
-                        result.videos = docs.slice(0, 5);
+  this.model
+    .oneByCode(code)
+    .then(result => {
+      if (result) {
+        this.videos
+          .list(result._id, 5)
+          .then(docs => {
+            result.videos = docs.slice(0, 5);
 
-                        Res.setData(this.getUserData(result));
-                        Res.send();
-                    })
-                    .catch(err => {
-                        console.log(err.message);
-                        Res.errorParse(err);
-                        Res.send();
-                    });
-            } else {
-                Res.send();
-            }
-        })
-        .catch(err => {
-            console.log(err.message);
-            Res.setData(null);
-            Res.addError(Response.NOT_FOUND, "User with this is not found");
+            Res.setData(this.getUserData(result));
             Res.send();
-        });
+          })
+          .catch(err => {
+            console.log(err.message);
+            Res.errorParse(err);
+            Res.send();
+          });
+      } else {
+        Res.send();
+      }
+    })
+    .catch(err => {
+      console.log(err.message);
+      Res.setData(null);
+      Res.addError(Response.NOT_FOUND, "User with this is not found");
+      Res.send();
+    });
 };
 
 /**
@@ -290,45 +289,33 @@ UserController.prototype.getOneByCode = function (req, res, next) {
  *
  */
 UserController.prototype.authenticate = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
+  const Res = new ResponseHelper.Response(res);
 
-    passport.authenticate("local", { session: false }, (err, user, info) => {
-        if (err || !user) {
-            console.log(err, user);
-            Res.addError(ResponseHelper.BAD_REQUEST, "IncorectCredetials");
-            return Res.send();
-        }
+  passport.authenticate("local", { session: false }, (err, user, info) => {
+    if (err || !user) {
+      console.log(err, user);
+      Res.addError(ResponseHelper.BAD_REQUEST, "IncorectCredetials");
+      return Res.send();
+    }
 
-        req.login(user, { session: false }, err => {
-            if (err) {
-                Res.addError(ResponseHelper.UNAUTH, "FieledAuthetication");
-                return Res.send();
-            }
+    req.login(user, { session: false }, err => {
+      if (err) {
+        Res.addError(ResponseHelper.UNAUTH, "FieledAuthetication");
+        return Res.send();
+      }
 
-            delete user.password;
-
-            let user = this.getUserData(user)
-            if (user.suspend) {
-                Res.setData({
-                    user: {
-                        message: `account suspended`,
-                    },
-                    token: `account suspended`
-                });
-                return Res.send();
-            }
-
-            const token = jwt.sign(user.toJSON(), JWT_SECRET_KEY);
-            Res.setData({
-                user: {
-                    message: `Hi, welcome back @${user.username}`,
-                    ...user
-                },
-                token: token
-            });
-            return Res.send();
-        });
-    })(req, res, next);
+      delete user.password;
+      const token = jwt.sign(user.toJSON(), JWT_SECRET_KEY);
+      Res.setData({
+        user: {
+          message: `Hi, welcome back @${user.username}`,
+          ...this.getUserData(user)
+        },
+        token: token
+      });
+      return Res.send();
+    });
+  })(req, res, next);
 };
 
 /**
@@ -347,40 +334,40 @@ UserController.prototype.authenticate = function (req, res, next) {
  *
  */
 UserController.prototype.register = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
-    var email = req.body.email;
-    var password = req.body.password;
-    var deviceId = req.session ? req.session.deviceId : '';
-    this.model
-        .signup(email, password, deviceId)
-        .then(doc => {
-            const token = jwt.sign(doc.toJSON(), JWT_SECRET_KEY);
-            Res.setData({
-                ...this.getUserData(doc),
-                token: token
-            });
-            Res.send();
+  const Res = new ResponseHelper.Response(res);
+  var email = req.body.email;
+  var password = req.body.password;
+  var deviceId = req.session ? req.session.deviceId : '';
+  this.model
+    .signup(email, password, deviceId)
+    .then(doc => {
+      const token = jwt.sign(doc.toJSON(), JWT_SECRET_KEY);
+      Res.setData({
+        ...this.getUserData(doc),
+        token: token
+      });
+      Res.send();
 
-        })
-        .catch(err => {
-            if (err === "UniqueDuplication") {
-                Res.setData({
-                    message: "E-mail already registered"
-                });
-                Res.status = 400;
-            }
-
-            if (err === "InvalidPassword") {
-                Res.setData({
-                    message: "Password must be between 6-30 characters"
-                });
-                Res.status = 400;
-            } else {
-                Res.status = 500;
-            }
-
-            Res.send();
+    })
+    .catch(err => {
+      if (err === "UniqueDuplication") {
+        Res.setData({
+          message: "E-mail already registered"
         });
+        Res.status = 400;
+      }
+
+      if (err === "InvalidPassword") {
+        Res.setData({
+          message: "Password must be between 6-30 characters"
+        });
+        Res.status = 400;
+      } else {
+        Res.status = 500;
+      }
+
+      Res.send();
+    });
 };
 
 /**
@@ -399,48 +386,48 @@ UserController.prototype.register = function (req, res, next) {
  *
  */
 UserController.prototype.choose = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
+  const Res = new ResponseHelper.Response(res);
 
-    var userId = req.body.userId;
-    var username = req.body.username;
+  var userId = req.body.userId;
+  var username = req.body.username;
 
-    this.model
-        .oneByUsername(username)
-        .then(doc => {
-            if (!doc) {
-                this.model
-                    .update(userId, {
-                        username: username
-                    })
-                    .then(doc => {
-                        Res.setData({
-                            message: `${username} successfully created`,
-                            ...this.getUserData(doc)
-                        });
-                        Res.send();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        Res.setData({
-                            message: `The provided userId does not exist`
-                        });
-                        Res.status = 400;
-                        Res.send();
-                    });
-            } else {
-                Res.setData({
-                    message: `${username} already registered`
-                });
-                Res.status = 400;
-                Res.send();
-            }
-        })
-        .catch(err => {
-            console.log(err);
-            Res.errorParse(err);
-            Res.status = 500;
+  this.model
+    .oneByUsername(username)
+    .then(doc => {
+      if (!doc) {
+        this.model
+          .update(userId, {
+            username: username
+          })
+          .then(doc => {
+            Res.setData({
+              message: `${username} successfully created`,
+              ...this.getUserData(doc)
+            });
             Res.send();
+          })
+          .catch(err => {
+            console.log(err);
+            Res.setData({
+              message: `The provided userId does not exist`
+            });
+            Res.status = 400;
+            Res.send();
+          });
+      } else {
+        Res.setData({
+          message: `${username} already registered`
         });
+        Res.status = 400;
+        Res.send();
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      Res.errorParse(err);
+      Res.status = 500;
+      Res.send();
+    });
 };
 
 /**
@@ -458,45 +445,45 @@ UserController.prototype.choose = function (req, res, next) {
  *
  */
 UserController.prototype.notify = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
-    var userId = req.body.userId;
-    var token = req.body.token;
+  const Res = new ResponseHelper.Response(res);
+  var userId = req.body.userId;
+  var token = req.body.token;
 
-    this.model
-        .one(userId)
-        .then(res => {
-            if (res) {
-                this.model
-                    .update(userId, {
-                        notificationPush: true,
-                        notificationPushToken: token
-                    })
-                    .then(doc => {
-                        Res.setData({
-                            message: `Notification successfully enabled`,
-                            ...this.getUserData(doc)
-                        });
-                        Res.send();
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        Res.errorParse(err);
-                        Res.status = 500;
-                        Res.send();
-                    });
-            } else {
-                Res.setData({
-                    message: `The provided userId does not exist`
-                });
-                Res.status = 400;
-                Res.send();
-            }
-        })
-        .catch(err => {
+  this.model
+    .one(userId)
+    .then(res => {
+      if (res) {
+        this.model
+          .update(userId, {
+            notificationPush: true,
+            notificationPushToken: token
+          })
+          .then(doc => {
+            Res.setData({
+              message: `Notification successfully enabled`,
+              ...this.getUserData(doc)
+            });
+            Res.send();
+          })
+          .catch(err => {
             console.log(err);
             Res.errorParse(err);
+            Res.status = 500;
             Res.send();
+          });
+      } else {
+        Res.setData({
+          message: `The provided userId does not exist`
         });
+        Res.status = 400;
+        Res.send();
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      Res.errorParse(err);
+      Res.send();
+    });
 };
 
 /**
@@ -515,40 +502,40 @@ UserController.prototype.notify = function (req, res, next) {
  *
  */
 UserController.prototype.follow = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
+  const Res = new ResponseHelper.Response(res);
 
-    var userId = req.body.userId;
-    var following = req.body.followingId;
+  var userId = req.body.userId;
+  var following = req.body.followingId;
 
-    this.model
-        .one(userId)
-        .then(result => {
-            if (result) {
-                this.model
-                    .follow(result, following)
-                    .then(doc => {
-                        Res.setData(this.getUserData(result));
-                        Res.send();
-                    })
-                    .catch(err => {
-                        Res.setData(err);
-                        Res.status = 400;
-                        Res.send();
-                    });
-            } else {
-                Res.setData({
-                    message: `The provided userId does not exist`
-                });
-                Res.status = 400;
-                Res.send();
-            }
-        })
-        .catch(err => {
-            console.log(err.message);
-            Res.errorParse(err);
-            Res.status = 500;
+  this.model
+    .one(userId)
+    .then(result => {
+      if (result) {
+        this.model
+          .follow(result, following)
+          .then(doc => {
+            Res.setData(this.getUserData(result));
             Res.send();
+          })
+          .catch(err => {
+            Res.setData(err);
+            Res.status = 400;
+            Res.send();
+          });
+      } else {
+        Res.setData({
+          message: `The provided userId does not exist`
         });
+        Res.status = 400;
+        Res.send();
+      }
+    })
+    .catch(err => {
+      console.log(err.message);
+      Res.errorParse(err);
+      Res.status = 500;
+      Res.send();
+    });
 };
 
 /**
@@ -567,40 +554,40 @@ UserController.prototype.follow = function (req, res, next) {
  *
  */
 UserController.prototype.unfollow = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
+  const Res = new ResponseHelper.Response(res);
 
-    var userId = req.body.userId;
-    var unfollowing = req.body.unfollowId;
+  var userId = req.body.userId;
+  var unfollowing = req.body.unfollowId;
 
-    this.model
-        .one(userId)
-        .then(result => {
-            if (result) {
-                this.model
-                    .unfollow(result, unfollowing)
-                    .then(doc => {
-                        Res.setData(this.getUserData(result));
-                        Res.send();
-                    })
-                    .catch(err => {
-                        Res.setData(err);
-                        Res.status = 400;
-                        Res.send();
-                    });
-            } else {
-                Res.setData({
-                    message: `The provided userId does not exist`
-                });
-                Res.status = 400;
-                Res.send();
-            }
-        })
-        .catch(err => {
-            console.log(err.message);
-            Res.errorParse(err);
-            Res.status = 500;
+  this.model
+    .one(userId)
+    .then(result => {
+      if (result) {
+        this.model
+          .unfollow(result, unfollowing)
+          .then(doc => {
+            Res.setData(this.getUserData(result));
             Res.send();
+          })
+          .catch(err => {
+            Res.setData(err);
+            Res.status = 400;
+            Res.send();
+          });
+      } else {
+        Res.setData({
+          message: `The provided userId does not exist`
         });
+        Res.status = 400;
+        Res.send();
+      }
+    })
+    .catch(err => {
+      console.log(err.message);
+      Res.errorParse(err);
+      Res.status = 500;
+      Res.send();
+    });
 };
 
 /**
@@ -620,24 +607,24 @@ UserController.prototype.unfollow = function (req, res, next) {
  *
  */
 UserController.prototype.verifyUser = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
-    var id = req.params.id;
-    var code = req.body.code;
+  const Res = new ResponseHelper.Response(res);
+  var id = req.params.id;
+  var code = req.body.code;
 
-    //this.model.one
-    this.model
-        .verify(id, {
-            code: code
-        })
-        .then(result => {
-            Res.setData(this.getUserData(result));
-            Res.send();
-        })
-        .catch(err => {
-            console.log(err);
-            Res.errorParse(err);
-            Res.send();
-        });
+  //this.model.one
+  this.model
+    .verify(id, {
+      code: code
+    })
+    .then(result => {
+      Res.setData(this.getUserData(result));
+      Res.send();
+    })
+    .catch(err => {
+      console.log(err);
+      Res.errorParse(err);
+      Res.send();
+    });
 };
 
 /**
@@ -656,21 +643,21 @@ UserController.prototype.verifyUser = function (req, res, next) {
  *
  */
 UserController.prototype.verified = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
-    var code = req.params.code;
-    var username = req.params.username;
+  const Res = new ResponseHelper.Response(res);
+  var code = req.params.code;
+  var username = req.params.username;
 
-    this.model
-        .oneVerified(code, username)
-        .then(doc => {
-            Res.setData(this.getUserData(doc));
-            Res.send();
-        })
-        .catch(err => {
-            console.log(err);
-            Res.errorParse(err);
-            Res.send();
-        });
+  this.model
+    .oneVerified(code, username)
+    .then(doc => {
+      Res.setData(this.getUserData(doc));
+      Res.send();
+    })
+    .catch(err => {
+      console.log(err);
+      Res.errorParse(err);
+      Res.send();
+    });
 };
 
 /**
@@ -688,19 +675,19 @@ UserController.prototype.verified = function (req, res, next) {
  *
  */
 UserController.prototype.countingVerified = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
+  const Res = new ResponseHelper.Response(res);
 
-    this.model
-        .countingVerified()
-        .then(result => {
-            Res.setData(result);
-            Res.send();
-        })
-        .catch(err => {
-            console.log(err);
-            Res.errorParse(err);
-            Res.send();
-        });
+  this.model
+    .countingVerified()
+    .then(result => {
+      Res.setData(result);
+      Res.send();
+    })
+    .catch(err => {
+      console.log(err);
+      Res.errorParse(err);
+      Res.send();
+    });
 };
 
 /**
@@ -726,48 +713,48 @@ UserController.prototype.countingVerified = function (req, res, next) {
  *
  */
 UserController.prototype.sendMail = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
-    var userIds = req.body.userIds;
-    var to = req.body.to;
-    var subject = req.body.subject;
-    var sendgridKey = req.body.sendgridKey;
-    var messageTxt = decodeURI(req.body.messageTxt);
-    var messageHtml = decodeURI(req.body.messageHtml);
-    var from = req.body.from;
-    var mail = new Mail(sendgridKey);
-    var users = [];
-    //console.log(messageHtml,messageTxt);
+  const Res = new ResponseHelper.Response(res);
+  var userIds = req.body.userIds;
+  var to = req.body.to;
+  var subject = req.body.subject;
+  var sendgridKey = req.body.sendgridKey;
+  var messageTxt = decodeURI(req.body.messageTxt);
+  var messageHtml = decodeURI(req.body.messageHtml);
+  var from = req.body.from;
+  var mail = new Mail(sendgridKey);
+  var users = [];
+  //console.log(messageHtml,messageTxt);
 
-    async.eachSeries(
-        userIds,
-        (userID, cb) => {
-            this.sendingMail(
-                userID,
-                {
-                    subject: subject,
-                    messages: { text: messageTxt, html: messageHtml },
-                    from: from
-                },
-                mail
-            )
-                .then(rez => {
-                    cb(null, rez);
-                })
-                .catch(err => {
-                    cb(err);
-                });
+  async.eachSeries(
+    userIds,
+    (userID, cb) => {
+      this.sendingMail(
+        userID,
+        {
+          subject: subject,
+          messages: { text: messageTxt, html: messageHtml },
+          from: from
         },
-        function (err) {
-            if (err) {
-                console.log(err);
-                Res.errorParse(err);
-                Res.send();
-            } else {
-                Res.setData({ users: users, sended: true });
-                Res.send();
-            }
-        }
-    );
+        mail
+      )
+        .then(rez => {
+          cb(null, rez);
+        })
+        .catch(err => {
+          cb(err);
+        });
+    },
+    function (err) {
+      if (err) {
+        console.log(err);
+        Res.errorParse(err);
+        Res.send();
+      } else {
+        Res.setData({ users: users, sended: true });
+        Res.send();
+      }
+    }
+  );
 };
 
 /**
@@ -787,140 +774,140 @@ UserController.prototype.sendMail = function (req, res, next) {
  *
  */
 UserController.prototype.import = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
-    let files = new FileHelper("./public/imports");
-    var first = true;
-    var list = [];
-    var Fieled = [];
-    var fails = 0;
-    var success = 0;
-    var _this = this;
-    files
-        .upload(req, "document", "/data/")
-        .then(fileData => {
-            //console.log(fileData);
-            fs.createReadStream(fileData.realpath)
-                .pipe(parse({ delimiter: "," }))
-                .on("data", function (row) {
-                    console.log(row);
-                    if (row[0]) {
-                        list.push(row);
-                    }
-                })
-                .on("close", function () {
-                    console.log("close");
-                })
-                .on("end", function () {
-                    //console.log("list",list);
-                    async.eachSeries(
-                        list,
-                        (item, callback) => {
-                            var index = 0;
-                            if (item[index] === "" || /^([0-9]+)$/.test(item[index])) index++;
-                            /* */
-                            let userdata = {};
-                            userdata.avatar = "";
-                            userdata.fullname = item[index + 2];
-                            userdata.email = item[index + 3];
-                            userdata.username = userdata.email.split("@")[0].toLowerCase();
-                            userdata.lenguage = item[index + 4];
-                            userdata.role = 1;
-                            userdata.verified = false;
-                            userdata.videoUploaded = false;
-                            userdata.keyword = item[index];
-                            userdata.password = uniqid.time();
-                            userdata.youtubeChannel = item[index + 1];
-                            ChannelParser(item[index + 1])
-                                .then(data => {
-                                    //console.log("ChannelParser", data);
-                                    let videos = data.videos;
-                                    let avatarlink = data.avatar;
-                                    /* */
-                                    if (avatarlink === "") {
-                                        userdata.avatar = "/static/images/avatar/default.png";
-                                    }
-                                    _this.model
-                                        .create(userdata)
-                                        .then(result => {
-                                            if (avatarlink !== "") {
-                                                let options = {
-                                                    url: avatarlink,
-                                                    dest:
-                                                        "./public/images/avatars/" + result._id + ".jpg", // Save to /path/to/dest/photo
-                                                    extractFilename: false
-                                                };
-                                                success++;
-                                                download
-                                                    .image(options)
-                                                    .then(({ filename, image }) => {
-                                                        console.log("Saved to", filename); // Saved to /path/to/dest/photo
-                                                        _this.model.updateAvatar(
-                                                            result._id,
-                                                            filename.replace("./public", "/static")
-                                                        );
-                                                    })
-                                                    .catch(err => console.error(err));
-                                            }
-                                            _this.videos
-                                                .createFromYoutube(result._id, videos)
-                                                .then(result => {
-                                                    console.log("sdfsdf", result);
-                                                })
-                                                .catch(err => {
-                                                    console.log(err);
-                                                });
-                                            callback();
-                                        })
-                                        .catch(err => {
-                                            console.log(err);
-                                            fails++;
-                                            Fieled.push({
-                                                username: item[3],
-                                                email: item[4],
-                                                message: "Failed saving into data base: " + err.message
-                                            });
-                                            callback();
-                                        });
-                                })
-                                .catch(err => {
-                                    //console.log(err);
-                                    userdata.avatar = "/static/images/avatar/default.png";
-                                    _this.model
-                                        .create(userdata)
-                                        .then(result => {
-                                            callback();
-                                        })
-                                        .catch(err => {
-                                            fails++;
-                                            Fieled.push({
-                                                username: item[3],
-                                                email: item[4],
-                                                message: "Failed saving into data base: " + err.message
-                                            });
-                                            callback();
-                                        });
-                                });
-                        },
-                        function (err) {
-                            Res.setData({
-                                success: success,
-                                fails: fails,
-                                fieled: Fieled
-                            });
-                            Res.send();
-                            console.log("completed import");
-                        }
-                    );
-                    console.log("end --------------------");
-                });
+  const Res = new ResponseHelper.Response(res);
+  let files = new FileHelper("./public/imports");
+  var first = true;
+  var list = [];
+  var Fieled = [];
+  var fails = 0;
+  var success = 0;
+  var _this = this;
+  files
+    .upload(req, "document", "/data/")
+    .then(fileData => {
+      //console.log(fileData);
+      fs.createReadStream(fileData.realpath)
+        .pipe(parse({ delimiter: "," }))
+        .on("data", function (row) {
+          console.log(row);
+          if (row[0]) {
+            list.push(row);
+          }
         })
-        .catch(err => {
-            console.log(err.message);
-            Res.addNotice("Document is not Uploaded");
-
-            Res.errorParse(err);
-            Res.send();
+        .on("close", function () {
+          console.log("close");
+        })
+        .on("end", function () {
+          //console.log("list",list);
+          async.eachSeries(
+            list,
+            (item, callback) => {
+              var index = 0;
+              if (item[index] === "" || /^([0-9]+)$/.test(item[index])) index++;
+              /* */
+              let userdata = {};
+              userdata.avatar = "";
+              userdata.fullname = item[index + 2];
+              userdata.email = item[index + 3];
+              userdata.username = userdata.email.split("@")[0].toLowerCase();
+              userdata.lenguage = item[index + 4];
+              userdata.role = 1;
+              userdata.verified = false;
+              userdata.videoUploaded = false;
+              userdata.keyword = item[index];
+              userdata.password = uniqid.time();
+              userdata.youtubeChannel = item[index + 1];
+              ChannelParser(item[index + 1])
+                .then(data => {
+                  //console.log("ChannelParser", data);
+                  let videos = data.videos;
+                  let avatarlink = data.avatar;
+                  /* */
+                  if (avatarlink === "") {
+                    userdata.avatar = "/static/images/avatar/default.png";
+                  }
+                  _this.model
+                    .create(userdata)
+                    .then(result => {
+                      if (avatarlink !== "") {
+                        let options = {
+                          url: avatarlink,
+                          dest:
+                            "./public/images/avatars/" + result._id + ".jpg", // Save to /path/to/dest/photo
+                          extractFilename: false
+                        };
+                        success++;
+                        download
+                          .image(options)
+                          .then(({ filename, image }) => {
+                            console.log("Saved to", filename); // Saved to /path/to/dest/photo
+                            _this.model.updateAvatar(
+                              result._id,
+                              filename.replace("./public", "/static")
+                            );
+                          })
+                          .catch(err => console.error(err));
+                      }
+                      _this.videos
+                        .createFromYoutube(result._id, videos)
+                        .then(result => {
+                          console.log("sdfsdf", result);
+                        })
+                        .catch(err => {
+                          console.log(err);
+                        });
+                      callback();
+                    })
+                    .catch(err => {
+                      console.log(err);
+                      fails++;
+                      Fieled.push({
+                        username: item[3],
+                        email: item[4],
+                        message: "Failed saving into data base: " + err.message
+                      });
+                      callback();
+                    });
+                })
+                .catch(err => {
+                  //console.log(err);
+                  userdata.avatar = "/static/images/avatar/default.png";
+                  _this.model
+                    .create(userdata)
+                    .then(result => {
+                      callback();
+                    })
+                    .catch(err => {
+                      fails++;
+                      Fieled.push({
+                        username: item[3],
+                        email: item[4],
+                        message: "Failed saving into data base: " + err.message
+                      });
+                      callback();
+                    });
+                });
+            },
+            function (err) {
+              Res.setData({
+                success: success,
+                fails: fails,
+                fieled: Fieled
+              });
+              Res.send();
+              console.log("completed import");
+            }
+          );
+          console.log("end --------------------");
         });
+    })
+    .catch(err => {
+      console.log(err.message);
+      Res.addNotice("Document is not Uploaded");
+
+      Res.errorParse(err);
+      Res.send();
+    });
 };
 
 /**
@@ -940,63 +927,63 @@ UserController.prototype.import = function (req, res, next) {
  *
  */
 UserController.prototype.remove = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
+  const Res = new ResponseHelper.Response(res);
 
-    var listUsers = req.body.list;
+  var listUsers = req.body.list;
 
-    this.model
-        .removeMany(listUsers)
-        .then(data => {
-            Res.setData(data);
-            Res.send();
-        })
-        .catch(err => {
-            console.log(err);
-            Res.errorParse(err);
-            Res.send();
-        });
+  this.model
+    .removeMany(listUsers)
+    .then(data => {
+      Res.setData(data);
+      Res.send();
+    })
+    .catch(err => {
+      console.log(err);
+      Res.errorParse(err);
+      Res.send();
+    });
 };
 
 /**
  * Process to sending e-mail to the user
  */
 UserController.prototype.sendingMail = function (userId, data, mail) {
-    var promise = new Promise((resolve, reject) => {
-        this.model
-            .one(userId)
-            .then(user => {
-                let url =
-                    "https://jifcam.com/" + user.username + "/" + user.validationCode;
-                mail
-                    .send(
-                        user.email,
-                        data.subject,
-                        {
-                            text: data.messages.text.replace("#LINK", url),
-                            html: data.messages.html.replace("#LINK", url)
-                        },
-                        data.from
-                    )
-                    .then(res => {
-                        this.model
-                            .update(userId, { mailSended: true, lastMail: Date.now() })
-                            .then(result => {
-                                resolve(userId);
-                            })
-                            .catch(err => {
-                                reject(err);
-                            });
-                    })
-                    .catch(err => {
-                        reject(err);
-                    });
-            })
-            .catch(err => {
+  var promise = new Promise((resolve, reject) => {
+    this.model
+      .one(userId)
+      .then(user => {
+        let url =
+          "https://jifcam.com/" + user.username + "/" + user.validationCode;
+        mail
+          .send(
+            user.email,
+            data.subject,
+            {
+              text: data.messages.text.replace("#LINK", url),
+              html: data.messages.html.replace("#LINK", url)
+            },
+            data.from
+          )
+          .then(res => {
+            this.model
+              .update(userId, { mailSended: true, lastMail: Date.now() })
+              .then(result => {
+                resolve(userId);
+              })
+              .catch(err => {
                 reject(err);
-            });
-    });
+              });
+          })
+          .catch(err => {
+            reject(err);
+          });
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
 
-    return promise;
+  return promise;
 };
 
 /**
@@ -1015,40 +1002,40 @@ UserController.prototype.sendingMail = function (userId, data, mail) {
  *
  */
 UserController.prototype.videoList = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
+  const Res = new ResponseHelper.Response(res);
 
-    var userId = req.body.userId;
-    var following = req.body.followingId;
+  var userId = req.body.userId;
+  var following = req.body.followingId;
 
-    this.model
-        .one(userId)
-        .then(result => {
-            if (result) {
-                this.model
-                    .videoList(result, following)
-                    .then(doc => {
-                        Res.setData(doc);
-                        Res.send();
-                    })
-                    .catch(err => {
-                        Res.setData(err);
-                        Res.status = 400;
-                        Res.send();
-                    });
-            } else {
-                Res.setData({
-                    message: `The provided userId does not exist`
-                });
-                Res.status = 400;
-                Res.send();
-            }
-        })
-        .catch(err => {
-            console.log(err.message);
-            Res.errorParse(err);
-            Res.status = 500;
+  this.model
+    .one(userId)
+    .then(result => {
+      if (result) {
+        this.model
+          .videoList(result, following)
+          .then(doc => {
+            Res.setData(doc);
             Res.send();
+          })
+          .catch(err => {
+            Res.setData(err);
+            Res.status = 400;
+            Res.send();
+          });
+      } else {
+        Res.setData({
+          message: `The provided userId does not exist`
         });
+        Res.status = 400;
+        Res.send();
+      }
+    })
+    .catch(err => {
+      console.log(err.message);
+      Res.errorParse(err);
+      Res.status = 500;
+      Res.send();
+    });
 };
 
 /**
@@ -1066,39 +1053,39 @@ UserController.prototype.videoList = function (req, res, next) {
  *
  */
 UserController.prototype.getFollowings = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
+  const Res = new ResponseHelper.Response(res);
 
-    var userId = req.user._id;
+  var userId = req.user._id;
 
-    this.model
-        .one(userId)
-        .then(result => {
-            if (result) {
-                this.model
-                    .followersList(result._id)
-                    .then(doc => {
-                        Res.setData(doc);
-                        Res.send();
-                    })
-                    .catch(err => {
-                        Res.setData(err);
-                        Res.status = 400;
-                        Res.send();
-                    });
-            } else {
-                Res.setData({
-                    message: `The provided userId does not exist`
-                });
-                Res.status = 400;
-                Res.send();
-            }
-        })
-        .catch(err => {
-            console.log(err.message);
-            Res.errorParse(err);
-            Res.status = 500;
+  this.model
+    .one(userId)
+    .then(result => {
+      if (result) {
+        this.model
+          .followersList(result._id)
+          .then(doc => {
+            Res.setData(doc);
             Res.send();
+          })
+          .catch(err => {
+            Res.setData(err);
+            Res.status = 400;
+            Res.send();
+          });
+      } else {
+        Res.setData({
+          message: `The provided userId does not exist`
         });
+        Res.status = 400;
+        Res.send();
+      }
+    })
+    .catch(err => {
+      console.log(err.message);
+      Res.errorParse(err);
+      Res.status = 500;
+      Res.send();
+    });
 };
 
 
@@ -1116,154 +1103,154 @@ UserController.prototype.getFollowings = function (req, res, next) {
  *
  */
 UserController.prototype.getDevice = function (req, res, next) {
-    const Res = new ResponseHelper.Response(res);
-    try {
-        var deviceId = req.body.deviceId;
-        if (deviceId) {
-            req.session.deviceId = deviceId;
-            Res.setData({
-                message: `DeviceId saved`
-            });
-            Res.send();
-        } else {
-            Res.setData({
-                message: `No deviceId found`
-            });
-            Res.status = 400;
-            Res.send();
-        }
+  const Res = new ResponseHelper.Response(res);
+  try {
+    var deviceId = req.body.deviceId;
+    if (deviceId) {
+      req.session.deviceId = deviceId;
+      Res.setData({
+        message: `DeviceId saved`
+      });
+      Res.send();
+    } else {
+      Res.setData({
+        message: `No deviceId found`
+      });
+      Res.status = 400;
+      Res.send();
     }
-    catch (err) {
-        Res.errorParse(err);
-        Res.status = 500;
-        Res.send();
-    };
+  }
+  catch (err) {
+    Res.errorParse(err);
+    Res.status = 500;
+    Res.send();
+  };
 };
 
 UserController.prototype.router = function () {
-    let router = Router();
+  let router = Router();
 
-    /** Create new account with email & password */
-    router.post("/register", this.register.bind(this));
+  /** Create new account with email & password */
+  router.post("/register", this.register.bind(this));
 
-    /** Choose username by parameter */
-    router.post("/register/identity", this.choose.bind(this));
+  /** Choose username by parameter */
+  router.post("/register/identity", this.choose.bind(this));
 
-    /** Enable notification to user */
-    router.post("/register/notify", this.notify.bind(this));
+  /** Enable notification to user */
+  router.post("/register/notify", this.notify.bind(this));
 
-    /** Follow someone by user */
-    router.post("/register/follow", this.follow.bind(this));
+  /** Follow someone by user */
+  router.post("/register/follow", this.follow.bind(this));
 
-    /** unFollow someone by user */
-    router.post("/register/unfollow", this.unfollow.bind(this));
+  /** unFollow someone by user */
+  router.post("/register/unfollow", this.unfollow.bind(this));
 
-    /** Verification by object id */
-    router.post(
-        "/verify/:id",
-        function (req, res, next) {
-            next();
-        },
-        this.verifyUser.bind(this)
-    );
+  /** Verification by object id */
+  router.post(
+    "/verify/:id",
+    function (req, res, next) {
+      next();
+    },
+    this.verifyUser.bind(this)
+  );
 
-    /** List all users */
-    router.get(
-        "/",
-        passport.authenticate("jwt", { session: false }),
-        this.getAll.bind(this)
-    );
+  /** List all users */
+  router.get(
+    "/",
+    passport.authenticate("jwt", { session: false }),
+    this.getAll.bind(this)
+  );
 
-    /** See videos of a following user */
-    router.post(
-        "/video-list",
-        passport.authenticate("jwt", { session: false }),
-        this.videoList.bind(this)
-    );
+  /** See videos of a following user */
+  router.post(
+    "/video-list",
+    passport.authenticate("jwt", { session: false }),
+    this.videoList.bind(this)
+  );
 
-    /** Get all following users list */
-    router.get(
-        "/following-list",
-        passport.authenticate("jwt", { session: false }),
-        this.getFollowings.bind(this)
-    );
+  /** Get all following users list */
+  router.get(
+    "/following-list",
+    passport.authenticate("jwt", { session: false }),
+    this.getFollowings.bind(this)
+  );
 
-    /** get user by ID */
-    router.get(
-        "/:id",
-        passport.authenticate("jwt", { session: false }),
-        this.getOne.bind(this)
-    );
+  /** get user by ID */
+  router.get(
+    "/:id",
+    passport.authenticate("jwt", { session: false }),
+    this.getOne.bind(this)
+  );
 
-    /** Update user by ID */
-    router.put(
-        "/:id",
-        passport.authenticate("jwt", { session: false }),
-        this.update.bind(this)
-    );
+  /** Update user by ID */
+  router.put(
+    "/:id",
+    passport.authenticate("jwt", { session: false }),
+    this.update.bind(this)
+  );
 
-    /** Get user by code */
-    router.get(
-        "/code/:code",
-        function (req, res, next) {
-            next();
-        },
-        this.getOneByCode.bind(this)
-    );
+  /** Get user by code */
+  router.get(
+    "/code/:code",
+    function (req, res, next) {
+      next();
+    },
+    this.getOneByCode.bind(this)
+  );
 
-    /** Sign in with credential */
-    router.post(
-        "/auth",
-        function (req, res, next) {
-            next();
-        },
-        this.authenticate.bind(this)
-    );
+  /** Sign in with credential */
+  router.post(
+    "/auth",
+    function (req, res, next) {
+      next();
+    },
+    this.authenticate.bind(this)
+  );
 
-    /** Get verified user by username & code */
-    router.get(
-        "/verify/identity/:username/:code",
-        function (req, res, next) {
-            next();
-        },
-        this.verified.bind(this)
-    );
+  /** Get verified user by username & code */
+  router.get(
+    "/verify/identity/:username/:code",
+    function (req, res, next) {
+      next();
+    },
+    this.verified.bind(this)
+  );
 
-    /** Count all verified user */
-    router.get(
-        "/verify/count/",
-        passport.authenticate("jwt", { session: false }),
-        this.countingVerified.bind(this)
-    );
+  /** Count all verified user */
+  router.get(
+    "/verify/count/",
+    passport.authenticate("jwt", { session: false }),
+    this.countingVerified.bind(this)
+  );
 
-    /** Send mail to the user */
-    router.post(
-        "/mail",
-        passport.authenticate("jwt", { session: false }),
-        this.sendMail.bind(this)
-    );
+  /** Send mail to the user */
+  router.post(
+    "/mail",
+    passport.authenticate("jwt", { session: false }),
+    this.sendMail.bind(this)
+  );
 
-    /** Import all users by CSV file*/
-    router.post(
-        "/import",
-        passport.authenticate("jwt", { session: false }),
-        this.import.bind(this)
-    );
+  /** Import all users by CSV file*/
+  router.post(
+    "/import",
+    passport.authenticate("jwt", { session: false }),
+    this.import.bind(this)
+  );
 
-    /** Remove user account from documents */
-    router.post(
-        "/remove",
-        passport.authenticate("jwt", { session: false }),
-        this.remove.bind(this)
-    );
+  /** Remove user account from documents */
+  router.post(
+    "/remove",
+    passport.authenticate("jwt", { session: false }),
+    this.remove.bind(this)
+  );
 
-    // save user's device to session
-    router.post(
-        "/device",
-        this.getDevice.bind(this)
-    );
+  // save user's device to session
+  router.post(
+    "/device",
+    this.getDevice.bind(this)
+  );
 
-    return router;
+  return router;
 };
 
 module.exports = UserController;
