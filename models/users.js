@@ -20,6 +20,7 @@ function UserModel() {
     username: String,
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
+    suspend: { type: Boolean, default: false },
     avatar: String,
     youtubeChannel: { type: String, default: "" },
     role: { type: Number, default: 1 }, // 0 - Administrator

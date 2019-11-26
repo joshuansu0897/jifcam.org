@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PopUpConfirmAction from './popup-confirm-action';
-
+import axios from "../utils/axios";
 
 class TableListComponent extends Component {
     constructor(props) {
@@ -133,9 +133,15 @@ class TableListComponent extends Component {
         }
     }
 
-    userSuspend(user) {
-        console.log(`ban ${user._id}`)
-        console.log(user)
+    async userSuspend(user) {
+        try {
+            const res = await axios.put(`/api/users/${user._id}`, {
+                suspend: !user.suspend
+            });
+        } catch (err) {
+            console.error(err);
+            return "";
+        }
     }
 
     render() {
@@ -202,7 +208,7 @@ class TableListComponent extends Component {
                                 <td>
                                     <button className="btn" onClick={() => {
                                         this.userSuspend(user)
-                                    }}> Suspend </button>
+                                    }}> {user.suspend ? "Activate" : "Suspend"} </button>
                                 </td>
                                 <td> {user.username} </td>
                                 <td> {user.verified ? <i className="material-icons" style={{ color: "green" }}>verified_user</i> : <i className="material-icons" style={{ color: "red" }}>cancel</i>} </td>
