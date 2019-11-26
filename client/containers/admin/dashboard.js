@@ -91,7 +91,7 @@ class DashboardPage extends Component {
                                     </span>{" "}
                                 </h5>{" "}
                             </div>
-                            <div className="row">
+                            <div>
                                 <TableListComponent
                                     list={list}
                                     offset={offset}
@@ -121,8 +121,8 @@ class DashboardPage extends Component {
                         </div>
                     </div>
                 ) : (
-                    <div></div>
-                )}
+                        <div></div>
+                    )}
             </div>
         );
     }
