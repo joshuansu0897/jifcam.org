@@ -164,8 +164,8 @@ class TableListComponent extends Component {
                 </div>
                 <button className="btn" onClick={handleClickGo}> GO </button>
             </div>
-            <div className="center-align">
-                <table>
+            <div>
+                <table className="center-align center-block center centered">
                     <thead>
                         <tr>
                             <th>
@@ -188,7 +188,6 @@ class TableListComponent extends Component {
                             <th> YT Video </th>
                         </tr>
                     </thead>
-
                     <tbody>
                         {list.map((user) => {
                             return <tr key={user._id}>
