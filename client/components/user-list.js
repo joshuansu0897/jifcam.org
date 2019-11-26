@@ -133,9 +133,9 @@ class TableListComponent extends Component {
         }
     }
 
-    suspendUser(user) {
+    userSuspend(user) {
+        console.log(`ban ${user._id}`)
         console.log(user)
-        console.log('suspend')
     }
 
     render() {
@@ -198,7 +198,11 @@ class TableListComponent extends Component {
                             <td> <img className="avatar-profile-table" src={user.avatar} /> </td>
                             <td> {user.fullname} </td>
                             <td>
-                                <button className="btn" onClick={() => { this.suspendUser(user) }}> Suspend </button>
+                                <label className="btn" onClick={() => {
+                                    this.userSuspend(user)
+                                }}>
+                                    Suspend
+                              </label>
                             </td>
                             <td> {user.username} </td>
                             <td> {user.verified ? <i className="material-icons" style={{ color: "green" }}>verified_user</i> : <i className="material-icons" style={{ color: "red" }}>cancel</i>} </td>
