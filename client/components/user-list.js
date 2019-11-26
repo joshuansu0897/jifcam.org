@@ -168,6 +168,7 @@ class TableListComponent extends Component{
                     </th>
                     <th> Avatar </th>
                     <th> Fullname </th>
+                    <th></th>
                     <th> Username </th>
                     <th> Is Verified </th>
                     <th> Code </th>
@@ -191,6 +192,14 @@ class TableListComponent extends Component{
                             </td>
                             <td> <img className="avatar-profile-table" src={user.avatar} /> </td>
                             <td> {user.fullname} </td>
+                            <td>
+                              <Link onClick={() => {
+                                  console.log(`ban ${user._id}`)
+                                  console.log(user)
+                                }}>
+                                  Suspend
+                              </Link>
+                            </td>
                             <td> {user.username} </td>
                             <td> {user.verified?<i className="material-icons" style={{color:"green"}}>verified_user</i>:<i className="material-icons"  style={{color:"red"}}>cancel</i>} </td>
                             <td> {user.validationCode?user.validationCode:""} </td>
