@@ -34,6 +34,7 @@ UserController.prototype.getUserData = function (result) {
     notificationPush: result.notificationPush,
     notificationPushToken: result.notificationPushToken,
     videoUploaded: result.videoUploaded,
+    suspend: result.suspend,
     videos: result.videos,
     mailSended: result.mailSended,
     language: result.language,
@@ -304,12 +305,26 @@ UserController.prototype.authenticate = function (req, res, next) {
         return Res.send();
       }
 
+      const u = this.getUserData(user)
+      if (u.suspend == null || u.suspend == undefined) {
+        u.suspend = false
+      }
+
+      if (u.suspend) {
+        Res.setData({
+          user: {
+            message: `account suspended`,
+          },
+        });
+        return Res.send();
+      }
+
       delete user.password;
       const token = jwt.sign(user.toJSON(), JWT_SECRET_KEY);
       Res.setData({
         user: {
           message: `Hi, welcome back @${user.username}`,
-          ...this.getUserData(user)
+          ...u
         },
         token: token
       });

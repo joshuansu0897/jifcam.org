@@ -31,8 +31,8 @@ class LoginPage extends Component {
                         </div>
                     </div>
                 ) : (
-                    <div></div>
-                )}
+                        <div></div>
+                    )}
                 {users.status === 3 ? (
                     <div>
                         {" "}
@@ -42,8 +42,8 @@ class LoginPage extends Component {
                         </p>{" "}
                     </div>
                 ) : (
-                    <div></div>
-                )}
+                        <div></div>
+                    )}
                 <div className="input-field col s12">
                     <input
                         id="username"
@@ -81,7 +81,13 @@ class LoginPage extends Component {
     async handleSubmit() {
         let username = this.usernameInput.value;
         let password = this.passwordInput.value;
-        await login(await this.props.AuthUser({ username, password }));
+        const token = await this.props.AuthUser({ username, password })
+
+        if (token === "account suspended") {
+            return
+        }
+
+        await login(token);
     }
 
     render() {
