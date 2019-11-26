@@ -164,7 +164,7 @@ class TableListComponent extends Component {
                 </div>
                 <button className="btn" onClick={handleClickGo}> GO </button>
             </div>
-            <div className="cal s8">
+            <div className="cal s5">
                 <table>
                     <thead>
                         <tr>
