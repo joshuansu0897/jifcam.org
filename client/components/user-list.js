@@ -155,7 +155,7 @@ class TableListComponent extends Component {
             pages.push(i + 1);
         }
         return (<div>
-            <div className="cal s12">
+            <div className="col s12">
                 <div className="input-field inline" style={{ minWidth: '255px' }}>
                     <select defaultValue="" onChange={handleChnageSelect}>
                         <option value="" disabled > --------- Choose Action -------</option>
@@ -164,7 +164,7 @@ class TableListComponent extends Component {
                 </div>
                 <button className="btn" onClick={handleClickGo}> GO </button>
             </div>
-            <div className="cal s5">
+            <div className="col s5">
                 <table>
                     <thead>
                         <tr>
