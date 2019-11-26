@@ -120,7 +120,7 @@ const MasterVideoListView = props => {
                       <div className="videoCardTitle">{video.title}</div>
                     </div>
                     <div className="videoCardFooterTitle">{video.channelName}</div>
-                    <div className="videoCardFooterTitle">{video.channelName}</div>
+                    <div className="videoCardFooterTitle">{video.created}</div>
                     <div
                       style={{
                         margin: "10px"
@@ -168,7 +168,7 @@ const MasterVideoListView = props => {
                         View Channel
                       </button>
                     </div>
-                    
+
                   </div>
                 );
               })}
@@ -179,8 +179,8 @@ const MasterVideoListView = props => {
             {!props.users.videoNotLoardMore && (show || props.loadingMore) ? (
               <div>Loadding...</div>
             ) : (
-              false
-            )}
+                false
+              )}
           </section>
         </div>
       </div>
