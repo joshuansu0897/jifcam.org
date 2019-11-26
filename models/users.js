@@ -907,11 +907,7 @@ UserModel.prototype.unfollow = function (user, targetId) {
 UserModel.prototype.videoList = function (user, targetId) {
   videoModel = new VideoModel();
   let _this = this;
-
-  if (user.suspend) {
-    return
-  }
-
+  console.log(user)
   let promise = new Promise((resolve, reject) => {
     if (mongoose.Types.ObjectId.isValid(targetId)) {
       _this.modelDB.findOne({ _id: targetId }, function (err, target) {
