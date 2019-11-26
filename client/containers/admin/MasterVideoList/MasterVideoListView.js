@@ -50,7 +50,7 @@ const MasterVideoListView = props => {
           >
             {videoList &&
               videoList.map((video, index) => {
-                
+                console.log(video)
                 return (
                   <div style={{ flexDirection: "column" }} key={index}>
                     <div className="videoCard">
@@ -119,6 +119,7 @@ const MasterVideoListView = props => {
                       </span>
                       <div className="videoCardTitle">{video.title}</div>
                     </div>
+                    <div className="videoCardFooterTitle">{video.channelName}</div>
                     <div className="videoCardFooterTitle">{video.channelName}</div>
                     <div
                       style={{
