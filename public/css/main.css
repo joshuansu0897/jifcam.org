@@ -1,37 +1,46 @@
 .admin-header .brand-logo {
   margin-left: 10px;
 }
+
 .admin-header .btn .material-icons {
   display: inline-block;
   vertical-align: bottom;
 }
+
 .action-buttons {
   text-align: center;
 }
+
 .notice {
   padding: 15px 10px;
   margin-bottom: 5px;
 }
+
 .notice.notice-error {
   background-color: #993333;
   color: #ffffff;
 }
+
 .notice-success {
   background-color: #338833;
   color: #ffffff;
 }
-table label [type="checkbox"] + span:not(.lever) {
+
+table label [type="checkbox"]+span:not(.lever) {
   height: 20px;
   line-height: 20px;
   vertical-align: bottom;
 }
+
 table .avatar-profile-table {
   height: 40px;
   vertical-align: middle;
 }
+
 .popup-card {
   width: 300px;
 }
+
 .overlay-loading {
   position: fixed;
   width: 100%;
@@ -45,15 +54,23 @@ table .avatar-profile-table {
   justify-content: center;
   align-items: center;
 }
+
 .LoginPage,
 .PageDashboard,
 .ImportPage {
   text-align: center;
 }
+
 .errors-table td {
   background-color: #ffebee;
   border-top: solid 1px #ef9a9a;
 }
+
+.center-table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .overlay-element {
   position: fixed;
   top: 0;
@@ -65,6 +82,7 @@ table .avatar-profile-table {
   align-items: center;
   display: flex;
 }
+
 .video-view {
   height: 600px;
   width: 338px;
@@ -75,10 +93,12 @@ table .avatar-profile-table {
   padding-bottom: 20px;
   display: inline-block;
 }
+
 .video-view video {
   width: auto;
   height: 100%;
 }
+
 .video-view .placeholder-video {
   background-color: #dddddd;
   border: solid 1px #cccccc;
@@ -92,6 +112,7 @@ table .avatar-profile-table {
   align-items: center;
   justify-content: center;
 }
+
 .video-view .video-holder {
   position: relative;
   width: 100%;
@@ -100,6 +121,7 @@ table .avatar-profile-table {
   justify-content: center;
   overflow: hidden;
 }
+
 .video-view .overlay-video {
   position: absolute;
   top: 0;
@@ -112,38 +134,48 @@ table .avatar-profile-table {
   background-color: rgba(10, 10, 10, 0.4);
   cursor: pointer;
 }
+
 .video-view .overlay-video.play {
   opacity: 0;
 }
+
 .video-view .overlay-video i {
   color: #ffffff;
   cursor: pointer;
 }
+
 .modal-content .collection {
   max-height: 400px;
   overflow-y: scroll;
 }
+
 .modal-content .collection li {
   text-align: left;
 }
+
 .modal-content .collection li img {
   width: 40px;
   height: 40px;
 }
+
 .collection li {
   text-align: left;
 }
+
 .collection li img {
   width: 40px;
   height: 40px;
 }
+
 .collection .secondary-content {
   cursor: pointer;
 }
+
 .forms-holder {
   position: relative;
   overflow: hidden;
 }
+
 .overlay-block {
   background: rgba(90, 90, 90, 0.8);
   position: absolute;
@@ -156,11 +188,13 @@ table .avatar-profile-table {
   justify-content: center;
   z-index: 5;
 }
+
 .btn .material-icons {
   vertical-align: bottom;
   margin-left: 5px;
   margin-right: 5px;
 }
+
 .rightArrow {
   position: absolute;
   top: 50%;
@@ -168,6 +202,7 @@ table .avatar-profile-table {
   width: 12px;
   height: 15px;
 }
+
 .leftArrow {
   position: absolute;
   top: 50%;
@@ -175,6 +210,7 @@ table .avatar-profile-table {
   width: 12px;
   height: 15px;
 }
+
 .thumbnails {
   width: 100%;
   height: 100%;
@@ -184,6 +220,7 @@ table .avatar-profile-table {
   background-repeat: no-repeat;
   background-position: center;
 }
+
 .videoCard {
   width: 200px;
   height: 400px;
@@ -192,6 +229,7 @@ table .avatar-profile-table {
   border-top-right-radius: 10px;
   position: relative;
 }
+
 .videoCardTitle {
   position: absolute;
   top: 1%;
@@ -200,6 +238,7 @@ table .avatar-profile-table {
   text-align: left;
   padding: 0.5em;
 }
+
 .videoCardFooterTitle {
   max-width: 200px;
   margin-left: 11px;
@@ -207,6 +246,7 @@ table .avatar-profile-table {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
 .overlay-video-thumbnail {
   width: 100%;
   height: 100%;
