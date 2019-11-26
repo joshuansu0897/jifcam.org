@@ -100,13 +100,13 @@ YoutubeVideos.prototype.processDownload = function(doc) {
                                         );
                                     });
                                 const upload_date = videoInfo.items[0].upload_date;
-                                const year = parseInt(upload_date.substr(0, 4));
-                                const month = parseInt(upload_date.substr(4, 2));
-                                const day = parseInt(upload_date.substr(6, 2));
+                                const year = upload_date.substr(0, 4);
+                                const month = upload_date.substr(4, 2);
+                                const day = upload_date.substr(6, 2);
                                 this.model
                                     .update(doc._id, {
                                         title: videoInfo.items[0].fulltitle,
-                                        uploadDate: new Date(year, month, day),
+                                        uploadDate: `${year}-${month}-${day}`,
                                         path:
                                             "/static/videos/" +
                                             doc._id +

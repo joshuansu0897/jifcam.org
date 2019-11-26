@@ -19,7 +19,7 @@ function VideoModel() {
     defaultThumbnail: String,
     title: String,
     description: String,
-    uploadDate: { type: Date, default: Date.now },
+    uploadDate: { type: Date },
     created: { type: Date, default: Date.now },
     updated: { type: Date, default: Date.now }
   });
