@@ -164,8 +164,8 @@ class TableListComponent extends Component {
                 </div>
                 <button className="btn" onClick={handleClickGo}> GO </button>
             </div>
-            <div className="center-table">
-                <table className="center-align center-block center centered">
+            <div>
+                <table className="center-align">
                     <thead>
                         <tr>
                             <th>
