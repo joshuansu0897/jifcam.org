@@ -36,6 +36,10 @@ class DashboardPage extends Component {
         this.props.getUsers({ offset, limit, token });
     }
 
+    handleSuspendUser(user) {
+        this.props.suspendUser(user)
+    }
+
     async handleMakeAction(action, users) {
         let { token } = this.props.users;
         switch (action) {
@@ -67,6 +71,7 @@ class DashboardPage extends Component {
         }
         let handleChangePage = this.handleChangePage.bind(this);
         let handleMakeAction = this.handleMakeAction.bind(this);
+        let handleSuspendUser = this.handleSuspendUser.bind(this);
         // return <div />;
         return (
             <div>
@@ -99,6 +104,7 @@ class DashboardPage extends Component {
                                     all={all}
                                     changePage={handleChangePage}
                                     makeAction={handleMakeAction}
+                                    suspendUser={handleSuspendUser}
                                 />
                             </div>
                         </div>

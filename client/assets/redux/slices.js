@@ -133,7 +133,24 @@ const preUsersSlice = createSlice({
                 ...state,
                 mailsStatus: 1
             };
-        }
+        },
+        suspendUserSucces: (state, action) => {
+            let item = {
+                ...action.payload,
+                suspend: !action.payload.suspend
+            }
+
+            return {
+                ...state,
+                list: state.list.map((user) => {
+                    if (user._id === item._id) {
+                        return item
+                    }
+
+                    return user
+                })
+            };
+        },
     }
 });
 
@@ -146,6 +163,7 @@ const {
     requestImportStart,
     resetMails,
     sendMailsStart,
+    suspendUserSucces,
     sendMailsSucces,
     sendMailsError,
     resetImport,
@@ -175,6 +193,16 @@ const actions = {
                 "/api/users?offset=" + payload.offset + "&limit=" + payload.limit
             );
             dispatch(getUsersSucces(res.data));
+        } catch (err) {
+            console.error(err);
+        }
+    },
+    suspendUser: payload => async dispatch => {
+        try {
+            const res = await axios.put(`/api/users/${payload._id}`, {
+                suspend: !payload.suspend
+            });
+            dispatch(suspendUserSucces(payload));
         } catch (err) {
             console.error(err);
         }

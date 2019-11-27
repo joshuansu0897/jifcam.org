@@ -133,15 +133,8 @@ class TableListComponent extends Component {
         }
     }
 
-    async userSuspend(user) {
-        try {
-            const res = await axios.put(`/api/users/${user._id}`, {
-                suspend: !user.suspend
-            });
-        } catch (err) {
-            console.error(err);
-            return "";
-        }
+    userSuspend(user) {
+        if (this.props.suspendUser) this.props.suspendUser(user)
     }
 
     render() {
