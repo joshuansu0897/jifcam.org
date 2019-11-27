@@ -604,6 +604,8 @@ UserModel.prototype.list = function (offset, limit) {
 UserModel.prototype.removeMany = function (ids) {
   let videos = new VideoModel();
 
+  console.log(ids)
+
   let promise = new Promise((resolve, reject) => {
     async.eachSeries(
       ids,
