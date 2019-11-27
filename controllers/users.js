@@ -353,6 +353,11 @@ UserController.prototype.register = function (req, res, next) {
   var email = req.body.email;
   var password = req.body.password;
   var deviceId = req.session ? req.session.deviceId : '';
+
+  if (deviceId === '') {
+    deviceId = req.body.deviceId;
+  }
+
   this.model
     .signup(email, password, deviceId)
     .then(doc => {
@@ -379,6 +384,52 @@ UserController.prototype.register = function (req, res, next) {
         Res.status = 400;
       } else {
         Res.status = 500;
+      }
+
+      Res.send();
+    });
+};
+
+/**
+ * @api {post} api/users/device
+ * @apiName Register
+ * @apiGroup User
+ * @apiVersion 0.0.1
+ * @apiDescription Save Device id
+ *
+ * @apiError (Error 400) EmailAlreadyExists The provided email is already registered
+ * @apiError (Error 400) FieldAutheticationError The provided password is not between 6-30 characters
+ * @apiError (Error 500) ServerError Unexpected server error
+ *
+ */
+UserController.prototype.device = function (req, res, next) {
+  const Res = new ResponseHelper.Response(res);
+  var deviceId = req.session ? req.session.deviceId : '';
+  if (deviceId === '') {
+    deviceId = req.body.deviceId;
+  }
+  if (deviceId === '') {
+    Res.setData({
+      message: "missing deviceId."
+    });
+    Res.status = 400;
+    return
+  }
+  this.model
+    .device(deviceId)
+    .then(doc => {
+      Res.setData({
+        ...doc
+      });
+      Res.send();
+
+    })
+    .catch(err => {
+      if (err === "UniqueDuplication") {
+        Res.setData({
+          message: "DeviceId already registered"
+        });
+        Res.status = 400;
       }
 
       Res.send();
@@ -1155,6 +1206,9 @@ UserController.prototype.router = function () {
 
   /** Create new account with email & password */
   router.post("/register", this.register.bind(this));
+
+  /** Save deviceId */
+  router.post("/device", this.device.bind(this));
 
   /** Choose username by parameter */
   router.post("/register/identity", this.choose.bind(this));

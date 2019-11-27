@@ -462,6 +462,42 @@ UserModel.prototype.signup = function (email, password, deviceId) {
 };
 
 /**
+ * device Method
+ */
+UserModel.prototype.device = function (deviceId) {
+  console.log("here i am save device");
+  var _this = this;
+  let listCallbacks = [
+    function (data, callback) {
+      if (!data) {
+        _this.modelDB.create(
+          {
+            deviceIds: [deviceId]
+          },
+          callback
+        );
+      }
+    }
+  ];
+  let promise = new Promise((resolve, reject) => {
+    async.waterfall(listCallbacks, function (error, result) {
+      if (error) {
+        console.log("ERROR IN FUNCTION", error);
+        if (error.code === 11000) {
+          reject("UniqueDuplication");
+        } else {
+          reject("InvalidPassword");
+        }
+      } else {
+        resolve(result);
+      }
+    });
+  });
+
+  return promise;
+};
+
+/**
  * oneByCode Method
  */
 UserModel.prototype.oneByCode = function (code) {

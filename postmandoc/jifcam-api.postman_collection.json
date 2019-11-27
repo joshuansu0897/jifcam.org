@@ -1713,9 +1713,12 @@
 								"disabled": true
 							}
 						],
+						"session": {
+							"deviceId": "deviceId"
+						},
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"email\",\n\t\"password\": \"password\"\n}"
+							"raw": "{\n\t\"email\": \"email\",\n\t\"password\": \"password\"\n\t\"deviceId\": \"deviceId\",\n}"
 						},
 						"url": {
 							"raw": "https://jifcam.org/api/users/register",
@@ -1833,6 +1836,145 @@
 								}
 							],
 							"body": "{\"status\":200,\"errors\":[],\"data\":{\"_id\":\"5dd2efb1fa5c77469873dc42\",\"youtubeChannel\":\"\",\"role\":1,\"verified\":false,\"notificationMail\":false,\"notificationMessage\":false,\"notificationPush\":false,\"notificationPushToken\":[],\"videoUploaded\":false,\"mailSended\":false,\"language\":\"English\",\"keyword\":\"makeup\",\"email\":\"email\",\"validationCode\":\"hagq\",\"lastMail\":\"2019-11-18T19:23:29.211Z\",\"following\":[],\"followers\":[],\"created\":\"2019-11-18T19:23:29.211Z\",\"updated\":\"2019-11-18T19:23:29.212Z\",\"__v\":0,\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ5b3V0dWJlQ2hhbm5lbCI6IiIsInJvbGUiOjEsInZlcmlmaWVkIjpmYWxzZSwibm90aWZpY2F0aW9uTWFpbCI6ZmFsc2UsIm5vdGlmaWNhdGlvbk1lc3NhZ2UiOmZhbHNlLCJub3RpZmljYXRpb25QdXNoIjpmYWxzZSwibm90aWZpY2F0aW9uUHVzaFRva2VuIjpbXSwidmlkZW9VcGxvYWRlZCI6ZmFsc2UsIm1haWxTZW5kZWQiOmZhbHNlLCJsYW5ndWFnZSI6IkVuZ2xpc2giLCJrZXl3b3JkIjoibWFrZXVwIiwiZGV2aWNlSWRzIjpbbnVsbF0sIl9pZCI6IjVkZDJlZmIxZmE1Yzc3NDY5ODczZGM0MiIsImVtYWlsIjoiZW1haWwiLCJwYXNzd29yZCI6IiQyYiQxMiRTa05oelpFV2dVN2lyMUhUN3dpLzdlYU1TQUxmWFR0aHFEcU5YMHYwRFlyN0tOL09JbVRBRyIsInZhbGlkYXRpb25Db2RlIjoiaGFncSIsImxhc3RNYWlsIjoiMjAxOS0xMS0xOFQxOToyMzoyOS4yMTFaIiwiZm9sbG93aW5nIjpbXSwiZm9sbG93ZXJzIjpbXSwiY3JlYXRlZCI6IjIwMTktMTEtMThUMTk6MjM6MjkuMjExWiIsInVwZGF0ZWQiOiIyMDE5LTExLTE4VDE5OjIzOjI5LjIxMloiLCJfX3YiOjAsImlhdCI6MTU3NDEwNTAwOX0.IjLMq9nizZr8LRKyh_MeDPBvPeITe1KhTJqFHP9Rl28\"},\"notice\":[],\"warnings\":[]}"
+						}
+					]
+				},
+				{
+					"name": "Save DeciveId",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"deviceId\": \"deviceId\"\n}"
+						},
+						"url": {
+							"raw": "https://jifcam.org/api/users/register",
+							"protocol": "https",
+							"host": [
+								"jifcam",
+								"org"
+							],
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "https://jifcam.org/api/users/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://jifcam.org/api/users/register",
+									"protocol": "https",
+									"host": [
+										"jifcam",
+										"org"
+									],
+									"path": [
+										"api",
+										"users",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "access-control-allow-headers",
+									"value": "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+									"name": "access-control-allow-headers",
+									"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+								},
+								{
+									"key": "access-control-allow-methods",
+									"value": "POST, PUT, GET, OPTIONS, DELETE, PATCH",
+									"name": "access-control-allow-methods",
+									"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+								},
+								{
+									"key": "access-control-allow-origin",
+									"value": "*",
+									"name": "access-control-allow-origin",
+									"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+								},
+								{
+									"key": "connection",
+									"value": "keep-alive",
+									"name": "connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "content-length",
+									"value": "1363",
+									"name": "content-length",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8",
+									"name": "content-type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "date",
+									"value": "Mon, 18 Nov 2019 19:23:29 GMT",
+									"name": "date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "etag",
+									"value": "W/\"553-eC2ofSXaDo4J8M9/fXUv2q3YDuc\"",
+									"name": "etag",
+									"description": "An identifier for a specific version of a resource, often a message digest"
+								},
+								{
+									"key": "x-powered-by",
+									"value": "Express",
+									"name": "x-powered-by",
+									"description": "Specifies the technology (ASP.NET, PHP, JBoss, e.g.) supporting the web application (version details are often in X-Runtime, X-Version, or X-AspNet-Version)"
+								}
+							],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"hostOnly": true,
+									"httpOnly": true,
+									"domain": "localhost",
+									"path": "/",
+									"secure": false,
+									"session": false,
+									"value": "s%3ArhHugYj_ErjD7UhTtHmbk97jrmcUX5a2.i6v2y5q8kDtF70R4GIUaW5X%2FnaB87tY2Za1bKSP3qSc",
+									"key": "connect.sid"
+								}
+							],
+							"body": ""
 						}
 					]
 				},
