@@ -481,6 +481,8 @@ UserModel.prototype.device = function (deviceId) {
   ];
   let promise = new Promise((resolve, reject) => {
     async.waterfall(listCallbacks, function (error, result) {
+      console.log(error)
+      console.log(result)
       if (error) {
         console.log("ERROR IN FUNCTION", error);
         if (error.code === 11000) {

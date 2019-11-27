@@ -418,11 +418,11 @@ UserController.prototype.device = function (req, res, next) {
   this.model
     .device(deviceId)
     .then(doc => {
+      console.log(doc)
       Res.setData({
         ...doc
       });
       Res.send();
-
     })
     .catch(err => {
       if (err === "UniqueDuplication") {
