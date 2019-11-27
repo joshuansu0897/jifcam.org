@@ -624,6 +624,14 @@ UserModel.prototype.removeMany = function (ids) {
             },
             callback => {
               this.modelDB.findById(id, (err, doc) => {
+                if (doc === null || doc === undefined) {
+                  callback(null);
+                }
+
+                if (doc.avatar === null || doc.avatar === undefined) {
+                  callback(null);
+                }
+
                 var _path = doc.avatar.replace("/static", "../public");
 
                 fs.unlink(_path, () => {
